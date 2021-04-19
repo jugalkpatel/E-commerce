@@ -8,8 +8,8 @@ body {
   padding: 0;
 }
 :root {
-  --primary-color: #111827;
-  --secondary-color: white;
+  --primary-color: #fff;
+  --secondary-color: #76b900;
   --border-color: #e5e5e5;
   --primary-font: Lato;
   --wish-svg-stroke: #f16565;
@@ -27,7 +27,7 @@ body {
 
 .product-img {
   width: 100%;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
   height: 20rem;
 }
@@ -88,7 +88,7 @@ body {
 .primary-btn {
   background-color: var(--secondary-color);
 
-  border: 1.8px solid var(--primary-color);
+  border: 0;
 
   padding: 0.6rem;
 
@@ -97,9 +97,11 @@ body {
 
   border-radius: 0.1rem;
 
-  outline: var(--primary-color);
+  outline-color: var(--secondary-color);
 
   cursor: pointer;
+
+  color: var(--primary-color);
 }
 
 .primary-btn:hover {
@@ -112,7 +114,7 @@ body {
   display: inline-flex;
   flex-direction: column;
 
-  max-width: 20rem;
+  max-width: 25rem;
 
   font-family: var(--primary-font);
   font-weight: bolder;
@@ -123,7 +125,7 @@ body {
 
   margin: 1rem;
 
-  max-height: 35rem;
+  max-height: 45rem;
 }
 
 .product__img__container {
@@ -132,7 +134,7 @@ body {
 }
 
 .product-container:hover {
-  box-shadow: var(--shadow);
+  border: 1px solid var(--primary-color);
 }
 
 .product-info__text {
@@ -143,6 +145,8 @@ body {
   -webkit-box-orient: vertical;
 
   -webkit-line-clamp: 2;
+
+  margin-top: 1rem;
 }
 
 .product-info {
@@ -205,10 +209,30 @@ body {
   display: block;
 
   margin: 3px 0;
+  margin-bottom: 1.5rem;
 
-  font-size: 1.1rem;
+  font-size: 1.5rem;
 
   font-weight: 900;
+}
+
+.product-info__specifications {
+  display: block;
+  margin: 2rem 0;
+}
+
+.specifications__list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.specifications__arrow {
+  margin-right: 1rem;
+}
+
+.specifications__list__item {
+  font-weight: 300;
 }
 
 /* product card with overlay */
