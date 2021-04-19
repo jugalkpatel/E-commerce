@@ -20,6 +20,7 @@ body {
   --small-text-color: #878787;
   --zindex-one: 1;
   --zindex-two: 2;
+  --zindex-three: 3;
   --rating-color: #388e3c;
 }
 
@@ -76,7 +77,7 @@ body {
   top: 0;
   left: 0;
 
-  z-index: var(--zindex-two);
+  z-index: var(--zindex-three);
 
   cursor: pointer;
 }
@@ -233,6 +234,7 @@ body {
 
 .specifications__list__item {
   font-weight: 300;
+  margin: 0.5rem 0;
 }
 
 /* product card with overlay */

@@ -5,54 +5,8 @@ import bookmark from "../assets/svgs/bookmark.svg";
 import rating from "../assets/svgs/rating.svg";
 import arrow from "../assets/svgs/right-arrow.svg";
 const ProductCard = () => {
-    const products = [
-        {
-            id: 1,
-            name: "NVIDIA GEFORCE RTX 3060 Ti",
-            imageUrl: "https://assets.nvidia.partners/images/png/nvidia-geforce-rtx-3060-ti.png",
-            specifications: {
-                cooling_system: "fan",
-                clock_speed: 1.67,
-                memory_size: 8
-            },
-            price: 800
-        },
-        {
-            id: 2,
-            name: "NVIDIA GEFORCE RTX 3060 Ti",
-            imageUrl: "https://assets.nvidia.partners/images/png/nvidia-geforce-rtx-3060-ti.png",
-            specifications: {
-                cooling_system: "fan",
-                clock_speed: 1.67,
-                memory_size: 8
-            },
-            price: 800
-        },
-        {
-            id: 3,
-            name: "NVIDIA GEFORCE RTX 3060 Ti",
-            imageUrl: "https://assets.nvidia.partners/images/png/nvidia-geforce-rtx-3060-ti.png",
-            specifications: {
-                cooling_system: "fan",
-                clock_speed: 1.67,
-                memory_size: 8
-            },
-            price: 800
-        },
-        {
-            id: 4,
-            name: "NVIDIA GEFORCE RTX 3060 Ti",
-            imageUrl: "https://assets.nvidia.partners/images/png/nvidia-geforce-rtx-3060-ti.png",
-            specifications: {
-                cooling_system: "fan",
-                clock_speed: 1.67,
-                memory_size: 8
-            },
-            price: 800
-        }
 
 
-    ]
     return (
         <div class="product-container">
             <a href="#" class="product-info">
@@ -89,15 +43,12 @@ const ProductCard = () => {
                     </ul>
                 </span>
 
-                <span class="price-tag">Rs. 250</span>
+                <span class="price-tag">$299.99</span>
             </a>
             <button class="primary-btn">ADD TO CART</button>
             {/* <div class="overlay-div">
-               <button class="close-btn">
-                   <img src={closeBtn} alt="close-btn" />
-               </button>
-               <span class="overlay-text"> OUT OF STOCK </span>
-           </div>  */}
+                <span class="overlay-text"> OUT OF STOCK </span>
+            </div> */}
         </div>
     )
 }
