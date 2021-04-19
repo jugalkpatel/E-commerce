@@ -4,11 +4,19 @@ import closeBtn from "../assets/svgs/close-btn.svg";
 import bookmark from "../assets/svgs/bookmark.svg";
 import rating from "../assets/svgs/rating.svg";
 import arrow from "../assets/svgs/right-arrow.svg";
-const ProductCard = () => {
-
-
+import camelCase from "lodash/camelCase";
+import { capitalize } from "../utils/capitalize";
+const ProductCard = ({
+    id,
+    name,
+    imageUrl,
+    specifications,
+    price,
+    availability
+}) => {
+    // console.log({ ...props });
     return (
-        <div class="product-container">
+        <div class="product-container" key={id}>
             <a href="#" class="product-info">
                 <span class="product__img__container">
                     <button class="close-btn">
@@ -16,7 +24,7 @@ const ProductCard = () => {
                     </button>
                     <img
                         class="product-img product-info__img"
-                        src="https://assets.nvidia.partners/images/png/nvidia-geforce-rtx-3060-ti.png"
+                        src={imageUrl}
                         alt="product"
                     />
                     <button class="wish-btn">
@@ -24,32 +32,32 @@ const ProductCard = () => {
                     </button>
                 </span>
                 <span class="product-info__text">
-                    NVIDIA GEFORCE RTX 3060 Ti
+                    {name.toUpperCase()}
                 </span>
                 <span class="product-info__specifications">
                     <ul className="specifications__list">
-                        <li className="specifications__list__item">
-                            <img className="specifications__arrow" src={arrow} alt="right_arrow" />
-                            Cooling System: Fan
-                        </li>
-                        <li className="specifications__list__item">
-                            <img className="specifications__arrow" src={arrow} alt="right_arrow" />
-                            Boost Clock Speed: 1.67 GHz
-                        </li>
-                        <li className="specifications__list__item">
-                            <img className="specifications__arrow" src={arrow} alt="right_arrow" />
-                            GPU Memory Size: 8GB
-                        </li>
+                        {
+                            Object.keys(specifications).map((key) => {
+                                return (
+                                    <li className="specifications__list__item">
+                                        <img className="specifications__arrow" src={arrow} alt="right_arrow" />
+                                        {capitalize(key)}: {capitalize(specifications[key])}
+                                    </li>
+                                )
+                            })
+                        }
                     </ul>
                 </span>
 
-                <span class="price-tag">$299.99</span>
+                <span class="price-tag">${price}</span>
             </a>
             <button class="primary-btn">ADD TO CART</button>
-            {/* <div class="overlay-div">
-                <span class="overlay-text"> OUT OF STOCK </span>
-            </div> */}
-        </div>
+            {
+                !availability ? <div class="overlay-div">
+                    <span class="overlay-text"> OUT OF STOCK </span>
+                </div> : null
+            }
+        </div >
     )
 }
 

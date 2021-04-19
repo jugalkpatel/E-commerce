@@ -13,15 +13,6 @@ function AppDataProvider({ children }) {
     // make styling better(see nvidia website)(https://www.nvidia.com/en-us/geforce/buy/)
     // implement slider(carousal) make mobile friendly(slider contains different companies) 
 
-    useEffect(() => {
-        (
-            async () => {
-                const { data: { products } } = await axios.get("/api/products");
-                dispatchAppData({ type: "SET_PRODUCT_DATA", payload: { products } })
-            }
-        )()
-    }, []);
-
     const appDataReducer = (prevState, { type, payload }) => {
         switch (type) {
             case "ADD_TO_CART":
@@ -49,10 +40,8 @@ function AppDataProvider({ children }) {
     }
 
     const [appData, dispatchAppData] = useReducer(appDataReducer, {
-        productsData: [],
         cartData: [],
         wishListData: [],
-        loading: true
     })
 
 

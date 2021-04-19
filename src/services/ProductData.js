@@ -1,5 +1,5 @@
-const faker = require("faker");
-const products = [
+import faker from "faker";
+const productsData = [
     {
         id: faker.datatype.uuid(),
         name: "NVIDIA GEFORCE RTX 3060 Ti",
@@ -10,7 +10,7 @@ const products = [
             memory_size: "8"
         },
         price: "399",
-        availabilty: faker.datatype.boolean()
+        availability: faker.datatype.boolean()
     },
     {
         id: faker.datatype.uuid(),
@@ -22,7 +22,7 @@ const products = [
             memory_size: "10"
         },
         price: "699",
-        availabilty: faker.datatype.boolean()
+        availability: faker.datatype.boolean()
     },
     {
         id: faker.datatype.uuid(),
@@ -34,7 +34,7 @@ const products = [
             memory_size: "24"
         },
         price: "1,499",
-        availabilty: faker.datatype.boolean()
+        availability: faker.datatype.boolean()
     },
     {
         id: faker.datatype.uuid(),
@@ -46,7 +46,7 @@ const products = [
             memory_size: "8"
         },
         price: "329",
-        availabilty: faker.datatype.boolean()
+        availability: faker.datatype.boolean()
     },
     {
         id: faker.datatype.uuid(),
@@ -58,7 +58,7 @@ const products = [
             memory_size: "12"
         },
         price: "329",
-        availabilty: faker.datatype.boolean()
+        availability: faker.datatype.boolean()
     },
     {
         id: faker.datatype.uuid(),
@@ -70,7 +70,7 @@ const products = [
             memory_size: "12"
         },
         price: "329",
-        availabilty: faker.datatype.boolean()
+        availability: faker.datatype.boolean()
     },
     {
         id: faker.datatype.uuid(),
@@ -82,7 +82,7 @@ const products = [
             memory_size: "12"
         },
         price: "329",
-        availabilty: faker.datatype.boolean()
+        availability: faker.datatype.boolean()
     },
     {
         id: faker.datatype.uuid(),
@@ -94,7 +94,7 @@ const products = [
             memory_size: "12"
         },
         price: "329",
-        availabilty: faker.datatype.boolean()
+        availability: faker.datatype.boolean()
     },
     {
         id: faker.datatype.uuid(),
@@ -106,7 +106,7 @@ const products = [
             memory_size: "8"
         },
         price: "499",
-        availabilty: faker.datatype.boolean()
+        availability: faker.datatype.boolean()
     },
     {
         id: faker.datatype.uuid(),
@@ -118,7 +118,7 @@ const products = [
             memory_size: "8"
         },
         price: "599",
-        availabilty: faker.datatype.boolean()
+        availability: faker.datatype.boolean()
     },
     {
         id: faker.datatype.uuid(),
@@ -130,7 +130,7 @@ const products = [
             memory_size: "8"
         },
         price: "624",
-        availabilty: faker.datatype.boolean()
+        availability: faker.datatype.boolean()
     },
     {
         id: faker.datatype.uuid(),
@@ -142,7 +142,7 @@ const products = [
             memory_size: "8"
         },
         price: "649",
-        availabilty: faker.datatype.boolean()
+        availability: faker.datatype.boolean()
     },
     {
         id: faker.datatype.uuid(),
@@ -154,7 +154,7 @@ const products = [
             memory_size: "10 GB"
         },
         price: "699",
-        availabilty: faker.datatype.boolean()
+        availability: faker.datatype.boolean()
     },
     {
         id: faker.datatype.uuid(),
@@ -166,7 +166,7 @@ const products = [
             memory_size: "24 GB"
         },
         price: "1899",
-        availabilty: faker.datatype.boolean()
+        availability: faker.datatype.boolean()
     },
     {
         id: faker.datatype.uuid(),
@@ -178,8 +178,8 @@ const products = [
             memory_size: "12 GB"
         },
         price: "389",
-        availabilty: faker.datatype.boolean()
+        availability: faker.datatype.boolean()
     }
 ]
 
-export { products };
+export { productsData };
