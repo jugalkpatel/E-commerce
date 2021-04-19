@@ -127,6 +127,11 @@ body {
   margin: 1rem;
 
   max-height: 45rem;
+
+  width: 25rem;
+
+  justify-self: center;
+  align-self: center;
 }
 
 .product__img__container {

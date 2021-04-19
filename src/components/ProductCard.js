@@ -14,7 +14,6 @@ const ProductCard = ({
     price,
     availability
 }) => {
-    // console.log({ ...props });
     return (
         <div class="product-container" key={id}>
             <a href="#" class="product-info">

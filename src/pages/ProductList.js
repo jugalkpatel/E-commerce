@@ -1,6 +1,7 @@
 import React from "react";
 import { ProductCard } from "../components/ProductCard";
 import { productsData } from "../services/ProductData.js";
+import "./ProductList.css";
 const ProductList = () => {
     const localProductData = productsData;
     return (
