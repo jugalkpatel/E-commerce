@@ -272,3 +272,9 @@ body {
 
   top: 8rem;
 }
+
+@media screen and (max-width: 320px) {
+  .product-container {
+    width: 19.5rem;
+  }
+}
