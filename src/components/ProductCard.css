@@ -10,10 +10,10 @@ body {
 :root {
   --primary-color: #fff;
   --secondary-color: #76b900;
-  --border-color: #e5e5e5;
+  --border-color: #fff;
+
   --primary-font: Lato;
-  --wish-svg-stroke: #f16565;
-  --close-svg-stroke: #e84545;
+
   --shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
     0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
   --small-text: 0.8rem;
@@ -21,7 +21,6 @@ body {
   --zindex-one: 1;
   --zindex-two: 2;
   --zindex-three: 3;
-  --rating-color: #388e3c;
 }
 
 /* utility */
