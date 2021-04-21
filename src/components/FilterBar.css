@@ -23,10 +23,10 @@
   background-color: var(--background-color);
   margin: 1rem;
   border: 1px solid var(--primary-color);
+  grid-column: 1 / -1;
 }
 
 .filterbar__sortby {
-  width: fit-content;
   display: flex;
   align-items: center;
 }
