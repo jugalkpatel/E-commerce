@@ -1,0 +1,8 @@
+const label = {
+    LOW_TO_HIGH: "LOW_TO_HIGH",
+    HIGH_TO_LOW: "HIGH_TO_LOW",
+    EXCLUDE_OUT_OF_STOCK: "EXCLUDE_OUT_OF_STOCK",
+    RESET_FILTERS: "RESET_FILTERS"
+}
+
+export { label };

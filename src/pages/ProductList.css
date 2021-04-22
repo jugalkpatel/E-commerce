@@ -1,3 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+:root {
+  --primary-color: #fff;
+  --secondary-color: #76b900;
+  --background-color: #000;
+
+  --primary-font: Lato;
+
+  --reset-black: #1a1a1a;
+  --dropdown-white: #ccc;
+
+  --border-grey: #666;
+  --reset-color: #bdbdbd;
+
+  --zindex-one: 1;
+  --zindex-two: 2;
+  --zindex-three: 3;
+  --zindex-four: 4;
+}
 .product-list__container {
   display: flex;
   flex-direction: column;
@@ -28,6 +47,16 @@
 .product-list__filterbtn__text {
   margin-left: 0.5rem;
   font-size: 1rem;
+}
+
+.product-list__results {
+  display: block;
+  color: var(--primary-color);
+  grid-column: -1 / 1;
+  margin: 1rem;
+  font-family: var(--primary-font);
+  font-weight: 700;
+  font-size: 1.3rem;
 }
 
 @media screen and (min-width: 576px) {

@@ -33,7 +33,7 @@ const productsData = [
             clock_speed: "1.70 Ghz",
             memory_size: "24"
         },
-        price: "1,499",
+        price: "1499",
         availability: faker.datatype.boolean()
     },
     {

@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import "./FilterBar.css";
 import downArrow from "../assets/svgs/down-arrow.svg";
-const FilterBar = () => {
+import { label } from "../utils/labels";
+const FilterBar = ({
+    setFilter
+}) => {
     const [visibility, setVisibility] = useState("hidden");
     return (
         <div className="filterbar">
@@ -9,26 +12,30 @@ const FilterBar = () => {
                 <span className="filterbar__sortby__text">
                     Sort By:
                 </span>
-                <div class="dropdown">
-                    <button class="dropdown__button__primary" onClick={
+                <div className="dropdown">
+                    <button className="dropdown__button__primary" onClick={
                         () => setVisibility(
-                            (prev) => {
-                                return prev === "hidden" ? "visible" : "hidden"
-                            })
+                            (prev) => { return prev === "hidden" ? "visible" : "hidden" })
                     }
                     >
-                        <span>Hover Me!</span>
+                        <span>Price</span>
                         <img src={downArrow} alt="down arrow" className="dropdown__downarrow" />
                     </button>
 
-                    <ul class="dropdown__list" style={{ visibility: visibility }}>
-                        <li class="dropdown__item">
-                            <a href="#" class="dropdown__item__link"
-                                onClick={() => console.log("first item clicked")}>Lowest Price</a>
-                        </li>
-                        <li class="dropdown__item">
+                    <ul className="dropdown__list" style={{ visibility: visibility }}>
+                        <li className="dropdown__item">
                             <a href="#" className="dropdown__item__link"
-                                onClick={() => console.log("second item clicked")}
+                                onClick={() => setFilter({
+                                    type: label.LOW_TO_HIGH,
+                                    payload: { flag: label.LOW_TO_HIGH }
+                                })}>Lowest Price</a>
+                        </li>
+                        <li className="dropdown__item">
+                            <a href="#" className="dropdown__item__link"
+                                onClick={() => setFilter({
+                                    type: label.HIGH_TO_LOW,
+                                    payload: { flag: label.HIGH_TO_LOW }
+                                })}
                             >Highest Price</a>
                         </li>
                     </ul>
@@ -37,7 +44,7 @@ const FilterBar = () => {
             <div className="filterbar__view">
 
             </div>
-        </div>
+        </div >
     )
 }
 
