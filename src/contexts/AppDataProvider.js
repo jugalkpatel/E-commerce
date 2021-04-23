@@ -18,7 +18,7 @@ function AppDataProvider({ children }) {
             case "ADD_TO_CART":
                 return { ...prevState, cartData: [...prevState.cartData, payload.data] };
             case "ADD_TO_WISHLIST":
-                return { ...prevState, wishListData: [...prevState.wishListData, payload.data.wish] };
+                return { ...prevState, wishListData: [...prevState.wishListData, payload.data] };
             case "SET_PRODUCT_DATA":
                 return { ...prevState, productsData: payload.products, loading: false };
             case "INCREMENT_QUANTITY":

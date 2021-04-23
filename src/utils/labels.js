@@ -3,7 +3,8 @@ const labels = {
     HIGH_TO_LOW: "HIGH_TO_LOW",
     EXCLUDE_OUT_OF_STOCK: "EXCLUDE_OUT_OF_STOCK",
     RESET_FILTERS: "RESET_FILTERS",
-    ADD_TO_CART: "ADD_TO_CART"
+    ADD_TO_CART: "ADD_TO_CART",
+    ADD_TO_WISHLIST: "ADD_TO_WISHLIST"
 }
 
 export { labels };

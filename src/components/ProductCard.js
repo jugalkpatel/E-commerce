@@ -16,8 +16,8 @@ const ProductCard = ({ productDetails }) => {
         price,
         availability
     } = productDetails;
-    const { appData: { cartData }, dispatchAppData } = useAppData();
-    const { ADD_TO_CART } = labels;
+    const { appData: { cartData, wishListData }, dispatchAppData } = useAppData();
+    const { ADD_TO_CART, ADD_TO_WISHLIST } = labels;
     return (
         <div className="product-container">
             <a href="#" className="product-info">
@@ -30,7 +30,14 @@ const ProductCard = ({ productDetails }) => {
                         src={imageUrl}
                         alt="product"
                     />
-                    <button className="wish-btn">
+                    <button
+                        className="wish-btn"
+                        onClick={
+                            !isItemInList(wishListData, id)
+                                ? () => dispatchAppData({ type: ADD_TO_WISHLIST, payload: { data: productDetails } }) : null
+                        }
+
+                    >
                         <img src={bookmark} alt="wish_btn" />
                     </button>
                 </span>
@@ -60,7 +67,8 @@ const ProductCard = ({ productDetails }) => {
             {
                 isItemInList(cartData, id)
                     ? <button className="primary-btn" >GO TO CART</button>
-                    : <button className="primary-btn"
+                    : <button
+                        className="primary-btn"
                         onClick={
                             () => dispatchAppData({ type: ADD_TO_CART, payload: { data: productDetails } })}
                     >ADD TO CART</button>
@@ -70,7 +78,7 @@ const ProductCard = ({ productDetails }) => {
                     <span className="overlay-text"> OUT OF STOCK </span>
                 </div> : null
             }
-        </div>
+        </div >
     )
 }
 
