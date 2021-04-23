@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import "./FilterBar.css";
 import downArrow from "../assets/svgs/down-arrow.svg";
-import { label } from "../utils/labels";
+import { labels } from "../utils/labels";
 const FilterBar = ({
     setFilter
 }) => {
     const [visibility, setVisibility] = useState("hidden");
+    const { LOW_TO_HIGH, HIGH_TO_LOW } = labels;
     return (
         <div className="filterbar">
             <div className="filterbar__sortby">
@@ -26,15 +27,15 @@ const FilterBar = ({
                         <li className="dropdown__item">
                             <a href="#" className="dropdown__item__link"
                                 onClick={() => setFilter({
-                                    type: label.LOW_TO_HIGH,
-                                    payload: { flag: label.LOW_TO_HIGH }
+                                    type: LOW_TO_HIGH,
+                                    payload: { flag: LOW_TO_HIGH }
                                 })}>Lowest Price</a>
                         </li>
                         <li className="dropdown__item">
                             <a href="#" className="dropdown__item__link"
                                 onClick={() => setFilter({
-                                    type: label.HIGH_TO_LOW,
-                                    payload: { flag: label.HIGH_TO_LOW }
+                                    type: HIGH_TO_LOW,
+                                    payload: { flag: HIGH_TO_LOW }
                                 })}
                             >Highest Price</a>
                         </li>

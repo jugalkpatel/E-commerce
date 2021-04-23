@@ -4,14 +4,20 @@ import closeBtn from "../assets/svgs/close-btn.svg";
 import bookmark from "../assets/svgs/bookmark.svg";
 import arrow from "../assets/svgs/right-arrow.svg";
 import { capitalize } from "../utils/capitalize";
-const ProductCard = ({
-    id,
-    name,
-    imageUrl,
-    specifications,
-    price,
-    availability
-}) => {
+import { useAppData } from "../contexts/AppDataProvider";
+import { isItemInList } from "../utils/isItemInList";
+import { labels } from "../utils/labels";
+const ProductCard = ({ productDetails }) => {
+    const {
+        id,
+        name,
+        imageUrl,
+        specifications,
+        price,
+        availability
+    } = productDetails;
+    const { appData: { cartData }, dispatchAppData } = useAppData();
+    const { ADD_TO_CART } = labels;
     return (
         <div className="product-container">
             <a href="#" className="product-info">
@@ -51,7 +57,14 @@ const ProductCard = ({
 
                 <span className="price-tag">${price}</span>
             </a>
-            <button className="primary-btn">ADD TO CART</button>
+            {
+                isItemInList(cartData, id)
+                    ? <button className="primary-btn" >GO TO CART</button>
+                    : <button className="primary-btn"
+                        onClick={
+                            () => dispatchAppData({ type: ADD_TO_CART, payload: { data: productDetails } })}
+                    >ADD TO CART</button>
+            }
             {
                 !availability ? <div className="overlay-div">
                     <span className="overlay-text"> OUT OF STOCK </span>

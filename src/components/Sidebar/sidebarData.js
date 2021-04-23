@@ -1,4 +1,5 @@
-import { label } from "../../utils/labels";
+import { labels } from "../../utils/labels";
+const { EXCLUDE_OUT_OF_STOCK } = labels;
 const sideBarData = [
     {
         filterTitle: "product category",
@@ -23,8 +24,8 @@ const sideBarData = [
                 filterLabel: "avail",
                 filterName: "exclude out of stock",
                 payloadInfo: {
-                    type: label.EXCLUDE_OUT_OF_STOCK,
-                    payload: { flag: label.EXCLUDE_OUT_OF_STOCK }
+                    type: EXCLUDE_OUT_OF_STOCK,
+                    payload: { flag: EXCLUDE_OUT_OF_STOCK }
                 }
             }
         ]

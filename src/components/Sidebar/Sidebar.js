@@ -3,7 +3,7 @@ import "./Sidebar.css";
 import closeBtn from "../../assets/svgs/close-btn.svg";
 import { sideBarData } from "./sidebarData";
 import { capitalize } from "../../utils/capitalize";
-import { label } from "../../utils/labels";
+import { labels } from "../../utils/labels";
 const Sidebar = ({
     status: {
         visibility: sidebarVisibility,
@@ -12,6 +12,7 @@ const Sidebar = ({
     setFilter
 }) => {
     // console.log("setFilter", setFilter);
+    const { RESET_FILTERS } = labels;
     return (
         <div className="sidebar" style={{ visibility: sidebarVisibility }}>
             <div className="sidebar__content">
@@ -20,7 +21,7 @@ const Sidebar = ({
                         <img src={closeBtn} alt="close icon" />
                     </span>
                 </button>
-                <button className="sidebar__content__reset" onClick={() => setFilter({ type: label.RESET_FILTERS, payload: { flag: label.RESET_FILTERS } })}>
+                <button className="sidebar__content__reset" onClick={() => setFilter({ type: RESET_FILTERS, payload: { flag: RESET_FILTERS } })}>
                     <span className="sidebar__content__reset__text">
                         RESET FILTERS
                     </span>

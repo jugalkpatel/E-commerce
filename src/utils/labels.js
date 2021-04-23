@@ -1,8 +1,9 @@
-const label = {
+const labels = {
     LOW_TO_HIGH: "LOW_TO_HIGH",
     HIGH_TO_LOW: "HIGH_TO_LOW",
     EXCLUDE_OUT_OF_STOCK: "EXCLUDE_OUT_OF_STOCK",
-    RESET_FILTERS: "RESET_FILTERS"
+    RESET_FILTERS: "RESET_FILTERS",
+    ADD_TO_CART: "ADD_TO_CART"
 }
 
-export { label };
+export { labels };

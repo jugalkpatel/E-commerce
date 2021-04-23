@@ -6,7 +6,7 @@ import { productsData } from "../services/ProductData.js";
 import "./ProductList.css";
 import { Sidebar } from "../components/Sidebar/Sidebar";
 import { first } from "lodash";
-import { label } from "../utils/labels";
+import { labels } from "../utils/labels";
 
 
 
@@ -14,17 +14,18 @@ const ProductList = () => {
 
     const localProductData = productsData;
     const [visibility, setVisibility] = useState("hidden");
+    const { LOW_TO_HIGH, HIGH_TO_LOW, EXCLUDE_OUT_OF_STOCK, RESET_FILTERS } = labels;
 
 
     const filterReducer = (state, { type, payload }) => {
         switch (type) {
-            case label.LOW_TO_HIGH:
+            case LOW_TO_HIGH:
                 return { ...state, byLowest: payload.flag, byHighest: "" };
-            case label.HIGH_TO_LOW:
+            case HIGH_TO_LOW:
                 return { ...state, byLowest: "", byHighest: payload.flag };
-            case label.EXCLUDE_OUT_OF_STOCK:
+            case EXCLUDE_OUT_OF_STOCK:
                 return { ...state, byAvailability: state.byAvailability ? "" : payload.flag };
-            case label.RESET_FILTERS:
+            case RESET_FILTERS:
                 return { ...state, byLowest: "", byHighest: "", byAvailability: "" };
             default:
                 throw new Error("Action is not available");
@@ -43,15 +44,15 @@ const ProductList = () => {
     const getSortedProducts = (list, filterFlags) => {
         const filteredList = Object.keys(filterFlags).reduce((acc, item) => {
             switch (filterFlags[item]) {
-                case label.LOW_TO_HIGH:
+                case LOW_TO_HIGH:
                     return acc.sort((firstItem, secondItem) => {
                         return parseInt(firstItem.price) - parseInt(secondItem.price)
                     });
-                case label.HIGH_TO_LOW:
+                case HIGH_TO_LOW:
                     return acc.sort((firstItem, secondItem) => {
                         return parseInt(secondItem.price) - parseInt(firstItem.price)
                     });
-                case label.EXCLUDE_OUT_OF_STOCK:
+                case EXCLUDE_OUT_OF_STOCK:
                     return acc.filter((item) => item.availability);
                 default:
                     return acc;
@@ -71,7 +72,7 @@ const ProductList = () => {
                 <span className="product-list__results">{filteredProducts.length} results found</span>
                 {
                     filteredProducts.map((product) => {
-                        return <ProductCard {...product} key={product.id} />
+                        return <ProductCard productDetails={product} key={product.id} />
                     })
                 }
             </div>

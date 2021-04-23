@@ -16,7 +16,7 @@ function AppDataProvider({ children }) {
     const appDataReducer = (prevState, { type, payload }) => {
         switch (type) {
             case "ADD_TO_CART":
-                return { ...prevState, cartData: [...prevState.cartData, payload.data.cart] };
+                return { ...prevState, cartData: [...prevState.cartData, payload.data] };
             case "ADD_TO_WISHLIST":
                 return { ...prevState, wishListData: [...prevState.wishListData, payload.data.wish] };
             case "SET_PRODUCT_DATA":
