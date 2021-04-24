@@ -16,8 +16,6 @@ function AppDataProvider({ children }) {
     // things to be included
     // post quantity to the server
     // add categories to products
-    // toggle wishlist
-    // add rating filter
     // show toasts 
     // make styling better(see nvidia website)(https://www.nvidia.com/en-us/geforce/buy/)
     // implement slider(carousal) make mobile friendly(slider contains different companies) 

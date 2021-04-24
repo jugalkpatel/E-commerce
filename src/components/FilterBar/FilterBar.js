@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./FilterBar.css";
-import downArrow from "../assets/svgs/down-arrow.svg";
-import { labels } from "../utils/labels";
+import downArrow from "../../assets/svgs/down-arrow.svg";
+import { labels } from "../../utils/labels";
 const FilterBar = ({
     setFilter
 }) => {

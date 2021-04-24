@@ -1,6 +1,6 @@
 import React, { useReducer, useState } from "react";
-import { FilterBar } from "../components/FilterBar";
-import { ProductCard } from "../components/ProductCard";
+import { FilterBar } from "../components/FilterBar/FilterBar";
+import { ProductCard } from "..//components/ProductCard/ProductCard";
 import filterIcon from "../assets/svgs/filter.svg";
 import { productsData } from "../services/ProductData.js";
 import "./ProductList.css";
