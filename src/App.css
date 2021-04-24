@@ -31,7 +31,5 @@
   /* 'header header' */
   /* 'sidebar main'; */
   background-color: var(--background-color);
-  /* padding: 2rem; */
-  /* height: 100%; */
-  /* width: 100%; */
+  padding: 0rem;
 }

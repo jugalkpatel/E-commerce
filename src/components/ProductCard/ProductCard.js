@@ -84,7 +84,7 @@ const ProductCard = ({ productDetails }) => {
                     <span className="overlay-text"> OUT OF STOCK </span>
                 </div> : null
             }
-        </div >
+        </div>
     )
 }
 
