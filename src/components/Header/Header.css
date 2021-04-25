@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
+:root {
+  --primary-color: #fff;
+  --secondary-color: #76b900;
+  --background-color: #000;
+
+  --primary-font: Lato;
+
+  --reset-black: #1a1a1a;
+  --dropdown-white: #ccc;
+
+  --border-grey: #666;
+  --reset-color: #bdbdbd;
+
+  --zindex-one: 1;
+  --zindex-two: 2;
+  --zindex-three: 3;
+  --zindex-four: 4;
+  --zindex-five: 5;
+}
+
+.header {
+  display: flex;
+  font-family: var(--primary-font);
+  color: var(--primary-color);
+  background-color: var(--reset-black);
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem;
+  position: sticky;
+  z-index: 3;
+  top: 0;
+}
+
+.header__logo {
+  display: flex;
+  height: 30px;
+  align-items: center;
+}
+
+.header__logo__text {
+  font-weight: 900;
+  font-size: 1.5rem;
+}
+
+.header__navigation {
+  display: flex;
+}
+
+.header__navigation__list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+.badge-icon {
+  position: relative;
+
+  text-decoration: none;
+
+  display: inline-block;
+
+  /* padding: 1rem; */
+  margin: 1rem;
+
+  border-radius: 50%;
+
+  color: var(--primary-color);
+}
+
+.num-badge {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  min-width: 1.5rem;
+
+  position: absolute;
+
+  background-color: var(--secondary-color);
+
+  color: var(--primary-color);
+
+  padding: 0.2rem;
+
+  border: 2px solid var(--reset-black);
+  border-radius: 60%;
+
+  font-family: var(--primary-font);
+  font-size: 0.7rem;
+  font-weight: 600;
+
+  top: -0.5rem;
+  left: 1rem;
+
+  text-align: center;
+}
+
+@media screen and (min-width: 1024px) {
+  .header {
+    z-index: var(--zindex-five);
+  }
+}
