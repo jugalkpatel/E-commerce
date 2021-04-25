@@ -29,7 +29,7 @@
   justify-content: space-between;
   padding: 0.5rem;
   position: sticky;
-  z-index: 3;
+  z-index: var(--zindex-four);
   top: 0;
 }
 
