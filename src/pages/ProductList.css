@@ -74,6 +74,7 @@
     grid-template-areas:
       'header header'
       'sidebar  main';
+    padding: 1rem 0;
   }
   .product-list__filterbtn {
     display: none;

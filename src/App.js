@@ -14,3 +14,8 @@ function App() {
 }
 
 export default App;
+
+/**
+ * TODO
+ * 1. Price Dropdown should be close after clicking on the high-to-low and low-to-high filter.
+ */
