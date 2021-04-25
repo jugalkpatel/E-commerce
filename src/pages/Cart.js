@@ -2,7 +2,6 @@ import React from "react";
 import { useAppData } from "../contexts/AppDataProvider";
 import { CartProductCard } from "../components/ProductCard/CartProductCard";
 import gpu from "../assets/svgs/gpu.svg";
-import { productsData } from "../services/ProductData";
 import './Cart.css';
 const Cart = () => {
     const { appData: { cartData }, dispatchAppData } = useAppData();

@@ -15,12 +15,10 @@ import { labels } from "../../utils/labels";
 
 const CartProductCard = ({ productDetails }) => {
     const {
-        id,
         name,
         imageUrl,
         specifications,
         price,
-        availability
     } = productDetails;
     const { appData: { cartData, wishListData }, dispatchAppData } = useAppData();
     const { ADD_TO_CART, ADD_TO_WISHLIST, REMOVE_FROM_WISHLIST } = labels;

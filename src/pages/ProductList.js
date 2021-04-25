@@ -5,7 +5,6 @@ import filterIcon from "../assets/svgs/filter.svg";
 import { productsData } from "../services/ProductData.js";
 import "./ProductList.css";
 import { Sidebar } from "../components/Sidebar/Sidebar";
-import { first } from "lodash";
 import { labels } from "../utils/labels";
 
 
@@ -29,7 +28,6 @@ const ProductList = () => {
                 return { ...state, byLowest: "", byHighest: "", byAvailability: "" };
             default:
                 throw new Error("Action is not available");
-                break;
         }
         return state;
     }

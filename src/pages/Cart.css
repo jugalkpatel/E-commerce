@@ -39,13 +39,10 @@
   flex-direction: column;
 }
 
-.cart__content__checkout__totalprice {
+/* .cart__content__checkout__totalprice {
   display: block;
   color: var(--primary-color);
-}
-
-.cart__content__checkout {
-}
+} */
 
 .cart__content__checkout__title {
   margin: 0;
@@ -61,6 +58,7 @@
   border-right: 0;
   margin: 1rem 0;
   font-weight: 900;
+  color: var(--primary-color);
 }
 
 .cart__content__checkout__checkoutbtn {
@@ -72,6 +70,8 @@
   font-weight: 900;
   font-size: 1.3rem;
 }
+
+/* Applied when cart is empty */
 
 .cart__empty {
   display: flex;
