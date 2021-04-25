@@ -3,6 +3,7 @@ import { useAppData } from "../contexts/AppDataProvider";
 import { CartProductCard } from "../components/ProductCard/CartProductCard";
 import gpu from "../assets/svgs/gpu.svg";
 import './Cart.css';
+import { Link } from "react-router-dom";
 const Cart = () => {
     const { appData: { cartData }, dispatchAppData } = useAppData();
     console.log({ cartData, dispatchAppData });
@@ -36,9 +37,9 @@ const Cart = () => {
                         </div>
                         <h3 className="cart__empty__text">Your cart is empty!</h3>
                         <span className="cart__empty__subtext">Add items to it now.</span>
-                        <button className="cart__empty__shopbtn">
+                        <Link to="/products" className="cart__empty__shopbtn">
                             SHOP NOW
-                            </button>
+                        </Link>
                     </div>
 
             }

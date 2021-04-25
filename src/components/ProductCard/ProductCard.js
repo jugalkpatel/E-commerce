@@ -7,6 +7,7 @@ import { capitalize } from "../../utils/capitalize";
 import { useAppData } from "../../contexts/AppDataProvider";
 import { isItemInList } from "../../utils/isItemInList";
 import { labels } from "../../utils/labels";
+import { Link } from "react-router-dom";
 const ProductCard = ({ productDetails }) => {
     const {
         id,
@@ -72,12 +73,17 @@ const ProductCard = ({ productDetails }) => {
             </a>
             {
                 isItemInList(cartData, id)
-                    ? <button className="primary-btn" >GO TO CART</button>
+                    ? <Link to="/cart" className="primary-btn">GO TO CART</Link>
                     : <button
                         className="primary-btn"
                         onClick={
-                            () => dispatchAppData({ type: ADD_TO_CART, payload: { data: productDetails } })}
-                    >ADD TO CART</button>
+                            () => dispatchAppData({
+                                type: ADD_TO_CART,
+                                payload: { data: productDetails }
+                            })
+                        }>
+                        ADD TO CART
+                      </button>
             }
             {
                 !availability ? <div className="overlay-div">

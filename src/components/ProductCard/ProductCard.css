@@ -102,6 +102,10 @@ body {
   cursor: pointer;
 
   color: var(--primary-color);
+
+  text-decoration: none;
+
+  text-align: center;
 }
 
 /* product card */

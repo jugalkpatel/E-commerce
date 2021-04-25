@@ -25,6 +25,7 @@
   max-width: 1026px;
   margin: 0 auto;
   font-family: var(--primary-font);
+  padding: 1rem;
 }
 
 .wishlist__empty {
@@ -34,6 +35,7 @@
   align-items: center;
   border: 1px solid var(--primary-color);
   padding: 1rem;
+  grid-column: -1 / 1;
 }
 
 .wishlist__empty__imgcontainer {

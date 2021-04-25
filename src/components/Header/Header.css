@@ -37,6 +37,8 @@
   display: flex;
   height: 30px;
   align-items: center;
+  text-decoration: none;
+  color: var(--primary-color);
 }
 
 .header__logo__text {
@@ -62,6 +64,8 @@
 
   display: inline-block;
 
+  background-color: transparent;
+  border: 0;
   /* padding: 1rem; */
   margin: 1rem;
 

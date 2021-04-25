@@ -5,7 +5,7 @@ import gpu from "../assets/svgs/gpu.svg";
 
 import { WishListCard } from "../components/ProductCard/WishListCard";
 import { useAppData } from "../contexts/AppDataProvider";
-
+import { Link } from "react-router-dom";
 
 const WishList = () => {
 
@@ -29,9 +29,11 @@ const WishList = () => {
                             <span className="wishlist__empty__subtext">
                                 You have no items in your wishlist Start adding!
                             </span>
-                            <button className="wishlist__empty__shopbtn">
-                                ADD NOW
-                            </button>
+                            <Link to="/products">
+                                <button className="wishlist__empty__shopbtn">
+                                    ADD NOW
+                                </button>
+                            </Link>
                         </div>
                     )
             }
