@@ -43,18 +43,26 @@ function AppDataProvider({ children }) {
                     productsData: payload.products,
                     loading: false
                 };
-            case "INCREMENT_QUANTITY":
+            case INCREMENT_QUANTITY:
                 return {
                     ...prevState,
                     cartData: prevState.cartData.map((item) => {
-                        return item.id === payload.id ? { ...item, quantity: item.quantity + 1 } : item;
+                        return (
+                            item.id === payload.data
+                                ? { ...item, quantity: item.quantity + 1 }
+                                : item
+                        );
                     })
                 }
-            case "DECREMENT_QUANTITY":
+            case DECREMENT_QUANTITY:
                 return {
                     ...prevState,
                     cartData: prevState.cartData.map((item) => {
-                        return item.id === payload.id ? { ...item, quantity: item.quantity > 1 ? item.quantity - 1 : item.quantity } : item;
+                        return (
+                            item.id === payload.data
+                                ? { ...item, quantity: item.quantity > 1 ? item.quantity - 1 : item.quantity }
+                                : item
+                        )
                     })
                 }
             default:

@@ -79,7 +79,7 @@ const ProductCard = ({ productDetails }) => {
                         onClick={
                             () => dispatchAppData({
                                 type: ADD_TO_CART,
-                                payload: { data: productDetails }
+                                payload: { data: { ...productDetails, quantity: 1 } }
                             })
                         }>
                         ADD TO CART

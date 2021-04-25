@@ -6,7 +6,10 @@ import './Cart.css';
 import { Link } from "react-router-dom";
 const Cart = () => {
     const { appData: { cartData }, dispatchAppData } = useAppData();
-    console.log({ cartData, dispatchAppData });
+    const totalPrice = () => {
+        return cartData.length > 0 ? cartData.reduce((acc, item) => acc + (item.quantity * item.price), 0) : false;
+    }
+    console.log(totalPrice());
     return (
         <div className="cart">
             {
@@ -23,7 +26,7 @@ const Cart = () => {
                         <div className="cart__content__checkout">
                             <h3 className="cart__content__checkout__title">PRICE DETAILS</h3>
                             <span className="cart__content__checkout__totalprice">
-                                Total Amount: Total_Price
+                                Total Amount: {totalPrice()}
                             </span>
                             <button className="cart__content__checkout__checkoutbtn">
                                 Checkout

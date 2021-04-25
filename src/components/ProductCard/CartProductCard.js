@@ -14,14 +14,16 @@ import { labels } from "../../utils/labels";
 
 
 const CartProductCard = ({ productDetails }) => {
+    const { INCREMENT_QUANTITY, DECREMENT_QUANTITY } = labels;
     const {
+        id,
         name,
         imageUrl,
         specifications,
         price,
+        quantity
     } = productDetails;
     const { appData: { cartData, wishListData }, dispatchAppData } = useAppData();
-    const { ADD_TO_CART, ADD_TO_WISHLIST, REMOVE_FROM_WISHLIST } = labels;
     return (
         <a className="product">
             <button className="product__remove" onClick={() => console.log('close')}>
@@ -49,11 +51,20 @@ const CartProductCard = ({ productDetails }) => {
             </div>
             <div className="product__buy">
                 <span className="product__buy__price">$ {price}</span>
-                <button className="product__buy__increment" onClick={() => console.log("increment")}>
+                <button className="product__buy__increment" onClick={() => dispatchAppData({
+                    type: INCREMENT_QUANTITY,
+                    payload: { data: id }
+                })}>
                     <img src={plus} alt="plus icon" />
                 </button>
-                <span className="product__buy__quantity">1</span>
-                <button className="product__buy__decrement" onClick={() => console.log("decrement")}>
+                <span className="product__buy__quantity">{quantity}</span>
+                <button className="product__buy__decrement"
+                    onClick={
+                        () => dispatchAppData({
+                            type: DECREMENT_QUANTITY,
+                            payload: { data: id }
+                        })
+                    }>
                     <img src={minus} alt="minus icon" />
                 </button>
             </div>
