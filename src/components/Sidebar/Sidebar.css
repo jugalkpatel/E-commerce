@@ -163,7 +163,8 @@ input[type='checkbox']:checked:after {
 @media screen and (min-width: 1025px) {
   .sidebar {
     grid-area: sidebar;
-    position: relative;
+    position: sticky;
+    top: 7rem;
     border-right: 2px solid var(--border-grey);
     padding: 0 2rem 0 2rem;
     visibility: visible !important;
