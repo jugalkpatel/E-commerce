@@ -13,7 +13,7 @@ import { labels } from "../../utils/labels";
 
 
 const CartProductCard = ({ productDetails }) => {
-    const { INCREMENT_QUANTITY, DECREMENT_QUANTITY } = labels;
+    const { INCREMENT_QUANTITY, DECREMENT_QUANTITY, REMOVE_FROM_CART } = labels;
     const {
         id,
         name,
@@ -25,7 +25,7 @@ const CartProductCard = ({ productDetails }) => {
     const { dispatchAppData } = useAppData();
     return (
         <a className="product">
-            <button className="product__remove" onClick={() => console.log('close')}>
+            <button className="product__remove" onClick={() => dispatchAppData({ type: REMOVE_FROM_CART, payload: { data: id } })}>
                 <img src={close} alt="close_icon" />
             </button>
             <div className="product__imgcontainer">

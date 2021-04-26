@@ -8,17 +8,11 @@ function AppDataProvider({ children }) {
     const {
         ADD_TO_CART,
         ADD_TO_WISHLIST,
-        REMOVE_FROM_WISHLIST,
         INCREMENT_QUANTITY,
-        DECREMENT_QUANTITY
+        DECREMENT_QUANTITY,
+        REMOVE_FROM_CART,
+        REMOVE_FROM_WISHLIST,
     } = labels;
-
-    // things to be included
-    // post quantity to the server
-    // add categories to products
-    // show toasts 
-    // make styling better(see nvidia website)(https://www.nvidia.com/en-us/geforce/buy/)
-    // implement slider(carousal) make mobile friendly(slider contains different companies) 
 
     const appDataReducer = (prevState, { type, payload }) => {
         switch (type) {
@@ -64,6 +58,11 @@ function AppDataProvider({ children }) {
                                 : item
                         )
                     })
+                }
+            case REMOVE_FROM_CART:
+                return {
+                    ...prevState,
+                    cartData: prevState.cartData.filter((item) => item.id !== payload.data)
                 }
             default:
                 throw new Error("Action Not Defined");

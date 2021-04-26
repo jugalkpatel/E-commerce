@@ -26,4 +26,8 @@ export default App;
  * TODO
  * 1. Price Dropdown should be close after clicking on the high-to-low and low-to-high filter.
  * 2. Make bookmark icon green when item is in the wishlist.
+ * 3. post quantity to the server
+ * 4. add categories to products
+ * 5. show toasts
+ * 6. implement slider(carousal) make mobile friendly(slider contains different companies)
  */
