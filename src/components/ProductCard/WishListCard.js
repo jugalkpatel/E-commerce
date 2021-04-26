@@ -4,12 +4,6 @@ import "./WishListCard.css";
 
 import close from "../../assets/svgs/close-btn.svg";
 
-import { capitalize } from "../../utils/capitalize";
-import { useAppData } from "../../contexts/AppDataProvider";
-import { isItemInList } from "../../utils/isItemInList";
-import { labels } from "../../utils/labels";
-
-
 const WishListCard = ({ productDetails }) => {
     const {
         name,

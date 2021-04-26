@@ -1,13 +1,16 @@
 import React from "react";
+
 import "./ProductCard.css";
+
 import closeBtn from "../../assets/svgs/close-btn.svg";
-import bookmark from "../../assets/svgs/bookmark.svg";
 import arrow from "../../assets/svgs/right-arrow.svg";
+
 import { capitalize } from "../../utils/capitalize";
 import { useAppData } from "../../contexts/AppDataProvider";
 import { isItemInList } from "../../utils/isItemInList";
 import { labels } from "../../utils/labels";
 import { Link } from "react-router-dom";
+
 const ProductCard = ({ productDetails }) => {
     const {
         id,

@@ -1,6 +1,6 @@
-import axios from "axios";
+// import axios from "axios";
 import { labels } from "../utils/labels";
-import { createContext, useContext, useReducer, useEffect } from "react";
+import { createContext, useContext, useReducer } from "react";
 const AppContext = createContext();
 
 function AppDataProvider({ children }) {

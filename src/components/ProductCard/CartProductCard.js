@@ -9,7 +9,6 @@ import close from "../../assets/svgs/close-btn.svg";
 
 import { capitalize } from "../../utils/capitalize";
 import { useAppData } from "../../contexts/AppDataProvider";
-import { isItemInList } from "../../utils/isItemInList";
 import { labels } from "../../utils/labels";
 
 
@@ -23,7 +22,7 @@ const CartProductCard = ({ productDetails }) => {
         price,
         quantity
     } = productDetails;
-    const { appData: { cartData, wishListData }, dispatchAppData } = useAppData();
+    const { dispatchAppData } = useAppData();
     return (
         <a className="product">
             <button className="product__remove" onClick={() => console.log('close')}>

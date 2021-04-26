@@ -1,15 +1,16 @@
 import React from "react";
+
+import './Cart.css';
+
+import gpu from "../assets/svgs/gpu.svg";
+
 import { useAppData } from "../contexts/AppDataProvider";
 import { CartProductCard } from "../components/ProductCard/CartProductCard";
-import gpu from "../assets/svgs/gpu.svg";
-import './Cart.css';
 import { Link } from "react-router-dom";
+import { totalPrice } from "../utils/totalPrice";
+
 const Cart = () => {
-    const { appData: { cartData }, dispatchAppData } = useAppData();
-    const totalPrice = () => {
-        return cartData.length > 0 ? cartData.reduce((acc, item) => acc + (item.quantity * item.price), 0) : false;
-    }
-    console.log(totalPrice());
+    const { appData: { cartData } } = useAppData();
     return (
         <div className="cart">
             {
@@ -26,7 +27,7 @@ const Cart = () => {
                         <div className="cart__content__checkout">
                             <h3 className="cart__content__checkout__title">PRICE DETAILS</h3>
                             <span className="cart__content__checkout__totalprice">
-                                Total Amount: {totalPrice()}
+                                Total Amount: {totalPrice(cartData)}
                             </span>
                             <button className="cart__content__checkout__checkoutbtn">
                                 Checkout
