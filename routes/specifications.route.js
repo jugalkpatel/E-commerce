@@ -10,7 +10,6 @@ specRouter.param('productId', async (req, res, next, id) => {
         if (!product) {
             res.status(404).json({ success: false, message: "No such Product" });
         }
-        console.log("yes, there is a product with such id");
         req.id = id;
         req.product = product;
         next();

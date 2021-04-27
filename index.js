@@ -2,14 +2,16 @@ const express = require("express");
 
 const app = express();
 
+require('dotenv').config();
+
 const bodyParser = require('body-parser');
 
-const { getConnection } = require('./connection/mongoose.connection');
+const { getConnection } = require('./connections/mongoose.connection');
 
 const { router } = require('./routes/product.route');
 const { specRouter } = require("./routes/specifications.route");
 
-const PORT = 7000
+const PORT = process.env.PORT || 8000;
 
 getConnection();
 app.use(bodyParser.json());

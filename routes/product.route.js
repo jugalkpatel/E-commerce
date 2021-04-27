@@ -2,18 +2,6 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const { Product } = require('../models/product.modal');
-// const { Specification } = require('../models/specifications.modal');
-
-
-// router.use('productId', async (req, res, next, id) => {
-//     try {
-//         await Product.findById(id).exec();
-//         next();
-//     } catch(error) {
-//         re
-//     }
-// })
-
 router.param('productId', async (req, res, next, id) => {
     try {
         const product = await Product.findById(id).exec();
@@ -33,9 +21,9 @@ router.route("/:productId")
         const { id } = req;
         console.log(id);
         try {
-            // const product = await Product.findById(id).populate({ path: "specifications", model: Specification });
-            const product = await Product.findById(id).populate('Specification');
+            const product = await Product.findById(id).populate('specifications');
             console.log(product);
+            res.status(200).json({ success: true, data: product });
         } catch (error) {
             console.log(error);
             res.status(404).json({ success: false, message: "Data not found", error: error });
