@@ -1,8 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const specRouter = express.Router();
-const { Specification } = require("../models/specifications.modal");
-const { Product } = require('../models/product.modal');
+const { Specification } = require("../models/specifications.model");
+const { Product } = require('../models/product.model');
 
 specRouter.param('productId', async (req, res, next, id) => {
     try {

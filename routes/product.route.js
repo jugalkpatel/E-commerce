@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const { Product } = require('../models/product.modal');
+const { Product } = require('../models/product.model');
 
 router.param('productId', async (req, res, next, id) => {
     try {
