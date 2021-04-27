@@ -8,15 +8,17 @@ const bodyParser = require('body-parser');
 
 const { getConnection } = require('./connections/mongoose.connection');
 
-const { router } = require('./routes/product.route');
+const { productRouter } = require('./routes/product.route');
 const { specRouter } = require("./routes/specifications.route");
+const { userRouter } = require("./routes/user.route");
 
 const PORT = process.env.PORT || 8000;
 
 getConnection();
 app.use(bodyParser.json());
-app.use('/products', router);
+app.use('/products', productRouter);
 app.use('/specs', specRouter);
+app.use('/user', userRouter);
 
 app.get("/", (req, res) => {
     res.status(201).json({ success: true, message: "I'm root Path" });
