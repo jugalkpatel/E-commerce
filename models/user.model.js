@@ -21,12 +21,12 @@ const userSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'WishList'
     },
-    addresses: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: "Address"
-        }
-    ]
+    addresses:
+    {
+        type: Schema.Types.ObjectId,
+        ref: "Address"
+    }
+
 })
 
 const User = mongoose.model('User', userSchema);
