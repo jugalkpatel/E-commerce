@@ -1,10 +1,12 @@
 const express = require('express');
-
+const app = express();
 const mongoose = require('mongoose');
 
 const { User } = require('../models/user.model');
+const { cartRouter } = require('./cart.route');
 
 const userRouter = express.Router();
+
 
 userRouter.param('userId', async (req, res, next, id) => {
     try {
@@ -14,11 +16,14 @@ userRouter.param('userId', async (req, res, next, id) => {
         }
         console.log("yes, there is someone with given id");
         req.id = id;
+        req.user = user;
         next();
     } catch (error) {
         res.status(500).json({ success: false, message: "error occurred while searching for user" });
     }
 })
+
+userRouter.use('/:userId/cart', cartRouter);
 
 userRouter.route("/")
     .post(async (req, res) => {
@@ -34,16 +39,22 @@ userRouter.route("/")
             res.status(500).json({ success: false, message: "error occurred while creating user", error });
         }
     })
-    .get((req, res) => {
-        res.send("wiring is working");
+    .get(async (req, res) => {
+        try {
+            const users = await User.find({});
+            res.status(201).json({ success: true, data: users });
+        }
+        catch (error) {
+            res.status(500).json({ success: false, message: "error while getting users", error });
+        }
     })
 
 userRouter.route('/:userId')
     .get(async (req, res) => {
-        res.send("sab first class hai");
+        res.send("abhi implementation baaki hai");
     })
     .post(async (req, res) => {
-        res.send("this is for updating user")
+        res.send("abhi implementation baaki hai")
     })
 
 exports.userRouter = userRouter;

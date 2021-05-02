@@ -26,10 +26,11 @@ app.get("/", (req, res) => {
 
 /**
  * ENDPOINTS
- * GET || POST: /products/:productid (post only creates one product)
- * POST: /specifications/:productid  (create specfication)
- * GET /products/  get all products
- * 
+ * GET || POST /products (get all products and add new product)
+ * GET /products/:productid
+ * POST /specs/:productid  (add specfication)
+ * GET || POST /user/:userId/cart (get user specific cart and create cart for user)
+ *  
  */
 
 /**

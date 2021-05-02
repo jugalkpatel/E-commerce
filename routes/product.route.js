@@ -26,6 +26,21 @@ productRouter.route("/")
             res.status(404).json({ success: false, message: "products not found", error });
         }
     })
+    .post(async (req, res) => {
+        const { name, description, price, image } = req.body;
+        try {
+            const product = new Product({
+                name: name,
+                description: description,
+                price: price,
+                image: image
+            })
+            await product.save();
+            res.status(201).json({ success: true, message: "Product added successfully", data: product });
+        } catch (error) {
+            res.status(500).json({ success: false, message: "failed to create entry product", error });
+        }
+    })
 
 productRouter.route("/:productId")
     .get(async (req, res) => {
@@ -37,19 +52,5 @@ productRouter.route("/:productId")
             res.status(404).json({ success: false, message: "Data not found", error });
         }
     })
-    .post(async (req, res) => {
-        const { name, description, price, image } = req.body;
-        try {
-            const product = new Product({
-                name: name,
-                description: description,
-                price: price,
-                image: image
-            })
-            await product.save();
-            res.status(201).json({ success: true, message: "successfully created", data: product });
-        } catch (error) {
-            res.status(500).json({ success: false, message: "failed to create entry product", error });
-        }
-    })
+
 exports.productRouter = productRouter;
