@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 const { User } = require('../models/user.model');
 const { cartRouter } = require('./cart.route');
-
+const { wishlistRouter } = require('./wishlist.route');
 const userRouter = express.Router();
 
 
@@ -24,6 +24,7 @@ userRouter.param('userId', async (req, res, next, id) => {
 })
 
 userRouter.use('/:userId/cart', cartRouter);
+userRouter.use('/:userId/wishlist', wishlistRouter);
 
 userRouter.route("/")
     .post(async (req, res) => {
@@ -51,10 +52,13 @@ userRouter.route("/")
 
 userRouter.route('/:userId')
     .get(async (req, res) => {
-        res.send("abhi implementation baaki hai");
+        res.send(201).json({
+            success: true,
+            data: req.user
+        })
     })
     .post(async (req, res) => {
-        res.send("abhi implementation baaki hai")
+        res.send("Implement Update password here")
     })
 
 exports.userRouter = userRouter;
