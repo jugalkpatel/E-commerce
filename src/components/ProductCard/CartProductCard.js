@@ -4,7 +4,7 @@ import "./CartProductCard.css";
 
 import arrow from "../../assets/svgs/right-arrow.svg";
 import minus from "../../assets/svgs/minus.svg";
-import plus from "../../assets/svgs/add.svg";
+import plus from "../../assets/svgs/plus.svg";
 import close from "../../assets/svgs/close-btn.svg";
 
 import { capitalize } from "../../utils/capitalize";
