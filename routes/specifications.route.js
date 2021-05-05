@@ -14,7 +14,7 @@ specRouter.param('productId', async (req, res, next, id) => {
         req.product = product;
         next();
     } catch (error) {
-        res.status(500).json({ success: false, message: "error occurred while searching for product", error });
+        res.status(500).json({ success: false, message: "there is not product with given id", error });
     }
 })
 
@@ -22,7 +22,7 @@ specRouter.route("/:productId")
     .post(async (req, res) => {
         const { id, product } = req;
         const { cooling, clockspeed, memory } = req.body;
-        console.log(id);
+        // console.log(id);
         try {
             const spec = new Specification({
                 cooling: cooling,
@@ -30,12 +30,25 @@ specRouter.route("/:productId")
                 memory: memory,
                 productId: id
             })
+
+            await spec.validate();
+
             await spec.save();
+
             product.specifications = spec;
             await product.save();
-            res.status(201).json({ success: true, message: "specification created successfully" });
+            res.status(201).json({
+                success: true,
+                message: "specification created successfully",
+                data: spec
+            });
         } catch (error) {
-            res.status(500).json({ success: false, message: "failed to create entry for specification", error })
+            console.log(error);
+            res.status(500).json({
+                success: false,
+                message: "failed to create entry for specification",
+                error
+            })
         }
     })
 

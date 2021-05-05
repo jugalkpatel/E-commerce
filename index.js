@@ -2,6 +2,8 @@ const express = require("express");
 
 const app = express();
 
+const cors = require('cors');
+
 require('dotenv').config();
 
 const bodyParser = require('body-parser');
@@ -16,6 +18,7 @@ const PORT = process.env.PORT || 8000;
 
 getConnection();
 app.use(bodyParser.json());
+app.use(cors());
 app.use('/products', productRouter);
 app.use('/specs', specRouter);
 app.use('/user', userRouter);

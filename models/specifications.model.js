@@ -8,7 +8,6 @@ const specificationsSchema = new Schema({
     },
     clockSpeed: {
         type: Number,
-        required: [true, "Please Provide Clock speed"]
     },
     memory: {
         type: Number,
@@ -16,8 +15,11 @@ const specificationsSchema = new Schema({
     },
     productId: {
         type: Schema.Types.ObjectId,
+        unique: [true, "Please Provide unique product id"],
+        required: [true, "There is no product with give id"],
         ref: 'Product'
     }
+
 })
 
 const Specification = mongoose.model('Specification', specificationsSchema);

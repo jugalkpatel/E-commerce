@@ -8,33 +8,28 @@ const { WishList } = require('../models/wishlist.model');
 const { Product } = require('../models/product.model');
 const { userRouter } = require('./user.route');
 
-wishlistRouter.param('wishlistId', async (req, res, next, id) => {
-    try {
-        const wishlist = await WishList.findById(id);
-        if (!wishlist) {
-            res.status(404).json({
-                success: false,
-                message: "wishlist not available",
-            })
-        }
-        req.wishlist = wishlist;
-        next();
-    } catch (err) {
-        res.staus(500).json({
-            success: false,
-            message: "error while searching wishlist",
-            error
-        })
-    }
-})
-
 wishlistRouter.route('/')
     .get(async (req, res) => {
         const { id: userId } = req;
         console.log(userId);
         try {
             const wishlist = await WishList.findOne({ owner: userId }).exec();
-            console.log(wishlist);
+
+            const populatedWishlist = await wishlist.
+                populate({
+                    path: 'products.product',
+                    select: '-qunatity -__v',
+                    populate: {
+                        path: "specifications",
+                        select: '-__v -_id -productId'
+                    }
+                })
+                .execPopulate();
+
+            res.status(201).json({
+                success: true,
+                data: populatedWishlist
+            })
         } catch (err) {
             res.status(500).json({
                 success: false,
@@ -43,15 +38,59 @@ wishlistRouter.route('/')
             })
         }
     })
+    /* create new wishlist and add item to the wishlist */
     .post(async (req, res) => {
-        const { name, product } = req.body;
-        const { user } = req;
+        const { id: productId } = req.body;
+        const { id: userId, user } = req;
         try {
+
+            const product = await Product.findById(productId);
+
+            if (!product) {
+                res.status(404).json({
+                    success: false,
+                    message: "there is no product with given id"
+                });
+                return;
+            }
+
+
+            if (user.wishlist) {
+                const wishlist = await WishList.findOne({ owner: userId });
+
+                wishlist.products.push({
+                    product: productId
+                });
+
+                await wishlist.save();
+
+                const populatedWishlist = await wishlist.
+                    populate({
+                        path: 'products.product',
+                        select: '-qunatity -__v',
+                        populate: {
+                            path: "specifications",
+                            select: '-__v -_id -productId'
+                        }
+                    })
+                    .execPopulate();
+
+                populatedWishlist.owner = undefined;
+
+                res.status(201).json({
+                    success: true,
+                    message: "item is added to the wishlist",
+                    data: populatedWishlist
+                })
+
+
+                return;
+            }
+
             const wishlist = new WishList({
-                name: name,
-                owner: user,
+                owner: userId,
                 products: [
-                    { product }
+                    { product: productId }
                 ],
             })
 
@@ -60,14 +99,17 @@ wishlistRouter.route('/')
             user.wishlist = wishlist
             await user.save();
 
-            const populatedWishlist = await wishlist.populate({
-                path: 'products.product',
-                populate: { path: "specifications" }
-            }).execPopulate();
-
+            const populatedWishlist = await wishlist.
+                populate({
+                    path: 'products.product',
+                    select: '-qunatity -__v',
+                    populate: {
+                        path: "specifications",
+                        select: '-__v -_id -productId'
+                    }
+                })
+                .execPopulate();
             populatedWishlist.owner = undefined;
-
-            console.log(populatedWishlist);
 
             res.status(201).json({
                 success: true,
@@ -77,73 +119,51 @@ wishlistRouter.route('/')
         } catch (error) {
             res.status(500).json({
                 success: true,
-                message: "error while creating wishlist",
+                message: "error while creating wishlist or add item to the wishlist",
                 error
             })
         }
     })
 
-wishlistRouter.route("/:wishlistId/add")
+wishlistRouter.route("/remove")
     .post(async (req, res) => {
+        const { id: productId } = req.body;
+        const { id: userId, user } = req;
+
         try {
-            const { wishlistId, productId } = req.body;
 
-            const { wishlist } = req;
+            const product = await Product.findById(productId);
 
-            if (wishlistId === wishlist.id) {
-                wishlist.products.push({ product: productId })
+            if (!product) {
+                res.status(404).json({
+                    success: false,
+                    message: "there is no product with given id"
+                });
+                return;
             }
 
-            await wishlist.save();
+            const wishlist = await WishList.findOne({ owner: userId });
 
-            const populatedWishlist = await wishlist.populate({
-                path: 'products.product',
-                populate: { path: "specifications" }
-            }).execPopulate();
-
-            populatedWishlist.owner = undefined;
-
-            console.log(populatedWishlist);
-
-            res.status(201).json({
-                success: true,
-                message: "item is added to the wishlist",
-                data: populatedWishlist
-            })
-        } catch (error) {
-            res.status(500).json({
-                success: false,
-                message: "error while adding item to the wishlist",
-                error
-            })
-        }
-    })
-
-wishlistRouter.route("/:wishlistId/remove")
-    .post(async (req, res) => {
-        try {
-            /**
-             * handle productId undefined case
-             */
-            const { productId } = req.body;
-
-            const { wishlist } = req;
 
             wishlist.products = wishlist.products.filter((item) => item.product.toString() !== productId);
 
             await wishlist.save()
 
-            const populatedWishlist = await wishlist.populate({
-                path: 'products.product',
-                populate: { path: "specifications" }
-            }).execPopulate();
-
+            const populatedWishlist = await wishlist.
+                populate({
+                    path: 'products.product',
+                    select: '-qunatity -__v',
+                    populate: {
+                        path: "specifications",
+                        select: '-__v -_id -productId'
+                    }
+                })
+                .execPopulate();
             populatedWishlist.owner = undefined;
-
 
             res.status(201).json({
                 success: true,
-                message: "item is added to the wishlist",
+                message: "wishlist is created",
                 data: populatedWishlist
             })
 

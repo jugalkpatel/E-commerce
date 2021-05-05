@@ -7,11 +7,13 @@ const cartSchema = new Schema({
         {
             product: {
                 type: Schema.Types.ObjectId,
-                ref: 'Product'
+                ref: 'Product',
+                unique: true
             },
             quantity: {
                 type: Number,
-                default: 1
+                default: 1,
+                min: [1, 'quantity can not be zero']
             }
         }
     ],

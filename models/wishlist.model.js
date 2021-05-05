@@ -3,10 +3,6 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const wishListSchema = new Schema({
-    name: {
-        type: String,
-        required: [true, "Please Provide WishList Name"]
-    },
     owner: {
         type: Schema.Types.ObjectId,
         ref: 'User',

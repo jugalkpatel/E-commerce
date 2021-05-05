@@ -20,6 +20,10 @@ const productSchema = new Schema({
         type: mongoose.SchemaTypes.Url,
         required: [true, "Please Provide Url for Product"]
     },
+    quantity: {
+        type: Number,
+        require: [true, "Please Provide quantity for Product"]
+    },
     specifications: {
         type: Schema.Types.ObjectId,
         ref: 'Specification',

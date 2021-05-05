@@ -27,6 +27,15 @@ userRouter.use('/:userId/cart', cartRouter);
 userRouter.use('/:userId/wishlist', wishlistRouter);
 
 userRouter.route("/")
+    .get(async (req, res) => {
+        try {
+            const users = await User.find({});
+            res.status(201).json({ success: true, data: users });
+        }
+        catch (error) {
+            res.status(500).json({ success: false, message: "error while getting users", error });
+        }
+    })
     .post(async (req, res) => {
         const { name, password } = req.body;
         try {
@@ -40,22 +49,10 @@ userRouter.route("/")
             res.status(500).json({ success: false, message: "error occurred while creating user", error });
         }
     })
-    .get(async (req, res) => {
-        try {
-            const users = await User.find({});
-            res.status(201).json({ success: true, data: users });
-        }
-        catch (error) {
-            res.status(500).json({ success: false, message: "error while getting users", error });
-        }
-    })
 
 userRouter.route('/:userId')
     .get(async (req, res) => {
-        res.send(201).json({
-            success: true,
-            data: req.user
-        })
+        res.send("get specific user here");
     })
     .post(async (req, res) => {
         res.send("Implement Update password here")
