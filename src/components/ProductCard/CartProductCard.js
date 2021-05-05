@@ -10,26 +10,30 @@ import close from "../../assets/svgs/close-btn.svg";
 import { capitalize } from "../../utils/capitalize";
 import { useAppData } from "../../contexts/AppDataProvider";
 import { labels } from "../../utils/labels";
+import { urlList } from "../../utils/urlList";
+import { handleApiOperations } from "../../utils/handleApiOperations";
 
 
-const CartProductCard = ({ productDetails }) => {
+const CartProductCard = ({ productDetails, quantity }) => {
     const { INCREMENT_QUANTITY, DECREMENT_QUANTITY, REMOVE_FROM_CART } = labels;
     const {
-        id,
+        _id,
         name,
-        imageUrl,
+        image,
         specifications,
         price,
-        quantity
     } = productDetails;
+
+    const { REMOVE_ITEM, UPDATE_ITEM } = urlList;
+
     const { dispatchAppData } = useAppData();
     return (
         <a className="product">
-            <button className="product__remove" onClick={() => dispatchAppData({ type: REMOVE_FROM_CART, payload: { data: id } })}>
+            <button className="product__remove" onClick={() => handleApiOperations(REMOVE_ITEM, { id: _id }, dispatchAppData, REMOVE_FROM_CART)}>
                 <img src={close} alt="close_icon" />
             </button>
             <div className="product__imgcontainer">
-                <img src={imageUrl} alt="product image" className="product__img" />
+                <img src={image} alt="product image" className="product__img" />
             </div>
             <div className="product__details">
                 <span className="product__details__title">{name}</span>
@@ -50,20 +54,23 @@ const CartProductCard = ({ productDetails }) => {
             </div>
             <div className="product__buy">
                 <span className="product__buy__price">$ {price}</span>
-                <button className="product__buy__increment" onClick={() => dispatchAppData({
-                    type: INCREMENT_QUANTITY,
-                    payload: { data: id }
-                })}>
+                <button className="product__buy__increment" onClick={
+                    () => handleApiOperations(
+                        UPDATE_ITEM,
+                        { id: _id, quantity: quantity + 1 },
+                        dispatchAppData,
+                        INCREMENT_QUANTITY
+                    )}>
                     <img src={plus} alt="plus icon" />
                 </button>
                 <span className="product__buy__quantity">{quantity}</span>
                 <button className="product__buy__decrement"
-                    onClick={
-                        () => dispatchAppData({
-                            type: DECREMENT_QUANTITY,
-                            payload: { data: id }
-                        })
-                    }>
+                    onClick={() => handleApiOperations(
+                        UPDATE_ITEM,
+                        { id: _id, quantity: quantity > 1 ? quantity - 1 : 1 },
+                        dispatchAppData,
+                        DECREMENT_QUANTITY
+                    )}>
                     <img src={minus} alt="minus icon" />
                 </button>
             </div>

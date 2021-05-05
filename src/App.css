@@ -32,4 +32,5 @@
   /* 'sidebar main'; */
   background-color: var(--background-color);
   padding: 0rem;
+  min-height: 100vh;
 }

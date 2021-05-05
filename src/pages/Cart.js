@@ -19,8 +19,8 @@ const Cart = () => {
                     <div className="cart__content">
                         <div className="cart__content__products">
                             {
-                                cartData.map((product) => {
-                                    return <CartProductCard productDetails={product} key={product.id} />
+                                cartData.map(({ _id, quantity, product }) => {
+                                    return <CartProductCard productDetails={product} quantity={quantity} key={product._id} />
                                 })
                             }
                         </div>

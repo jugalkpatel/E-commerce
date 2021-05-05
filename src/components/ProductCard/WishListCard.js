@@ -6,23 +6,31 @@ import close from "../../assets/svgs/close-btn.svg";
 
 import { useAppData } from "../../contexts/AppDataProvider";
 import { labels } from "../../utils/labels";
+import { urlList } from "../../utils/urlList";
+import { handleApiOperations } from "../../utils/handleApiOperations";
 
 const WishListCard = ({ productDetails }) => {
     const {
-        id,
+        _id,
         name,
-        imageUrl,
+        image,
         price,
     } = productDetails;
     const { dispatchAppData } = useAppData();
     const { REMOVE_FROM_WISHLIST } = labels;
+    const { REMOVE_ITEM_FROM_WISHLIST } = urlList;
     return (
-        <a className="wishlist__product">
-            <button className="wishlist__product__remove" onClick={() => dispatchAppData({ type: REMOVE_FROM_WISHLIST, payload: { data: id } })}>
+        <a className="wishlist__product" key={_id}>
+            <button className="wishlist__product__remove" onClick={() => handleApiOperations(
+                REMOVE_ITEM_FROM_WISHLIST,
+                { id: _id },
+                dispatchAppData,
+                REMOVE_FROM_WISHLIST
+            )}>
                 <img src={close} alt="close_icon" />
             </button>
             <div className="wishlist__product__imgcontainer">
-                <img src={imageUrl} alt="product image" className="wishlist__product__img" />
+                <img src={image} alt="product image" className="wishlist__product__img" />
             </div>
             <div className="wishlist__product__details">
                 <span className="wishlist__product__details__title">{name}</span>

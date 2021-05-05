@@ -2,19 +2,22 @@ import React, { useReducer, useState } from "react";
 import { FilterBar } from "../components/FilterBar/FilterBar";
 import { ProductCard } from "..//components/ProductCard/ProductCard";
 import filterIcon from "../assets/svgs/filter.svg";
-import { productsData } from "../services/ProductData.js";
+import Loader from "react-loader-spinner";
+import { productsData as prodData } from "../services/ProductData.js";
 import "./ProductList.css";
 import { Sidebar } from "../components/Sidebar/Sidebar";
 import { labels } from "../utils/labels";
+import { useAppData } from "../contexts/AppDataProvider";
 
 
 
 const ProductList = () => {
-
-    const localProductData = productsData;
+    const localProductData = prodData;
     const [visibility, setVisibility] = useState("hidden");
     const { LOW_TO_HIGH, HIGH_TO_LOW, EXCLUDE_OUT_OF_STOCK, RESET_FILTERS } = labels;
+    const { appData: { productsData } } = useAppData();
 
+    // console.log(productsData);
 
     const filterReducer = (state, { type, payload }) => {
         switch (type) {
@@ -59,36 +62,47 @@ const ProductList = () => {
         return filteredList;
     }
 
-    const filteredProducts = getSortedProducts(localProductData, filter);
+    const filteredProducts = productsData.length > 0 ? getSortedProducts(productsData, filter) : null;
 
-    console.log({ filter });
+
+
+    // console.log({ filter });
     return (
-        <div className="product-list__container">
-            <div className="product-list">
+        <>
+            {
+                productsData.length > 0 ?
+                    <div className="product-list__container">
+                        <div className="product-list">
 
-                <FilterBar setFilter={dispatchFilter} />
-                <span className="product-list__results">{filteredProducts.length} results found</span>
-                {
-                    filteredProducts.map((product) => {
-                        return <ProductCard productDetails={product} key={product.id} />
-                    })
-                }
-            </div>
-            <Sidebar status={{ visibility, setVisibility }} setFilter={dispatchFilter} />
-            <button className="product-list__filterbtn"
-                onClick={() => setVisibility((prevStatus) => {
-                    return prevStatus === "hidden" ? "visible" : "hidden";
-                })}
-                style={{ visibility: visibility === "hidden" ? "visible" : "hidden" }}
-            >
-                <span className="product-list__filterbtn__icon">
-                    <img src={filterIcon} alt="filter icon" />
-                </span>
-                <span className="product-list__filterbtn__text">
-                    FILTER
-                </span>
-            </button>
-        </div>
+                            <FilterBar setFilter={dispatchFilter} />
+                            <span className="product-list__results">{filteredProducts.length} results found</span>
+                            {
+                                filteredProducts.map((product, index) => {
+                                    return <ProductCard productDetails={product} key={index} />
+                                })
+                            }
+                        </div>
+                        <Sidebar status={{ visibility, setVisibility }} setFilter={dispatchFilter} />
+                        <button className="product-list__filterbtn"
+                            onClick={() => setVisibility((prevStatus) => {
+                                return prevStatus === "hidden" ? "visible" : "hidden";
+                            })}
+                            style={{ visibility: visibility === "hidden" ? "visible" : "hidden" }}
+                        >
+                            <span className="product-list__filterbtn__icon">
+                                <img src={filterIcon} alt="filter icon" />
+                            </span>
+                            <span className="product-list__filterbtn__text">
+                                FILTER
+                            </span>
+                        </button>
+                    </div> :
+                    <span className="product-list__spinner">
+                        <Loader type="Oval" color="#b9b9b9" height={100} width={100} />
+                    </span>
+            }
+        </>
+
     )
 }
 export { ProductList };

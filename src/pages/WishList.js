@@ -15,8 +15,8 @@ const WishList = () => {
             {
                 wishListData.length > 0
                     ? (
-                        wishListData.map((product) => {
-                            return <WishListCard productDetails={product} key={product.id} />
+                        wishListData.map(({ product }) => {
+                            return <WishListCard productDetails={product} key={product._id} />
                         })
                     ) : (
                         <div className="wishlist__empty">

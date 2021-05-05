@@ -21,6 +21,16 @@
   display: flex;
   flex-direction: column;
 }
+
+/* loader spinner */
+
+.product-list__spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+}
+
 .product-list {
   display: grid;
   grid-template-columns: 1fr;

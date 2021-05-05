@@ -10,20 +10,28 @@ import { useAppData } from "../../contexts/AppDataProvider";
 import { isItemInList } from "../../utils/isItemInList";
 import { labels } from "../../utils/labels";
 import { Link } from "react-router-dom";
+import { postAPI } from "../../utils/postAPI";
+import { urlList } from "../../utils/urlList";
+import { handleApiOperations } from "../../utils/handleApiOperations";
 
 const ProductCard = ({ productDetails }) => {
     const {
-        id,
+        _id,
         name,
-        imageUrl,
+        image,
         specifications,
         price,
-        availability
+        quantity,
     } = productDetails;
     const { appData: { cartData, wishListData }, dispatchAppData } = useAppData();
     const { ADD_TO_CART, ADD_TO_WISHLIST, REMOVE_FROM_WISHLIST } = labels;
+
+    const { ADD_ITEM, ADD_ITEM_TO_WISHLIST, REMOVE_ITEM_FROM_WISHLIST } = urlList
+
+    // console.log(ADD_ITEM);
+    // console.log({ productDetails });
     return (
-        <div className="product-container">
+        <div className="product-container" key={_id}>
             <a href="#" className="product-info">
                 <span className="product__img__container">
                     <button className="close-btn">
@@ -31,17 +39,16 @@ const ProductCard = ({ productDetails }) => {
                     </button>
                     <img
                         className="product-img product-info__img"
-                        src={imageUrl}
+                        src={image}
                         alt="product"
                     />
                     <button
                         className="wish-btn"
                         onClick={
-                            isItemInList(wishListData, id)
-                                ? () => dispatchAppData({ type: REMOVE_FROM_WISHLIST, payload: { data: id } })
-                                : () => dispatchAppData({ type: ADD_TO_WISHLIST, payload: { data: productDetails } })
+                            isItemInList(wishListData, _id)
+                                ? () => handleApiOperations(REMOVE_ITEM_FROM_WISHLIST, { id: _id }, dispatchAppData, REMOVE_FROM_WISHLIST)
+                                : () => handleApiOperations(ADD_ITEM_TO_WISHLIST, { id: _id }, dispatchAppData, ADD_TO_WISHLIST)
                         }
-
                     >
                         <svg version="1.1" width="24" height="24" x="0" y="0" viewBox="0 0 330 330" style={{ enableBackground: "new 0 0 512 512" }} className="">
                             <g>
@@ -59,9 +66,6 @@ const ProductCard = ({ productDetails }) => {
                         {
                             Object.keys(specifications).map((spec, index) => {
                                 return (
-                                    /**
-                                     * TODO: decide what should be key here later
-                                     **/
                                     <li className="specifications__list__item" key={index}>
                                         <img className="specifications__arrow" src={arrow} alt="right_arrow" />
                                         {capitalize(spec)}: {capitalize(specifications[spec])}
@@ -71,29 +75,26 @@ const ProductCard = ({ productDetails }) => {
                         }
                     </ul>
                 </span>
-
                 <span className="price-tag">${price}</span>
             </a>
             {
-                isItemInList(cartData, id)
+                isItemInList(cartData, _id)
                     ? <Link to="/cart" className="primary-btn">GO TO CART</Link>
                     : <button
                         className="primary-btn"
                         onClick={
-                            () => dispatchAppData({
-                                type: ADD_TO_CART,
-                                payload: { data: { ...productDetails, quantity: 1 } }
-                            })
-                        }>
+                            () => handleApiOperations(ADD_ITEM, { id: _id }, dispatchAppData, ADD_TO_CART)
+                        }
+                    >
                         ADD TO CART
                       </button>
             }
             {
-                !availability ? <div className="overlay-div">
+                quantity < 1 ? <div className="overlay-div">
                     <span className="overlay-text"> OUT OF STOCK </span>
                 </div> : null
             }
-        </div>
+        </div >
     )
 }
 

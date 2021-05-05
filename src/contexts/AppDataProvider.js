@@ -1,9 +1,15 @@
-// import axios from "axios";
+import axios from "axios";
 import { labels } from "../utils/labels";
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useReducer, useEffect } from "react";
+import { postAPI } from "../utils/postAPI";
+import { urlList } from "../utils/urlList";
 const AppContext = createContext();
 
 function AppDataProvider({ children }) {
+
+    const {
+        CREATE_CART
+    } = urlList;
 
     const {
         ADD_TO_CART,
@@ -12,57 +18,48 @@ function AppDataProvider({ children }) {
         DECREMENT_QUANTITY,
         REMOVE_FROM_CART,
         REMOVE_FROM_WISHLIST,
+        SET_DATA
     } = labels;
+
+    const { ADD_ITEM } = urlList
 
     const appDataReducer = (prevState, { type, payload }) => {
         switch (type) {
             case ADD_TO_CART:
+                console.log({ payload })
                 return {
                     ...prevState,
-                    cartData: [...prevState.cartData, payload.data]
-                };
+                    cartData: payload
+                }
             case ADD_TO_WISHLIST:
                 return {
                     ...prevState,
-                    wishListData: [...prevState.wishListData, payload.data]
+                    wishListData: payload
                 };
             case REMOVE_FROM_WISHLIST:
                 return {
                     ...prevState,
-                    wishListData: prevState.wishListData.filter((item) => item.id !== payload.data)
+                    wishListData: payload
                 }
-            case "SET_PRODUCT_DATA":
+            case SET_DATA:
                 return {
                     ...prevState,
                     productsData: payload.products,
-                    loading: false
                 };
             case INCREMENT_QUANTITY:
                 return {
                     ...prevState,
-                    cartData: prevState.cartData.map((item) => {
-                        return (
-                            item.id === payload.data
-                                ? { ...item, quantity: item.quantity + 1 }
-                                : item
-                        );
-                    })
+                    cartData: payload
                 }
             case DECREMENT_QUANTITY:
                 return {
                     ...prevState,
-                    cartData: prevState.cartData.map((item) => {
-                        return (
-                            item.id === payload.data
-                                ? { ...item, quantity: item.quantity > 1 ? item.quantity - 1 : item.quantity }
-                                : item
-                        )
-                    })
+                    cartData: payload
                 }
             case REMOVE_FROM_CART:
                 return {
                     ...prevState,
-                    cartData: prevState.cartData.filter((item) => item.id !== payload.data)
+                    cartData: payload
                 }
             default:
                 throw new Error("Action Not Defined");
@@ -71,9 +68,28 @@ function AppDataProvider({ children }) {
     }
 
     const [appData, dispatchAppData] = useReducer(appDataReducer, {
+        productsData: [],
         cartData: [],
         wishListData: [],
     })
+
+    useEffect(() => {
+        (async () => {
+            try {
+                const response = await axios.get("http://localhost:7000/products");
+                console.log({ response });
+                if (response.status === 201) {
+                    dispatchAppData({
+                        type: SET_DATA,
+                        payload: { products: response.data.products }
+                    })
+                    console.log("data is successfully set");
+                }
+            } catch (error) {
+                console.log("failed to fetch data", error);
+            }
+        })();
+    }, [])
 
 
 
