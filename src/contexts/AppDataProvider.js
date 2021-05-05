@@ -1,15 +1,10 @@
 import axios from "axios";
 import { labels } from "../utils/labels";
 import { createContext, useContext, useReducer, useEffect } from "react";
-import { postAPI } from "../utils/postAPI";
-import { urlList } from "../utils/urlList";
 const AppContext = createContext();
 
 function AppDataProvider({ children }) {
 
-    const {
-        CREATE_CART
-    } = urlList;
 
     const {
         ADD_TO_CART,
@@ -21,7 +16,6 @@ function AppDataProvider({ children }) {
         SET_DATA
     } = labels;
 
-    const { ADD_ITEM } = urlList
 
     const appDataReducer = (prevState, { type, payload }) => {
         switch (type) {

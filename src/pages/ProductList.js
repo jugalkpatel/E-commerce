@@ -3,7 +3,6 @@ import { FilterBar } from "../components/FilterBar/FilterBar";
 import { ProductCard } from "..//components/ProductCard/ProductCard";
 import filterIcon from "../assets/svgs/filter.svg";
 import Loader from "react-loader-spinner";
-import { productsData as prodData } from "../services/ProductData.js";
 import "./ProductList.css";
 import { Sidebar } from "../components/Sidebar/Sidebar";
 import { labels } from "../utils/labels";
@@ -12,12 +11,10 @@ import { useAppData } from "../contexts/AppDataProvider";
 
 
 const ProductList = () => {
-    const localProductData = prodData;
     const [visibility, setVisibility] = useState("hidden");
     const { LOW_TO_HIGH, HIGH_TO_LOW, EXCLUDE_OUT_OF_STOCK, RESET_FILTERS } = labels;
     const { appData: { productsData } } = useAppData();
 
-    // console.log(productsData);
 
     const filterReducer = (state, { type, payload }) => {
         switch (type) {

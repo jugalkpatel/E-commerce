@@ -20,7 +20,7 @@ const WishListCard = ({ productDetails }) => {
     const { REMOVE_FROM_WISHLIST } = labels;
     const { REMOVE_ITEM_FROM_WISHLIST } = urlList;
     return (
-        <a className="wishlist__product" key={_id}>
+        <a href="#" className="wishlist__product" key={_id}>
             <button className="wishlist__product__remove" onClick={() => handleApiOperations(
                 REMOVE_ITEM_FROM_WISHLIST,
                 { id: _id },
@@ -30,7 +30,7 @@ const WishListCard = ({ productDetails }) => {
                 <img src={close} alt="close_icon" />
             </button>
             <div className="wishlist__product__imgcontainer">
-                <img src={image} alt="product image" className="wishlist__product__img" />
+                <img src={image} alt="product_img" className="wishlist__product__img" />
             </div>
             <div className="wishlist__product__details">
                 <span className="wishlist__product__details__title">{name}</span>

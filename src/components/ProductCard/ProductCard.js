@@ -10,7 +10,6 @@ import { useAppData } from "../../contexts/AppDataProvider";
 import { isItemInList } from "../../utils/isItemInList";
 import { labels } from "../../utils/labels";
 import { Link } from "react-router-dom";
-import { postAPI } from "../../utils/postAPI";
 import { urlList } from "../../utils/urlList";
 import { handleApiOperations } from "../../utils/handleApiOperations";
 
@@ -34,9 +33,9 @@ const ProductCard = ({ productDetails }) => {
         <div className="product-container" key={_id}>
             <a href="#" className="product-info">
                 <span className="product__img__container">
-                    <button className="close-btn">
+                    {/* <button className="close-btn">
                         <img src={closeBtn} alt="close_btn" />
-                    </button>
+                    </button> */}
                     <img
                         className="product-img product-info__img"
                         src={image}
