@@ -83,7 +83,7 @@ function AppDataProvider({ children }) {
                 console.log("failed to fetch data", error);
             }
         })();
-    }, [])
+    }, [])// eslint-disable-line react-hooks/exhaustive-deps
 
 
 
