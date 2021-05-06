@@ -71,7 +71,6 @@ function AppDataProvider({ children }) {
         (async () => {
             try {
                 const response = await axios.get("https://nvidia-ecommerce.herokuapp.com/products");
-                console.log({ response });
                 if (response.status === 201) {
                     dispatchAppData({
                         type: SET_DATA,

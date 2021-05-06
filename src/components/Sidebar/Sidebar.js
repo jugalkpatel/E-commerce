@@ -11,7 +11,6 @@ const Sidebar = ({
     },
     setFilter
 }) => {
-    // console.log("setFilter", setFilter);
     const { RESET_FILTERS } = labels;
     return (
         <div className="sidebar" style={{ visibility: sidebarVisibility }}>

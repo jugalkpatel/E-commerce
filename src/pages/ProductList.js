@@ -15,7 +15,6 @@ const ProductList = () => {
     const { LOW_TO_HIGH, HIGH_TO_LOW, EXCLUDE_OUT_OF_STOCK, RESET_FILTERS } = labels;
     const { appData: { productsData } } = useAppData();
 
-
     const filterReducer = (state, { type, payload }) => {
         switch (type) {
             case LOW_TO_HIGH:
@@ -25,6 +24,7 @@ const ProductList = () => {
             case EXCLUDE_OUT_OF_STOCK:
                 return { ...state, byAvailability: state.byAvailability ? "" : payload.flag };
             case RESET_FILTERS:
+                console.log(payload);
                 return { ...state, byLowest: "", byHighest: "", byAvailability: "" };
             default:
                 throw new Error("Action is not available");
@@ -39,7 +39,10 @@ const ProductList = () => {
         byAvailability: "",
     });
 
+    console.log({ filter })
+
     const getSortedProducts = (list, filterFlags) => {
+        const localProductsData = [...productsData];
         const filteredList = Object.keys(filterFlags).reduce((acc, item) => {
             switch (filterFlags[item]) {
                 case LOW_TO_HIGH:
@@ -51,17 +54,15 @@ const ProductList = () => {
                         return parseInt(secondItem.price) - parseInt(firstItem.price)
                     });
                 case EXCLUDE_OUT_OF_STOCK:
-                    return acc.filter((item) => item.availability);
+                    return acc.filter((item) => item.quantity > 0);
                 default:
                     return acc;
             }
-        }, list);
+        }, localProductsData);
         return filteredList;
     }
 
     const filteredProducts = productsData.length > 0 ? getSortedProducts(productsData, filter) : null;
-
-
 
     // console.log({ filter });
     return (
