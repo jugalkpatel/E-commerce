@@ -1,10 +1,10 @@
 const getUserUrls = (userId) => {
     return {
-        ADD_ITEM: `http://localhost:7000/user/${userId}/cart/`,
-        REMOVE_ITEM: `http://localhost:7000/user/${userId}/cart/remove`,
-        UPDATE_ITEM: `http://localhost:7000/user/${userId}/cart/update`,
-        ADD_ITEM_TO_WISHLIST: `http://localhost:7000/user/${userId}/wishlist`,
-        REMOVE_ITEM_FROM_WISHLIST: `http://localhost:7000/user/${userId}/wishlist/remove`
+        ADD_ITEM: `https://nvidia-ecommerce.herokuapp.com/user/${userId}/cart/`,
+        REMOVE_ITEM: `https://nvidia-ecommerce.herokuapp.com/user/${userId}/cart/remove`,
+        UPDATE_ITEM: `https://nvidia-ecommerce.herokuapp.com/user/${userId}/cart/update`,
+        ADD_ITEM_TO_WISHLIST: `https://nvidia-ecommerce.herokuapp.com/user/${userId}/wishlist`,
+        REMOVE_ITEM_FROM_WISHLIST: `https://nvidia-ecommerce.herokuapp.com/user/${userId}/wishlist/remove`
     }
 }
 

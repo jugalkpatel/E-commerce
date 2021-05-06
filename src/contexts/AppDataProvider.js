@@ -70,7 +70,7 @@ function AppDataProvider({ children }) {
     useEffect(() => {
         (async () => {
             try {
-                const response = await axios.get("http://localhost:7000/products");
+                const response = await axios.get("https://nvidia-ecommerce.herokuapp.com/products");
                 console.log({ response });
                 if (response.status === 201) {
                     dispatchAppData({

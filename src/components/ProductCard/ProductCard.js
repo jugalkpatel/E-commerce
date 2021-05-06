@@ -27,8 +27,6 @@ const ProductCard = ({ productDetails }) => {
 
     const { ADD_ITEM, ADD_ITEM_TO_WISHLIST, REMOVE_ITEM_FROM_WISHLIST } = urlList
 
-    // console.log(ADD_ITEM);
-    // console.log({ productDetails });
     return (
         <div className="product-container" key={_id}>
             <a href="#" className="product-info">
