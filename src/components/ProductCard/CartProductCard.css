@@ -36,6 +36,7 @@ body {
   padding: 1rem;
   margin: 1rem 0;
   position: relative;
+  text-decoration: none;
 }
 
 .product__remove {
