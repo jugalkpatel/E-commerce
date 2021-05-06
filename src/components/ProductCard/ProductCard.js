@@ -2,7 +2,7 @@ import React from "react";
 
 import "./ProductCard.css";
 
-import closeBtn from "../../assets/svgs/close-btn.svg";
+// import closeBtn from "../../assets/svgs/close-btn.svg";
 import arrow from "../../assets/svgs/right-arrow.svg";
 
 import { capitalize } from "../../utils/capitalize";
@@ -29,7 +29,7 @@ const ProductCard = ({ productDetails }) => {
 
     return (
         <div className="product-container" key={_id}>
-            <a href="#" className="product-info">
+            <a href="#home" className="product-info">
                 <span className="product__img__container">
                     {/* <button className="close-btn">
                         <img src={closeBtn} alt="close_btn" />

@@ -29,7 +29,7 @@ const ProductList = () => {
             default:
                 throw new Error("Action is not available");
         }
-        return state;
+        // return state;
     }
 
 

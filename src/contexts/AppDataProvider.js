@@ -58,7 +58,7 @@ function AppDataProvider({ children }) {
             default:
                 throw new Error("Action Not Defined");
         }
-        return prevState;
+        // return prevState;
     }
 
     const [appData, dispatchAppData] = useReducer(appDataReducer, {

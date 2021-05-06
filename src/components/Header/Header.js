@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 const Header = () => {
     const { appData: { cartData, wishListData } } = useAppData();
     return (
-        <div className="header">
+        <div className="header" id="home">
             <Link to="/products" className="header__logo">
                 <img src={gpu} alt="logo_icon" height="35px" width="35px" />
                 <span className="header__logo__text">

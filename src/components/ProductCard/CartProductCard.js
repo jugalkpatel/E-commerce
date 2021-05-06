@@ -28,12 +28,12 @@ const CartProductCard = ({ productDetails, quantity }) => {
 
     const { dispatchAppData } = useAppData();
     return (
-        <a className="product">
+        <a href="#home" className="product">
             <button className="product__remove" onClick={() => handleApiOperations(REMOVE_ITEM, { id: _id }, dispatchAppData, REMOVE_FROM_CART)}>
                 <img src={close} alt="close_icon" />
             </button>
             <div className="product__imgcontainer">
-                <img src={image} alt="product image" className="product__img" />
+                <img src={image} alt="product_img" className="product__img" />
             </div>
             <div className="product__details">
                 <span className="product__details__title">{name}</span>

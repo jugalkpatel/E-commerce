@@ -25,14 +25,14 @@ const FilterBar = ({
 
                     <ul className="dropdown__list" style={{ visibility: visibility }}>
                         <li className="dropdown__item">
-                            <a href="#" className="dropdown__item__link"
+                            <a href="#home" className="dropdown__item__link"
                                 onClick={() => setFilter({
                                     type: LOW_TO_HIGH,
                                     payload: { flag: LOW_TO_HIGH }
                                 })}>Lowest Price</a>
                         </li>
                         <li className="dropdown__item">
-                            <a href="#" className="dropdown__item__link"
+                            <a href="#home" className="dropdown__item__link"
                                 onClick={() => setFilter({
                                     type: HIGH_TO_LOW,
                                     payload: { flag: HIGH_TO_LOW }

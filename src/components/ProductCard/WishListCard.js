@@ -20,7 +20,7 @@ const WishListCard = ({ productDetails }) => {
     const { REMOVE_FROM_WISHLIST } = labels;
     const { REMOVE_ITEM_FROM_WISHLIST } = urlList;
     return (
-        <a href="#" className="wishlist__product" key={_id}>
+        <a href="#home" className="wishlist__product" key={_id}>
             <button className="wishlist__product__remove" onClick={() => handleApiOperations(
                 REMOVE_ITEM_FROM_WISHLIST,
                 { id: _id },
