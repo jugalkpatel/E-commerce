@@ -4,7 +4,7 @@ const getConnection = async () => {
     try {
         await mongoose.connect(`mongodb+srv://jimmy:${process.env.DB_PASS}@cluster0.tpjk1.mongodb.net/ecommerce?retryWrites=true&w=majority`, {
             useNewUrlParser: true,
-            useUnifiedTopology: true
+            useUnifiedTopology: true,
         });
         console.log("successfully connected to the database");
     } catch (error) {

@@ -8,8 +8,7 @@ const cartSchema = new Schema({
       product: {
         type: Schema.Types.ObjectId,
         ref: "Product",
-        unique: true,
-        required: true,
+        // unique: true
       },
       quantity: {
         type: Number,
@@ -18,11 +17,10 @@ const cartSchema = new Schema({
       },
     },
   ],
-  owner: {
+  userId: {
     type: Schema.Types.ObjectId,
     ref: "User",
     unique: true,
-    required: true,
   },
 });
 
