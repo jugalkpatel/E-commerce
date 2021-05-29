@@ -154,7 +154,7 @@ wishlistRouter.route("/remove").post(async (req, res) => {
     const populatedWishlist = await wishlist
       .populate({
         path: "products.product",
-        select: "-qunatity -__v",
+        select: "-quantity -__v",
         populate: {
           path: "specifications",
           select: "-__v -_id -productId",
@@ -168,6 +168,7 @@ wishlistRouter.route("/remove").post(async (req, res) => {
       data: populatedWishlist,
     });
   } catch (error) {
+    console.log(error);
     res.status(500).json({
       success: false,
       message: "error while removing product",

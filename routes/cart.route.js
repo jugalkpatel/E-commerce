@@ -164,6 +164,8 @@ cartRouter.route("/remove").post(async (req, res) => {
 
     await cart.save();
 
+    console.log(cart);
+
     const populatedCart = await cart
       .populate({
         path: "products.product",
@@ -181,6 +183,7 @@ cartRouter.route("/remove").post(async (req, res) => {
       data: populatedCart,
     });
   } catch (error) {
+    console.log(error);
     res.status(500).json({
       success: false,
       message: "error while removing item from cart",
