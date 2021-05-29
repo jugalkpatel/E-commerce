@@ -197,7 +197,6 @@ cartRouter.route("/update").post(async (req, res) => {
   try {
     const cart = await Cart.findOne({ owner: userId });
 
-    // console.log(cart);
     cart.products.forEach((item) => {
       if (item.product.toString() === productId) {
         item.quantity = quantity;
