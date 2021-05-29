@@ -144,7 +144,7 @@ cartRouter.route("/:cartId").get(async (req, res) => {
 cartRouter.route("/remove").post(async (req, res) => {
   const { id: productId } = req.body;
   const { id: userId } = req;
-  console.log(productId);
+
   try {
     const product = await Product.findById(productId);
 

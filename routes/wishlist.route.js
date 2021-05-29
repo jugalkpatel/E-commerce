@@ -161,7 +161,6 @@ wishlistRouter.route("/remove").post(async (req, res) => {
         },
       })
       .execPopulate();
-    populatedWishlist.owner = undefined;
 
     res.status(201).json({
       success: true,

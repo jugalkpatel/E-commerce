@@ -129,6 +129,7 @@ userRouter.route("/login").post(async (req, res) => {
   }
 });
 
+/* not for user */
 userRouter
   .route("/:userId")
   .get(async (req, res) => {
@@ -153,8 +154,6 @@ userRouter
           },
         })
         .execPopulate();
-
-      console.log(populatedResponse);
 
       res.status(201).json({
         success: true,
