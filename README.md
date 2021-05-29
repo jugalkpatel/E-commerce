@@ -1,3 +1,3 @@
 # E-commerce
 Backend for E-Commerce Project
-- https://nvidia-ecommerce.herokuapp.com/
+- https://neog-ecommerce--backend.herokuapp.com/
