@@ -4,6 +4,8 @@
 /node_modules
 /.pnp
 .pnp.js
+.eslintrc.json
+/src/assets/svgs/
 
 # testing
 /coverage

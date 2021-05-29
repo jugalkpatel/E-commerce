@@ -1,23 +1,12 @@
+import React from 'react';
 import './App.css';
-
-import { ProductList } from './pages/ProductList';
-import { Cart } from './pages/Cart';
-import { WishList } from "./pages/WishList";
-import { Login } from "./pages/Login";
-import { Header } from "./components/Header/Header";
-import { Routes, Route } from 'react-router';
+import { Header } from './components/Header/Header';
+import { Router } from './routers/Router';
 function App() {
   return (
     <div className="App">
       <Header />
-      <Routes>
-        <Route path="/" element={<ProductList />} />
-
-        {/* <Route path="/" element={<Login />} /> */}
-        <Route path="/products" element={<ProductList />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/wishlist" element={<WishList />} />
-      </Routes>
+      <Router />
     </div>
   );
 }
@@ -26,10 +15,8 @@ export default App;
 
 /**
  * TODO
- * 1. Price Dropdown should be close after clicking on the high-to-low and low-to-high filter.
- * 2. Make bookmark icon green when item is in the wishlist.
- * 3. post quantity to the server
- * 4. add categories to products
- * 5. show toasts
- * 6. implement slider(carousal) make mobile friendly(slider contains different companies)
+ * 1. Make bookmark icon green when item is in the wishlist.
+ * 2. add categories to products
+ * 3. show toasts
+ * 4. implement slider(carousal) make mobile friendly(slider contains different companies)
  */

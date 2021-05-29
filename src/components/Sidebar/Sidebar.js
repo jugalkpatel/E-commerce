@@ -1,9 +1,9 @@
-import React from "react";
-import "./Sidebar.css";
-import closeBtn from "../../assets/svgs/close-btn.svg";
-import { sideBarData } from "./sidebarData";
-import { capitalize } from "../../utils/capitalize";
-import { labels } from "../../utils/labels";
+import React from 'react';
+import './Sidebar.css';
+import closeBtn from '../../assets/svgs/close-btn.svg';
+import { sideBarData } from './sidebarData';
+import { capitalize } from '../../utils/capitalize';
+import { labels } from '../../utils/labels';
 const Sidebar = ({
     status: {
         visibility: sidebarVisibility,
@@ -15,7 +15,7 @@ const Sidebar = ({
     return (
         <div className="sidebar" style={{ visibility: sidebarVisibility }}>
             <div className="sidebar__content">
-                <button className="sidebar__content__close" onClick={() => changeSidebarVisibility("hidden")}>
+                <button className="sidebar__content__close" onClick={() => changeSidebarVisibility('hidden')}>
                     <span className="sidebar__content__close__icon">
                         <img src={closeBtn} alt="close icon" />
                     </span>

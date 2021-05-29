@@ -1,14 +1,18 @@
 const getUserUrls = (userId) => {
-    return {
-        ADD_ITEM: `https://nvidia-ecommerce.herokuapp.com/user/${userId}/cart/`,
-        REMOVE_ITEM: `https://nvidia-ecommerce.herokuapp.com/user/${userId}/cart/remove`,
-        UPDATE_ITEM: `https://nvidia-ecommerce.herokuapp.com/user/${userId}/cart/update`,
-        ADD_ITEM_TO_WISHLIST: `https://nvidia-ecommerce.herokuapp.com/user/${userId}/wishlist`,
-        REMOVE_ITEM_FROM_WISHLIST: `https://nvidia-ecommerce.herokuapp.com/user/${userId}/wishlist/remove`
-    }
-}
+  const url = 'https://neog-ecommerce--backend.herokuapp.com/user';
+  return {
+    ADD_ITEM: `${url}/${userId}/cart/`,
+    REMOVE_ITEM: `${url}/${userId}/cart/remove`,
+    UPDATE_ITEM: `${url}/${userId}/cart/update`,
+    ADD_ITEM_TO_WISHLIST: `${url}/${userId}/wishlist`,
+    REMOVE_ITEM_FROM_WISHLIST: `${url}/${userId}/wishlist/remove`,
+  };
+};
 
+let urlList = '';
 
-const urlList = getUserUrls('60923c9d2907b96c1cd8105f')
+const prepareUrls = (userId) => {
+  urlList = getUserUrls(userId);
+};
 
-export { urlList };
+export { urlList, getUserUrls, prepareUrls };
