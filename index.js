@@ -19,9 +19,9 @@ const PORT = process.env.PORT || 8000;
 getConnection();
 app.use(bodyParser.json());
 app.use(cors());
+app.use("/user", userRouter);
 app.use("/products", productRouter);
 app.use("/specs", specRouter);
-app.use("/user", userRouter);
 
 app.get("/", (req, res) => {
   res
@@ -36,7 +36,14 @@ app.use((req, res, next) => {
   res.status(404).json({ success: false, message: "no such endpoint" });
 });
 
+app.use((err, req, res, next) => {
+  console.log(err);
+  res.status(500).json({
+    success: false,
+    message: "something went wrong",
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Listening at http://localhost:${PORT}/`);
 });
-

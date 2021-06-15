@@ -4,16 +4,16 @@ const cartRouter = express.Router();
 
 const { Cart } = require("../models/cart.model");
 const { Product } = require("../models/product.model");
-
+const { User } = require("../models/user.model");
+const { validateToken } = require("../middlewares/validateToken");
+cartRouter.use(validateToken);
 cartRouter
   .route("/")
   .get(async (req, res) => {
-    const userId = req.id;
-    console.log(userId);
     try {
-      const cart = await Cart.findOne({ userId: userId }).exec();
+      const { cart: isCartCreated } = req.user;
 
-      if (!cart) {
+      if (!isCartCreated) {
         res.status(404).json({
           success: true,
           message: "cart yet not created by user",
@@ -23,16 +23,22 @@ cartRouter
         return;
       }
 
-      const populatedCart = await Cart.findOne({ userId }).populate({
-        path: "products.product",
-        select: "-__v -quantity",
-        populate: {
-          path: "specifications",
-          select: "-_id -__v -productId",
-        },
-      });
+      const cart = await Cart.findById(isCartCreated)
+        .populate({
+          path: "products.product",
+          select: "-__v -quantity",
+          populate: {
+            path: "specifications",
+            select: "-__id -__v -productId",
+          },
+        })
+        .populate("specifications")
+        .select("-__v");
 
-      res.status(200).json({ success: true, data: populatedCart });
+      res.status(200).json({
+        success: true,
+        products: cart.products,
+      });
     } catch (error) {
       res.status(404).json({
         success: false,
@@ -43,10 +49,10 @@ cartRouter
   })
   /* create cart or add item to the cart */
   .post(async (req, res) => {
-    const { id: productId } = req.body;
-    const { id: userId, user } = req;
-    console.log(productId, userId);
     try {
+      const { id: productId } = req.body;
+      const { id: userId, user } = req;
+      console.log("productId", productId);
       const product = await Product.findById(productId);
 
       if (!product) {
@@ -92,12 +98,10 @@ cartRouter
       });
 
       await cart.save();
-      user.cart = cart;
 
+      await User.findByIdAndUpdate(userId, { cart: cart });
       // product.quantity = product.quantity - 1;
       // await product.save();
-
-      await user.save();
 
       const populatedCart = await cart
         .populate({

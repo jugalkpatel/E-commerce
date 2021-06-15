@@ -1,7 +1,5 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
-require("mongoose-type-email");
-mongoose.SchemaTypes.Email.defaults.message = "Email Address is invalid";
 
 const userSchema = new Schema({
   name: {
@@ -10,12 +8,15 @@ const userSchema = new Schema({
     min: [2, "user name should be greater than 2 chars"],
     max: [25, "user name should be lesser than 25 chars"],
     trim: true,
+    index: true,
+    unique: true,
   },
   email: {
-    type: mongoose.SchemaTypes.Email,
+    type: String,
     lowercase: true,
     unique: true,
     required: true,
+    match: [/.+\@.+\..+/, "Please fill a valid email address"],
     trim: true,
   },
   password: {

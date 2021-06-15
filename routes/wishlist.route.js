@@ -8,12 +8,10 @@ const { Product } = require("../models/product.model");
 wishlistRouter
   .route("/")
   .get(async (req, res) => {
-    const { id: userId } = req;
-    console.log(userId);
     try {
-      const wishlist = await WishList.findOne({ owner: userId });
+      const { wishlist: isWishListCreated } = req.user;
 
-      if (!wishlist) {
+      if (!isWishListCreated) {
         res.status(204).json({
           success: true,
           message: "wishlist yet not created by user",
@@ -23,20 +21,21 @@ wishlistRouter
         return;
       }
 
-      const populatedWishlist = await wishlist
+      const wishlist = await WishList.findById(isWishListCreated)
         .populate({
           path: "products.product",
-          select: "-qunatity -__v",
+          select: "-__v -quantity",
           populate: {
             path: "specifications",
-            select: "-__v -_id -productId",
+            select: "-__id -__v -productId",
           },
         })
-        .execPopulate();
+        .populate("specifications")
+        .select("-__v");
 
-      res.status(201).json({
+      res.status(200).json({
         success: true,
-        data: populatedWishlist,
+        products: wishlist.products,
       });
     } catch (error) {
       res.status(500).json({
@@ -48,10 +47,12 @@ wishlistRouter
   })
   /* create new wishlist and add item to the wishlist */
   .post(async (req, res) => {
-    const { id: productId } = req.body;
-    const { id: userId, user } = req;
     try {
+      const { id: productId } = req.body;
+      const { id: userId, user } = req;
       const product = await Product.findById(productId);
+
+      // console.log(productId);
 
       if (!product) {
         res.status(404).json({
@@ -120,8 +121,9 @@ wishlistRouter
         data: populatedWishlist,
       });
     } catch (error) {
+      console.log({ error });
       res.status(500).json({
-        success: true,
+        success: false,
         message: "error while creating wishlist or add item to the wishlist",
         error,
       });
