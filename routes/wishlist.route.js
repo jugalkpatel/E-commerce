@@ -180,4 +180,5 @@ wishlistRouter.route("/remove").post(async (req, res) => {
     });
   }
 });
+
 exports.wishlistRouter = wishlistRouter;

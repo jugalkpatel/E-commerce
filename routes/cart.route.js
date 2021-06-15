@@ -129,21 +129,6 @@ cartRouter
     }
   });
 
-/* get specific cart by card id */
-cartRouter.route("/:cartId").get(async (req, res) => {
-  const { id, cart } = req;
-  const populatedCart = await cart
-    .populate({
-      path: "products.product",
-      populate: { path: "specifications" },
-    })
-    .execPopulate();
-  res.status(201).json({
-    success: true,
-    data: populatedCart,
-  });
-});
-
 /* remove item from cart */
 cartRouter.route("/remove").post(async (req, res) => {
   const { id: productId } = req.body;
@@ -167,8 +152,6 @@ cartRouter.route("/remove").post(async (req, res) => {
     );
 
     await cart.save();
-
-    console.log(cart);
 
     const populatedCart = await cart
       .populate({

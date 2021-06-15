@@ -21,6 +21,7 @@ userRouter.param("userId", async (req, res, next, id) => {
     res.status(500).json({
       success: false,
       message: "error occurred while searching for user",
+      error,
     });
   }
 });
@@ -130,6 +131,7 @@ userRouter.route("/signup").post(async (req, res) => {
     res.status(500).json({
       success: false,
       message: "error while creating user",
+      error,
     });
   }
 });
