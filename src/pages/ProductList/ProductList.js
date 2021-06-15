@@ -1,20 +1,54 @@
-import React, { useReducer, useState } from 'react';
-import { FilterBar } from '../components/FilterBar/FilterBar';
-import { ProductCard } from '..//components/ProductCard/ProductCard';
-import filterIcon from '../assets/svgs/filter.svg';
+import React, { useReducer, useState, useEffect } from 'react';
+import axios from 'axios';
+
+import filterIcon from '../../assets/svgs/filter.svg';
 import Loader from 'react-loader-spinner';
 import './ProductList.css';
-import { Sidebar } from '../components/Sidebar/Sidebar';
-import { labels } from '../utils/labels';
-import { useAppData } from '../contexts/AppDataProvider';
+
+import { Sidebar } from '../../components/Sidebar/Sidebar';
+import { FilterBar } from '../../components/FilterBar/FilterBar';
+import { ProductCard } from '../../components/ProductCard/ProductCard';
+
+import { constants } from '../../utils/constants';
+import { useAppData } from '../../contexts/AppDataProvider';
+import { getSortedProducts } from '../../utils/getSortedProducts';
+import { useToast } from '../../contexts/ToastProvider';
 
 const ProductList = () => {
   const [visibility, setVisibility] = useState('hidden');
-  const { LOW_TO_HIGH, HIGH_TO_LOW, EXCLUDE_OUT_OF_STOCK, RESET_FILTERS } =
-    labels;
+  const {
+    LOW_TO_HIGH,
+    HIGH_TO_LOW,
+    EXCLUDE_OUT_OF_STOCK,
+    RESET_FILTERS,
+    SET_PRODUCTS_DATA,
+  } = constants;
+
   const {
     appData: { productsData },
+    dispatchAppData,
   } = useAppData();
+
+  const { setupToast } = useToast();
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await axios.get(
+          'https://neog-ecommerce--backend.herokuapp.com/products'
+        );
+        if (response.status === 201) {
+          dispatchAppData({
+            type: SET_PRODUCTS_DATA,
+            payload: { products: response.data.products },
+          });
+        }
+      } catch (error) {
+        //TODO: SHOW TOAST
+        setupToast(true, 'failed to fetch products');
+      }
+    })();
+  }, []);
 
   const filterReducer = (state, { type, payload }) => {
     switch (type) {
@@ -40,33 +74,12 @@ const ProductList = () => {
     byAvailability: '',
   });
 
-  const getSortedProducts = (list, filterFlags) => {
-    const localProductsData = [...productsData];
-    const filteredList = Object.keys(filterFlags).reduce((acc, item) => {
-      switch (filterFlags[item]) {
-        case LOW_TO_HIGH:
-          return acc.sort((firstItem, secondItem) => {
-            return parseInt(firstItem.price) - parseInt(secondItem.price);
-          });
-        case HIGH_TO_LOW:
-          return acc.sort((firstItem, secondItem) => {
-            return parseInt(secondItem.price) - parseInt(firstItem.price);
-          });
-        case EXCLUDE_OUT_OF_STOCK:
-          return acc.filter((item) => item.quantity > 0);
-        default:
-          return acc;
-      }
-    }, localProductsData);
-    return filteredList;
-  };
-
   const filteredProducts =
     productsData.length > 0 ? getSortedProducts(productsData, filter) : null;
 
   return (
     <>
-      {productsData.length > 0 ? (
+      {filteredProducts ? (
         <div className="product-list__container">
           <div className="product-list">
             <FilterBar setFilter={dispatchFilter} />
@@ -106,5 +119,5 @@ const ProductList = () => {
     </>
   );
 };
-export { ProductList };
 
+export { ProductList };

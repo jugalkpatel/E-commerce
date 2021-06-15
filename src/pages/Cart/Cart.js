@@ -2,12 +2,12 @@ import React from 'react';
 
 import './Cart.css';
 
-import gpu from '../assets/svgs/gpu.svg';
+import gpu from '../../assets/svgs/gpu.svg';
 
-import { useAppData } from '../contexts/AppDataProvider';
-import { CartProductCard } from '../components/ProductCard/CartProductCard';
+import { useAppData } from '../../contexts/AppDataProvider';
+import { CartProductCard } from '../../components/ProductCard/CartProductCard';
 import { Link } from 'react-router-dom';
-import { totalPrice } from '../utils/totalPrice';
+import { totalPrice } from '../../utils/totalPrice';
 
 const Cart = () => {
   const {

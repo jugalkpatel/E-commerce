@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap");
 * {
   box-sizing: border-box;
 }
@@ -50,8 +50,8 @@ body {
   outline: 0;
 
   position: absolute;
-  right: 0.3rem;
-  bottom: 0.3rem;
+  right: 0rem;
+  top: 0rem;
 
   z-index: var(--zindex-two);
   cursor: pointer;
@@ -126,7 +126,7 @@ body {
 
   max-height: 45rem;
 
-  /* width: 22rem; */
+  width: 22rem;
 
   justify-self: center;
   align-self: center;
@@ -159,7 +159,8 @@ body {
 }
 
 .product-info__img {
-  height: 20rem;
+  max-height: 20rem;
+  max-width: 20rem;
 }
 
 .product-info__small {

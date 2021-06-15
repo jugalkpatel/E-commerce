@@ -1,15 +1,17 @@
 const getUserUrls = (userId) => {
-  const url = 'https://neog-ecommerce--backend.herokuapp.com/user';
+  const ROOT_URL = 'https://neog-ecommerce--backend.herokuapp.com/user';
   return {
-    ADD_ITEM: `${url}/${userId}/cart/`,
-    REMOVE_ITEM: `${url}/${userId}/cart/remove`,
-    UPDATE_ITEM: `${url}/${userId}/cart/update`,
-    ADD_ITEM_TO_WISHLIST: `${url}/${userId}/wishlist`,
-    REMOVE_ITEM_FROM_WISHLIST: `${url}/${userId}/wishlist/remove`,
+    ADD_ITEM: `${ROOT_URL}/${userId}/cart`,
+    GET_CART: `${ROOT_URL}/${userId}/cart`,
+    GET_WISHLIST: `${ROOT_URL}/${userId}/wishlist`,
+    REMOVE_ITEM: `${ROOT_URL}/${userId}/cart/remove`,
+    UPDATE_ITEM: `${ROOT_URL}/${userId}/cart/update`,
+    ADD_ITEM_TO_WISHLIST: `${ROOT_URL}/${userId}/wishlist`,
+    REMOVE_ITEM_FROM_WISHLIST: `${ROOT_URL}/${userId}/wishlist/remove`,
   };
 };
 
-let urlList = '';
+let urlList = {};
 
 const prepareUrls = (userId) => {
   urlList = getUserUrls(userId);

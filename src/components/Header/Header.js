@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './Header.css';
 
@@ -7,21 +8,19 @@ import bookmark from '../../assets/svgs/bookmark-nv.svg';
 import profile from '../../assets/svgs/profile.svg';
 import cart from '../../assets/svgs/cart.svg';
 
-// import { useState } from 'react';
-
 import { useAppData } from '../../contexts/AppDataProvider';
-import { Link } from 'react-router-dom';
+import { useAuthData } from '../../contexts/AuthProvider';
 
 const Header = () => {
   const {
     appData: { cartData, wishListData },
   } = useAppData();
 
-  // const [showPassword, setShowPassword] = useState(false);
+  const { token } = useAuthData();
 
   return (
     <div className="header" id="home">
-      <Link to="/products" className="header__logo">
+      <Link to="/" className="header__logo">
         <img src={gpu} alt="logo_icon" height="35px" width="35px" />
         <span className="header__logo__text">VERSE</span>
       </Link>
@@ -48,9 +47,15 @@ const Header = () => {
             </li>
           </Link>
           <li className="header__navigation__list__item">
-            <button href="#" className="badge-icon">
-              <img src={profile} alt="profile__icon" />
-            </button>
+            {token ? (
+              <Link to="/profile" className="badge-icon">
+                <img src={profile} alt="profile__icon" />
+              </Link>
+            ) : (
+              <Link to="/login" className="badge-icon header__login">
+                LOGIN
+              </Link>
+            )}
           </li>
         </ul>
       </div>
@@ -59,4 +64,3 @@ const Header = () => {
 };
 
 export { Header };
-

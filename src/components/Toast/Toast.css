@@ -1,0 +1,72 @@
+:root {
+  --toast-color: #f7412c;
+  --toast-radius: 0.1rem;
+  --toast-text-color: #ffffff;
+  --c-pd: 1rem;
+  --h-mg: 0.5rem;
+  --c-mg: 1rem;
+  --i-font-size: 1.5rem;
+  --zindex-five: 5;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.visible {
+  visibility: visible;
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+
+  position: fixed;
+  bottom: 0;
+  right: 0;
+
+  max-width: 25rem;
+  width: 25rem;
+
+  background-color: var(--toast-color);
+  border-radius: var(--toast-radius);
+
+  padding: var(--c-pd);
+
+  font-family: var(--primary-font);
+
+  margin: var(--h-mg);
+
+  z-index: var(--zindex-five);
+}
+
+.toast__icon {
+  display: flex;
+  align-items: center;
+
+  color: var(--toast-text-color);
+
+  font-size: var(--i-font-size);
+}
+
+.toast__message {
+  margin: 0 var(--c-mg);
+
+  padding: 0;
+
+  width: 90%;
+
+  color: var(--toast-text-color);
+}
+
+.toast__button {
+  width: fit-content;
+  height: fit-content;
+
+  cursor: pointer;
+
+  background-color: transparent;
+
+  border: 0;
+  padding: 0;
+}

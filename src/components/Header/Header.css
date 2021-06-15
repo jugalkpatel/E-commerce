@@ -48,6 +48,7 @@
 
 .header__navigation {
   display: flex;
+  align-items: center;
 }
 
 .header__navigation__list {
@@ -74,6 +75,11 @@
   color: var(--primary-color);
 
   cursor: pointer;
+}
+
+.header__login {
+  font-weight: 900;
+  color: var(--toast-color);
 }
 
 .num-badge {

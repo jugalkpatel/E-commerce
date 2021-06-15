@@ -1,11 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './WishList.css';
-import gpu from '../assets/svgs/gpu.svg';
+import gpu from '../../assets/svgs/gpu.svg';
 
-import { WishListCard } from '../components/ProductCard/WishListCard';
-import { useAppData } from '../contexts/AppDataProvider';
-import { Link } from 'react-router-dom';
+import { WishListCard } from '../../components/ProductCard/WishListCard';
+import { useAppData } from '../../contexts/AppDataProvider';
 
 const WishList = () => {
   const {
@@ -36,4 +36,3 @@ const WishList = () => {
 };
 
 export { WishList };
-

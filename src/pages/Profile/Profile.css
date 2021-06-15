@@ -1,0 +1,20 @@
+.profile {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.profile__logout {
+  color: var(--primary-color);
+  background-color: var(--toast-color);
+
+  font-family: var(--primary-font);
+  font-weight: 900;
+
+  border-radius: 0.3rem;
+  border: 0;
+
+  outline-color: var(--toast-color);
+
+  padding: 1rem;
+}

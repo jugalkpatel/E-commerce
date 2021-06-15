@@ -1,4 +1,4 @@
-const labels = {
+const constants = {
   LOW_TO_HIGH: 'LOW_TO_HIGH',
   HIGH_TO_LOW: 'HIGH_TO_LOW',
   EXCLUDE_OUT_OF_STOCK: 'EXCLUDE_OUT_OF_STOCK',
@@ -21,4 +21,4 @@ const labels = {
   SET_WISHLIST: 'SET_WISHLIST',
 };
 
-export { labels };
+export { constants };

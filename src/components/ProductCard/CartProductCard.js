@@ -9,23 +9,23 @@ import close from '../../assets/svgs/close-btn.svg';
 
 import { capitalize } from '../../utils/capitalize';
 import { useAppData } from '../../contexts/AppDataProvider';
-import { labels } from '../../utils/labels';
+import { constants } from '../../utils/constants';
 import { urlList } from '../../utils/urlList';
-import { handleApiOperations } from '../../utils/handleApiOperations';
 
 const CartProductCard = ({ productDetails, quantity }) => {
-  const { INCREMENT_QUANTITY, DECREMENT_QUANTITY, REMOVE_FROM_CART } = labels;
+  const { INCREMENT_QUANTITY, DECREMENT_QUANTITY, REMOVE_FROM_CART } =
+    constants;
   const { _id, name, image, specifications, price } = productDetails;
 
   const { REMOVE_ITEM, UPDATE_ITEM } = urlList;
 
-  const { dispatchAppData } = useAppData();
+  const { dispatchAppData, handleAPIOperations } = useAppData();
   return (
     <a href="#home" className="product">
       <button
         className="product__remove"
         onClick={() =>
-          handleApiOperations(
+          handleAPIOperations(
             REMOVE_ITEM,
             { id: _id },
             dispatchAppData,
@@ -62,7 +62,7 @@ const CartProductCard = ({ productDetails, quantity }) => {
         <button
           className="product__buy__increment"
           onClick={() =>
-            handleApiOperations(
+            handleAPIOperations(
               UPDATE_ITEM,
               { id: _id, quantity: quantity + 1 },
               dispatchAppData,
@@ -76,7 +76,7 @@ const CartProductCard = ({ productDetails, quantity }) => {
         <button
           className="product__buy__decrement"
           onClick={() =>
-            handleApiOperations(
+            handleAPIOperations(
               UPDATE_ITEM,
               { id: _id, quantity: quantity > 1 ? quantity - 1 : 1 },
               dispatchAppData,

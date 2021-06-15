@@ -1,7 +1,14 @@
 import React from 'react';
-import axios from 'axios';
-import { labels } from '../utils/labels';
 import { createContext, useContext, useReducer, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
+import { useAuthData } from './AuthProvider';
+import { useToast } from './ToastProvider';
+import { postAPI } from '../utils/postAPI';
+import { urlList } from '../utils/urlList';
+import { constants } from '../utils/constants';
+
 const AppContext = createContext();
 
 function AppDataProvider({ children }) {
@@ -15,7 +22,15 @@ function AppDataProvider({ children }) {
     SET_PRODUCTS_DATA,
     SET_CART,
     SET_WISHLIST,
-  } = labels;
+  } = constants;
+
+  const { GET_CART, GET_WISHLIST } = urlList;
+
+  let navigate = useNavigate();
+
+  const { isLoggedIn, token } = useAuthData();
+
+  const { setupToast } = useToast();
 
   const appDataReducer = (prevState, { type, payload }) => {
     switch (type) {
@@ -58,16 +73,69 @@ function AppDataProvider({ children }) {
         return {
           ...prevState,
           cartData: payload.cart,
-          wishListData: payload.wishlist,
         };
       case SET_WISHLIST:
         return {
           ...prevState,
-          wishListData: payload.products,
+          wishListData: payload.wishlist,
         };
       default:
         throw new Error('Action Not Defined');
     }
+  };
+
+  useEffect(() => {
+    if (!token) {
+      return;
+    }
+    (async () => {
+      const URLs = [GET_CART, GET_WISHLIST];
+
+      /* eslint-disable no-unused-vars */
+      const requests = URLs.map((URL) => axios.get(URL).catch((err) => null));
+
+      try {
+        const [cart, wishlist] = await axios.all(requests);
+
+        dispatchAppData({
+          type: SET_CART,
+          payload: { cart: cart.data.products },
+        });
+
+        dispatchAppData({
+          type: SET_WISHLIST,
+          payload: { wishlist: wishlist.data.products },
+        });
+      } catch (error) {
+        if (error?.response && error.response.status === 401) {
+          setupToast(
+            true,
+            'Good to have you back after long time please login again'
+          );
+          navigate('/login');
+          return;
+        }
+
+        setupToast(true, 'Operation failed');
+      }
+    })();
+  }, [token]);
+
+  const handleAPIOperations = async (url, postData, callback, action) => {
+    if (!isLoggedIn) {
+      navigate('/login', { state: { from: '/' } });
+      return;
+    }
+
+    const response = await postAPI(url, postData);
+
+    if (typeof response === 'number') {
+      // TODO: SHOW ERROR TOAST: REQUEST FAILED
+      setupToast(true, `${response} operation failed`);
+      return;
+    }
+    const { data } = response;
+    callback({ type: action, payload: data });
   };
 
   const [appData, dispatchAppData] = useReducer(appDataReducer, {
@@ -76,36 +144,15 @@ function AppDataProvider({ children }) {
     wishListData: [],
   });
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const response = await axios.get(
-          'https://neog-ecommerce--backend.herokuapp.com/products'
-        );
-        if (response.status === 201) {
-          dispatchAppData({
-            type: SET_PRODUCTS_DATA,
-            payload: { products: response.data.products },
-          });
-          console.log('data is successfully set');
-        }
-      } catch (error) {
-        console.log('failed to fetch data', error);
-      }
-    })();
-  }, []);
-
-  console.log({ appData });
-
   return (
-    <AppContext.Provider value={{ appData, dispatchAppData }}>
+    <AppContext.Provider
+      value={{ appData, dispatchAppData, handleAPIOperations }}
+    >
       {children}
     </AppContext.Provider>
   );
 }
 
-function useAppData() {
-  return useContext(AppContext);
-}
+const useAppData = () => useContext(AppContext);
 
 export { AppDataProvider, useAppData };
