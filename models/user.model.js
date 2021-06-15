@@ -28,17 +28,14 @@ const userSchema = new Schema({
   cart: {
     type: Schema.Types.ObjectId,
     ref: "Cart",
-    default: [],
   },
   wishlist: {
     type: Schema.Types.ObjectId,
     ref: "WishList",
-    default: [],
   },
   addresses: {
     type: Schema.Types.ObjectId,
     ref: "Address",
-    default: [],
   },
 });
 
