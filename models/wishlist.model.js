@@ -6,7 +6,6 @@ const wishListSchema = new Schema({
   owner: {
     type: Schema.Types.ObjectId,
     ref: "User",
-    unique: true,
     trim: true,
   },
   products: [
@@ -14,7 +13,6 @@ const wishListSchema = new Schema({
       product: {
         type: Schema.Types.ObjectId,
         ref: "Product",
-        unique: true,
         require: true,
       },
     },

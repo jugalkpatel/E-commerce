@@ -14,10 +14,10 @@ cartRouter
       const { cart: isCartCreated } = req.user;
 
       if (!isCartCreated) {
-        res.status(404).json({
+        res.status(200).json({
           success: true,
           message: "cart yet not created by user",
-          data: [],
+          products: [],
         });
 
         return;

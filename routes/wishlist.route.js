@@ -4,7 +4,9 @@ const wishlistRouter = express.Router();
 
 const { WishList } = require("../models/wishlist.model");
 const { Product } = require("../models/product.model");
+const { validateToken } = require("../middlewares/validateToken");
 
+wishlistRouter.use(validateToken);
 wishlistRouter
   .route("/")
   .get(async (req, res) => {
@@ -12,10 +14,10 @@ wishlistRouter
       const { wishlist: isWishListCreated } = req.user;
 
       if (!isWishListCreated) {
-        res.status(204).json({
+        res.status(200).json({
           success: true,
           message: "wishlist yet not created by user",
-          data: [],
+          products: [],
         });
 
         return;
@@ -178,5 +180,4 @@ wishlistRouter.route("/remove").post(async (req, res) => {
     });
   }
 });
-
 exports.wishlistRouter = wishlistRouter;
