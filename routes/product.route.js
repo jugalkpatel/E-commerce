@@ -1,6 +1,8 @@
 const express = require("express");
 const productRouter = express.Router();
 const { Product } = require("../models/product.model");
+const mongoose = require("mongoose");
+const { Schema } = mongoose;
 
 productRouter.param("productId", async (req, res, next, id) => {
   try {
@@ -31,7 +33,6 @@ productRouter
         .select("-__v")
         .populate("specifications", "cooling clockSpeed memory -_id");
 
-      // console.log(products);
       res.status(201).json({
         success: true,
         products: products,
@@ -76,6 +77,32 @@ productRouter.route("/:productId").get(async (req, res) => {
     res.status(200).json({ success: true, data: product });
   } catch (error) {
     res.status(404).json({ success: false, message: "Data not found", error });
+  }
+});
+
+productRouter.route("/fields").post(async (req, res) => {
+  try {
+    const { id, link } = req.body;
+
+    console.log(id, link);
+
+    const result = await Product.findByIdAndUpdate(
+      id,
+      { $set: { link: link } },
+      { new: true }
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "new field added successfully",
+      product: result,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      success: false,
+      message: "error while adding new field to Products",
+    });
   }
 });
 

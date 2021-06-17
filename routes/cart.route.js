@@ -29,7 +29,7 @@ cartRouter
           select: "-__v -quantity",
           populate: {
             path: "specifications",
-            select: "-__id -__v -productId",
+            select: "-_id -__v -productId",
           },
         })
         .populate("specifications")
