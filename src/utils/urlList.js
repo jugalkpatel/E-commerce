@@ -1,5 +1,6 @@
 const getUserUrls = (userId) => {
   const ROOT_URL = 'https://neog-ecommerce--backend.herokuapp.com/user';
+  // const TEST_URL = 'http://localhost:7000/user';
   return {
     ADD_ITEM: `${ROOT_URL}/${userId}/cart`,
     GET_CART: `${ROOT_URL}/${userId}/cart`,

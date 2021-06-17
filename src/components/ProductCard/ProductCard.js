@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 import './ProductCard.css';
 
 import arrow from '../../assets/svgs/right-arrow.svg';
@@ -9,7 +9,6 @@ import { capitalize } from '../../utils/capitalize';
 import { useAppData } from '../../contexts/AppDataProvider';
 import { isItemInList } from '../../utils/isItemInList';
 import { constants } from '../../utils/constants';
-import { Link } from 'react-router-dom';
 import { urlList } from '../../utils/urlList';
 
 const ProductCard = ({ productDetails }) => {
@@ -27,38 +26,38 @@ const ProductCard = ({ productDetails }) => {
 
   const isInWishList = isItemInList(wishListData, _id);
 
+  const handleWishlistClick = (event) => {
+    event.preventDefault();
+    if (isInWishList) {
+      handleAPIOperations(
+        REMOVE_ITEM_FROM_WISHLIST,
+        { id: _id },
+        dispatchAppData,
+        REMOVE_FROM_WISHLIST
+      );
+    }
+    handleAPIOperations(
+      ADD_ITEM_TO_WISHLIST,
+      { id: _id },
+      dispatchAppData,
+      ADD_TO_WISHLIST
+    );
+  };
+
   return (
     <div className="product-container" key={_id}>
-      <a href="#home" className="product-info">
+      <Link
+        to={`/product/${_id}`}
+        state={{ details: { ...productDetails } }}
+        className="product-info"
+      >
         <span className="product__img__container">
-          {/* <button className="close-btn">
-                        <img src={closeBtn} alt="close_btn" />
-                    </button> */}
           <img
             className="product-img product-info__img"
             src={image}
             alt="product"
           />
-          <button
-            className="wish-btn"
-            onClick={
-              isInWishList
-                ? () =>
-                    handleAPIOperations(
-                      REMOVE_ITEM_FROM_WISHLIST,
-                      { id: _id },
-                      dispatchAppData,
-                      REMOVE_FROM_WISHLIST
-                    )
-                : () =>
-                    handleAPIOperations(
-                      ADD_ITEM_TO_WISHLIST,
-                      { id: _id },
-                      dispatchAppData,
-                      ADD_TO_WISHLIST
-                    )
-            }
-          >
+          <button className="wish-btn" onClick={handleWishlistClick}>
             {isInWishList ? (
               <FaBookmark className="wishlist__icon" />
             ) : (
@@ -84,7 +83,7 @@ const ProductCard = ({ productDetails }) => {
           </ul>
         </span>
         <span className="price-tag">${price}</span>
-      </a>
+      </Link>
       {isItemInList(cartData, _id) ? (
         <Link to="/cart" className="primary-btn">
           GO TO CART

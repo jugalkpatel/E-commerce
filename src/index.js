@@ -4,10 +4,10 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 import './index.css';
 
-import App from './App';
 import { AppDataProvider } from './contexts/AppDataProvider';
 import { AuthProvider } from './contexts/AuthProvider';
 import { ToastProvider } from './contexts/ToastProvider';
+import Home from './pages/Home/Home';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -15,7 +15,7 @@ ReactDOM.render(
       <ToastProvider>
         <AuthProvider>
           <AppDataProvider>
-            <App />
+            <Home />
           </AppDataProvider>
         </AuthProvider>
       </ToastProvider>

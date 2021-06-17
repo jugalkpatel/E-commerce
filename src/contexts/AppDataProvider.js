@@ -91,27 +91,26 @@ function AppDataProvider({ children }) {
     (async () => {
       const URLs = [GET_CART, GET_WISHLIST];
 
-      /* eslint-disable no-unused-vars */
-      const requests = URLs.map((URL) => axios.get(URL).catch((err) => null));
-
       try {
+        const requests = URLs.map((URL) => axios.get(URL));
         const [cart, wishlist] = await axios.all(requests);
 
-        dispatchAppData({
-          type: SET_CART,
-          payload: { cart: cart.data.products },
-        });
+        if (cart) {
+          dispatchAppData({
+            type: SET_CART,
+            payload: { cart: cart.data.products },
+          });
+        }
 
-        dispatchAppData({
-          type: SET_WISHLIST,
-          payload: { wishlist: wishlist.data.products },
-        });
+        if (wishlist) {
+          dispatchAppData({
+            type: SET_WISHLIST,
+            payload: { wishlist: wishlist.data.products },
+          });
+        }
       } catch (error) {
         if (error?.response && error.response.status === 401) {
-          setupToast(
-            true,
-            'Good to have you back after long time please login again'
-          );
+          setupToast(true, 'Session Expired Please Login Again');
           navigate('/login');
           return;
         }
@@ -130,7 +129,6 @@ function AppDataProvider({ children }) {
     const response = await postAPI(url, postData);
 
     if (typeof response === 'number') {
-      // TODO: SHOW ERROR TOAST: REQUEST FAILED
       setupToast(true, `${response} operation failed`);
       return;
     }

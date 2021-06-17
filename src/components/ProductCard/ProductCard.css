@@ -47,7 +47,7 @@ body {
 
   background-color: transparent;
   border: 0;
-  outline: 0;
+  /* outline: 0; */
 
   position: absolute;
   right: 0rem;

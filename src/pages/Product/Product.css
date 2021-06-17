@@ -1,0 +1,171 @@
+:root {
+  --c-side-space: 1.3rem;
+  --m-bottom: 1rem;
+  --c-fnsize: 1.2rem;
+  --c-fnbvalue: 900;
+  --sp-color: #aaa;
+}
+
+.product__wrapper {
+  display: flex;
+  flex-direction: column;
+
+  font-family: var(--primary-font);
+
+  color: var(--primary-color);
+}
+
+.p-box {
+  margin: var(--c-side-space);
+  position: relative;
+}
+
+.product__button--wishlist {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  background-color: transparent;
+  outline-color: transparent;
+
+  border: 0;
+}
+
+.r-img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.i-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 18rem;
+}
+
+.product__section--float {
+  display: flex;
+
+  position: fixed;
+  bottom: 0;
+
+  width: 100vw;
+}
+
+.product__button--cart,
+.product__button--order {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+
+  border: 0;
+
+  padding: 0.7rem;
+
+  font-weight: var(--c-fnbvalue);
+
+  border-radius: 0.1rem;
+
+  width: 50%;
+
+  text-align: center;
+
+  text-decoration: none;
+
+  font-size: 1rem;
+}
+
+.pd__icon {
+  font-size: 1.7rem;
+}
+
+.b-text {
+  margin-left: 0.3rem;
+}
+
+.product__button--order {
+  background-color: #ffffff;
+  color: var(--secondary-color);
+}
+
+.product__section--details {
+  display: flex;
+  flex-direction: column;
+
+  padding: var(--c-side-space);
+}
+
+.product__title {
+  font-weight: var(--c-fnbvalue);
+  font-size: var(--c-fnsize);
+
+  margin-bottom: var(--m-bottom);
+}
+
+.product__price {
+  font-size: 1.5rem;
+
+  margin-bottom: var(--m-bottom);
+}
+
+.c-symbol {
+  font-size: 1rem;
+}
+
+.product__spec {
+  list-style-type: none;
+
+  padding: 0;
+
+  margin: 0;
+}
+
+.product__spec__text {
+  margin-left: 1rem;
+}
+
+.c-item {
+  color: var(--sp-color);
+  margin-bottom: 0.5rem;
+}
+
+@media screen and (min-width: 768px) {
+  .product__wrapper {
+    flex-direction: row;
+    border-bottom: 1px solid var(--primary-color);
+    padding-bottom: 3rem;
+  }
+
+  .product__section--img {
+    flex-grow: 1;
+  }
+
+  .product__button--wishlist {
+    left: 0;
+  }
+
+  .product__section--details {
+    flex-grow: 2;
+    margin-top: 4rem;
+  }
+
+  .product__section--float {
+    position: relative;
+    width: 100%;
+  }
+
+  .i-box {
+    height: 21rem;
+  }
+
+  .product__button--cart,
+  .product__button--order {
+    font-weight: 600;
+    margin: 0 1rem;
+    padding: 1rem 1.5rem;
+  }
+}
