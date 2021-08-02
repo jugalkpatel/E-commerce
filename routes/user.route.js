@@ -121,9 +121,15 @@ userRouter.route("/signup").post(async (req, res) => {
 
     await user.save();
 
+    const token = jwt.sign({ uname: uname }, process.env.SECRET_KEY, {
+      expiresIn: "72h",
+    });
+
     res.status(201).json({
       success: true,
       message: "user created successfully",
+      token: token,
+      id: user._id,
     });
   } catch (error) {
     console.log({ error });
