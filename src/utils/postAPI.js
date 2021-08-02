@@ -1,9 +1,9 @@
 import axios from "axios";
 
-const postAPI = async (url, info) => {
-  console.log({ url, info });
+const postAPI = async (url, payload) => {
+  console.log({ url, payload });
   try {
-    const { data, status } = await axios.post(url, info);
+    const { data, status } = await axios.post(url, payload);
     return { data, status };
   } catch (error) {
     console.error(error.response);
