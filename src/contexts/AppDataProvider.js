@@ -1,13 +1,12 @@
-import React from 'react';
-import { createContext, useContext, useReducer, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import React from "react";
+import { createContext, useContext, useReducer, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
-import { useAuthData } from './AuthProvider';
-import { useToast } from './ToastProvider';
-import { postAPI } from '../utils/postAPI';
-import { urlList } from '../utils/urlList';
-import { constants } from '../utils/constants';
+import { useAuthData, useToast } from ".";
+import { postAPI } from "../utils/postAPI";
+import { urlList } from "../utils/urlList";
+import { constants } from "../utils/constants";
 
 const AppContext = createContext();
 
@@ -80,11 +79,12 @@ function AppDataProvider({ children }) {
           wishListData: payload.wishlist,
         };
       default:
-        throw new Error('Action Not Defined');
+        return prevState;
     }
   };
 
   useEffect(() => {
+    console.log("AppProvider useEffect called");
     if (!token) {
       return;
     }
@@ -110,25 +110,25 @@ function AppDataProvider({ children }) {
         }
       } catch (error) {
         if (error?.response && error.response.status === 401) {
-          setupToast(true, 'Session Expired Please Login Again');
-          navigate('/login');
+          setupToast(true, "Session Expired Please Login Again");
+          navigate("/login");
           return;
         }
 
-        setupToast(true, 'Operation failed');
+        setupToast(true, "Operation failed");
       }
     })();
   }, [token]);
 
   const handleAPIOperations = async (url, postData, callback, action) => {
     if (!isLoggedIn) {
-      navigate('/login', { state: { from: '/' } });
+      navigate("/login", { state: { from: "/" } });
       return;
     }
 
     const response = await postAPI(url, postData);
 
-    if (typeof response === 'number') {
+    if (typeof response === "number") {
       setupToast(true, `${response} operation failed`);
       return;
     }

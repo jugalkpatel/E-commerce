@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import './FilterBar.css';
-import downArrow from '../../assets/svgs/down-arrow.svg';
-import { constants } from '../../utils/constants';
+import React, { useState } from "react";
+import "./FilterBar.css";
+import downArrow from "../../assets/svgs/down-arrow.svg";
+import { constants } from "../../utils/constants";
 const FilterBar = ({ setFilter }) => {
-  const [visibility, setVisibility] = useState('hidden');
+  const [visibility, setVisibility] = useState("hidden");
   const { LOW_TO_HIGH, HIGH_TO_LOW } = constants;
   return (
     <div className="filterbar">
@@ -14,7 +14,7 @@ const FilterBar = ({ setFilter }) => {
             className="dropdown__button__primary"
             onClick={() =>
               setVisibility((prev) => {
-                return prev === 'hidden' ? 'visible' : 'hidden';
+                return prev === "hidden" ? "visible" : "hidden";
               })
             }
           >

@@ -1,16 +1,14 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
-import './Header.css';
+import "./Header.css";
 
-import gpu from '../../assets/svgs/gpu.svg';
-import bookmark from '../../assets/svgs/bookmark-nv.svg';
-import profile from '../../assets/svgs/profile.svg';
-import cart from '../../assets/svgs/cart.svg';
+import gpu from "../../assets/svgs/gpu.svg";
+import bookmark from "../../assets/svgs/bookmark-nv.svg";
+import profile from "../../assets/svgs/profile.svg";
+import cart from "../../assets/svgs/cart.svg";
 
-import { useAppData } from '../../contexts/AppDataProvider';
-import { useAuthData } from '../../contexts/AuthProvider';
-
+import { useAppData, useAuthData } from "../../contexts";
 const Header = () => {
   const {
     appData: { cartData, wishListData },

@@ -29,7 +29,7 @@
 
 .login__extra {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
 }
 
@@ -131,60 +131,6 @@
 
 .login--common:invalid {
   border: 2px solid var(--invalid-text-color);
-}
-
-/* checkbox utility */
-
-.login__checkbox {
-  display: flex;
-  align-items: center;
-}
-
-.login__container .checkbox__text {
-  color: var(--primary-color);
-
-  font-size: 1rem;
-  font-family: var(--primary-font);
-  font-weight: 300;
-
-  margin-left: 0.5rem;
-  width: fit-content;
-  cursor: pointer;
-}
-
-.login__container input[type="checkbox"] {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  appearance: none;
-  -webkit-appearance: none;
-
-  height: 1rem;
-  width: 1rem;
-
-  background-color: var(--background-color);
-
-  cursor: pointer;
-
-  border: 2px solid var(--primary-color);
-  border-radius: 0.1rem;
-}
-
-input[type="checkbox"]:after {
-  content: url("../../assets/svgs/check.svg");
-
-  display: none;
-}
-
-input[type="checkbox"]:checked {
-  background-color: var(--secondary-color);
-
-  border-color: var(--secondary-color);
-}
-
-input[type="checkbox"]:checked:after {
-  display: block;
 }
 
 .login__create-account-container {

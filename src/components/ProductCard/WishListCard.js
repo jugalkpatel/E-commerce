@@ -1,13 +1,13 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 
-import close from '../../assets/svgs/close-btn.svg';
-import './WishListCard.css';
+import close from "../../assets/svgs/close-btn.svg";
+import "./WishListCard.css";
 
-import { useAppData } from '../../contexts/AppDataProvider';
-import { constants } from '../../utils/constants';
-import { urlList } from '../../utils/urlList';
-import { isItemInList } from '../../utils/isItemInList';
+import { useAppData } from "../../contexts";
+import { constants } from "../../utils/constants";
+import { urlList } from "../../utils/urlList";
+import { isItemInList } from "../../utils/isItemInList";
 
 const WishListCard = ({ productDetails }) => {
   const { _id, name, image, price } = productDetails;
@@ -24,12 +24,12 @@ const WishListCard = ({ productDetails }) => {
   const handleClick = (event) => {
     event.preventDefault();
 
-    if (event.target.innerText === 'GO TO CART') {
-      navigate('/cart');
+    if (event.target.innerText === "GO TO CART") {
+      navigate("/cart");
       return;
     }
 
-    if (event.target.innerText === 'ADD TO CART') {
+    if (event.target.innerText === "ADD TO CART") {
       handleAPIOperations(ADD_ITEM, { id: _id }, dispatchAppData, ADD_TO_CART);
       return;
     }

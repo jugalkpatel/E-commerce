@@ -1,10 +1,11 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
-import './Checkout.css';
-import { IoClose } from 'react-icons/io5';
+import "./Checkout.css";
+import { IoClose } from "react-icons/io5";
 
-import { useAppData } from '../../contexts/AppDataProvider';
+import { useAppData } from "../../contexts";
+
 const Checkout = () => {
   const {
     appData: { cartData },

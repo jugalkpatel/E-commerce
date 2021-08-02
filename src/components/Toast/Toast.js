@@ -1,15 +1,15 @@
-import React from 'react';
+import React from "react";
 
-import './Toast.css';
-import { RiErrorWarningFill } from 'react-icons/ri';
-import { IoMdClose } from 'react-icons/io';
+import "./Toast.css";
+import { RiErrorWarningFill } from "react-icons/ri";
+import { IoMdClose } from "react-icons/io";
 
-import { useToast } from '../../contexts/ToastProvider';
+import { useToast } from "../../contexts";
 
 const Toast = () => {
   const { showToast, toastMsg, setShowToast } = useToast();
   return (
-    <div className={`toast ${showToast ? 'visible' : 'hidden'}`}>
+    <div className={`toast ${showToast ? "visible" : "hidden"}`}>
       <span className="toast__icon">
         <RiErrorWarningFill />
       </span>

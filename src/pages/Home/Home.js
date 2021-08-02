@@ -1,8 +1,8 @@
-import React from 'react';
-import './Home.css';
-import { Header } from '../../components/Header/Header';
-import { Router } from '../../routers/Router';
-import { Toast } from '../../components/Toast/Toast';
+import React from "react";
+import "./Home.css";
+import { Header } from "../../components/Header/Header";
+import { Router } from "../../routers/Router";
+import { Toast } from "../../components/Toast/Toast";
 
 function Home() {
   return (

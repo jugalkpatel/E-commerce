@@ -1,7 +1,7 @@
-import React from 'react';
-import './Profile.css';
+import React from "react";
+import "./Profile.css";
 
-import { useAuthData } from '../../contexts/AuthProvider';
+import { useAuthData } from "../../contexts";
 const Profile = () => {
   const { handleLogout } = useAuthData();
   return (

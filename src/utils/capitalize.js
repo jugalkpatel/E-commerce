@@ -1,15 +1,14 @@
 const capitalize = (string) => {
-  if (!string || string === 'None') return '--';
+  if (!string || string === "None") return "--";
 
-  if (typeof string === 'number') return string;
+  if (typeof string === "number") return string;
 
   return string
-    .split(' ')
+    .split(" ")
     .map((word) => {
       return word.charAt(0).toUpperCase() + word.substr(1);
     })
-    .join(' ');
+    .join(" ");
 };
 
 export { capitalize };
-

@@ -1,13 +1,13 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
-import './Cart.css';
-import gpu from '../../assets/svgs/gpu.svg';
+import "./Cart.css";
+import gpu from "../../assets/svgs/gpu.svg";
 
-import { useAppData } from '../../contexts/AppDataProvider';
-import { CartProductCard } from '../../components/ProductCard/CartProductCard';
-import { Link, Outlet } from 'react-router-dom';
-import { totalPrice } from '../../utils/totalPrice';
+import { useAppData } from "../../contexts";
+import { CartProductCard } from "../../components/ProductCard/CartProductCard";
+import { Link, Outlet } from "react-router-dom";
+import { totalPrice } from "../../utils/totalPrice";
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -39,7 +39,7 @@ const Cart = () => {
               <button
                 className="cart__checkout__checkoutbtn"
                 onClick={() =>
-                  navigate('/cart/checkout', {
+                  navigate("/cart/checkout", {
                     state: { details: { cartData } },
                   })
                 }

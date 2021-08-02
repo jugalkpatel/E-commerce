@@ -1,15 +1,16 @@
-import React, { useContext, createContext, useState, useEffect } from 'react';
+import React, { useContext, createContext, useState, useEffect } from "react";
 
 const ToastContext = createContext();
 
 const ToastProvider = ({ children }) => {
   const [showToast, setShowToast] = useState(false);
-  const [toastMsg, setToastMsg] = useState('');
+  const [toastMsg, setToastMsg] = useState("");
 
   useEffect(() => {
+    console.log("ToastProvider useEffect called....");
     const timer = setTimeout(() => {
       setShowToast(false);
-      setToastMsg('');
+      setToastMsg("");
     }, 3000);
     return () => clearTimeout(timer);
   });

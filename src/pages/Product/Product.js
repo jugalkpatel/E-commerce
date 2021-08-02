@@ -1,15 +1,15 @@
-import React from 'react';
-import { useLocation, Link } from 'react-router-dom';
-import { FaBookmark, FaRegBookmark } from 'react-icons/fa';
-import { IoMdCart, IoIosFlash } from 'react-icons/io';
-import arrow from '../../assets/svgs/right-arrow.svg';
-import './Product.css';
+import React from "react";
+import { useLocation, Link } from "react-router-dom";
+import { FaBookmark, FaRegBookmark } from "react-icons/fa";
+import { IoMdCart, IoIosFlash } from "react-icons/io";
+import arrow from "../../assets/svgs/right-arrow.svg";
+import "./Product.css";
 
-import { capitalize } from '../../utils/capitalize';
-import { useAppData } from '../../contexts/AppDataProvider';
-import { constants } from '../../utils/constants';
-import { urlList } from '../../utils/urlList';
-import { isItemInList } from '../../utils/isItemInList';
+import { capitalize } from "../../utils/capitalize";
+import { useAppData } from "../../contexts";
+import { constants } from "../../utils/constants";
+import { urlList } from "../../utils/urlList";
+import { isItemInList } from "../../utils/isItemInList";
 
 const Product = () => {
   const { state } = useLocation();

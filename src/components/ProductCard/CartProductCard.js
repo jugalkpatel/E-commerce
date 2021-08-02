@@ -1,20 +1,21 @@
-import React from 'react';
+import React from "react";
 
-import './CartProductCard.css';
+import "./CartProductCard.css";
 
-import arrow from '../../assets/svgs/right-arrow.svg';
-import minus from '../../assets/svgs/minus.svg';
-import plus from '../../assets/svgs/plus.svg';
-import close from '../../assets/svgs/close-btn.svg';
+import arrow from "../../assets/svgs/right-arrow.svg";
+import minus from "../../assets/svgs/minus.svg";
+import plus from "../../assets/svgs/plus.svg";
+import close from "../../assets/svgs/close-btn.svg";
 
-import { capitalize } from '../../utils/capitalize';
-import { useAppData } from '../../contexts/AppDataProvider';
-import { constants } from '../../utils/constants';
-import { urlList } from '../../utils/urlList';
+import { capitalize } from "../../utils/capitalize";
+import { useAppData } from "../../contexts";
+import { constants } from "../../utils/constants";
+import { urlList } from "../../utils/urlList";
 
 const CartProductCard = ({ productDetails, quantity }) => {
   const { INCREMENT_QUANTITY, DECREMENT_QUANTITY, REMOVE_FROM_CART } =
     constants;
+
   const { _id, name, image, specifications, price } = productDetails;
 
   const { REMOVE_ITEM, UPDATE_ITEM } = urlList;

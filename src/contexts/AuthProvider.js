@@ -1,37 +1,37 @@
-import { React, createContext, useContext, useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { React, createContext, useContext, useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
-import { useToast } from './ToastProvider';
-import { postAPI } from '../utils/postAPI';
-import { setupAuthHeaderForServiceCalls } from '../utils/setupHeaders';
-import { prepareUrls } from '../utils/urlList';
+import { useToast } from "./ToastProvider";
+import { postAPI } from "../utils/postAPI";
+import { setupAuthHeaderForServiceCalls } from "../utils/setupHeaders";
+import { prepareUrls } from "../utils/urlList";
 
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [isLoggedIn, setLogin] = useState(false);
-  const [token, setToken] = useState(null);
+  const [token, setToken] = useState("");
 
   const navigate = useNavigate();
   const { state } = useLocation();
-  const path = state !== null ? state.from : '/';
+  const path = state !== null ? state.from : "/";
 
   const { setupToast } = useToast();
 
   useEffect(() => {
+    console.log("AuthProvider useEffect called....");
     (async () => {
       const { token, id } = (await JSON.parse(
-        localStorage?.getItem('verse-token')
-      )) || { token: null, id: null };
+        localStorage?.getItem("verse-token")
+      )) || { token: "", id: "" };
       setupAuth(token, id);
     })();
   }, []);
 
   const setupAuth = (token, id) => {
     if (!token || !id) {
-      // TODO:
-      // SHOW ERROR TOAST
-      setupToast(true, 'You\'re Not Logged In');
+      // TODO: SHOW ERROR TOAST
+      setupToast(true, "You're Not Logged In");
       navigate(path);
       return;
     }
@@ -45,11 +45,11 @@ const AuthProvider = ({ children }) => {
   const handleLogin = async ({ email, password }) => {
     if (!email && !password) {
       // TODO: SHOW ERROR TOAST
-      setupToast(true, 'Please fill all details');
+      setupToast(true, "Please fill all details");
     }
 
     const response = await postAPI(
-      'https://neog-ecommerce--backend.herokuapp.com/user/login',
+      "https://neog-ecommerce--backend.herokuapp.com/user/login",
       {
         email,
         password,
@@ -60,29 +60,36 @@ const AuthProvider = ({ children }) => {
     if (response?.data) {
       const { token, id } = response.data;
       // TODO: FIND BETTER WAY
-      localStorage?.setItem('verse-token', JSON.stringify({ token, id }));
+      localStorage?.setItem("verse-token", JSON.stringify({ token, id }));
       setupAuth(token, id);
       return;
     }
 
     if (response === 401) {
-      setupToast(true, 'Invalid user name or password');
+      setupToast(true, "Invalid user name or password");
       return;
     }
 
-    setupToast(true, 'Failed to Login try again');
+    setupToast(true, "Failed to Login try again");
   };
 
   const handleLogout = () => {
-    setToken('');
+    setToken("");
     setLogin(false);
-    localStorage?.removeItem('verse-token');
-    setupToast(true, 'You\'re Logged out');
+    localStorage?.removeItem("verse-token");
+    setupToast(true, "You're Logged out");
   };
 
   return (
     <AuthContext.Provider
-      value={{ isLoggedIn, setLogin, handleLogin, token, handleLogout }}
+      value={{
+        isLoggedIn,
+        setLogin,
+        handleLogin,
+        token,
+        handleLogout,
+        setupAuth,
+      }}
     >
       {children}
     </AuthContext.Provider>

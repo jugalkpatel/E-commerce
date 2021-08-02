@@ -1,4 +1,4 @@
-import { constants } from '../utils/constants';
+import { constants } from "../utils/constants";
 
 const { LOW_TO_HIGH, HIGH_TO_LOW, EXCLUDE_OUT_OF_STOCK } = constants;
 const getSortedProducts = (list, filterFlags) => {

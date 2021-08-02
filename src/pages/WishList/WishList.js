@@ -1,11 +1,11 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
-import './WishList.css';
-import gpu from '../../assets/svgs/gpu.svg';
+import "./WishList.css";
+import gpu from "../../assets/svgs/gpu.svg";
 
-import { WishListCard } from '../../components/ProductCard/WishListCard';
-import { useAppData } from '../../contexts/AppDataProvider';
+import { WishListCard } from "../../components/ProductCard/WishListCard";
+import { useAppData } from "../../contexts";
 
 const WishList = () => {
   const {

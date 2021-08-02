@@ -1,13 +1,14 @@
-import axios from 'axios';
+import axios from "axios";
 
 const postAPI = async (url, info) => {
+  console.log({ url, info });
   try {
-    const response = await axios.post(url, info);
-    if (response.status === 201) {
-      return response.data;
-    }
+    const { data, status } = await axios.post(url, info);
+    return { data, status };
   } catch (error) {
-    return error.response.status;
+    console.error(error.response);
+    const { data, status } = error.response;
+    return { data, status };
   }
 };
 

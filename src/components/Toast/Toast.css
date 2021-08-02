@@ -25,8 +25,7 @@
   bottom: 0;
   right: 0;
 
-  max-width: 25rem;
-  width: 25rem;
+  width: 95vw;
 
   background-color: var(--toast-color);
   border-radius: var(--toast-radius);
@@ -69,4 +68,22 @@
 
   border: 0;
   padding: 0;
+}
+
+@media screen and (min-width: 568px) {
+  .toast {
+    max-width: 50vw;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .toast {
+    max-width: 45vw;
+  }
+}
+
+@media screen and (min-width: 1050px) {
+  .toast {
+    max-width: 35vw;
+  }
 }

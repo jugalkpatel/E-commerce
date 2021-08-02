@@ -1,15 +1,15 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import './ProductCard.css';
+import React from "react";
+import { Link } from "react-router-dom";
+import "./ProductCard.css";
 
-import arrow from '../../assets/svgs/right-arrow.svg';
-import { FaBookmark, FaRegBookmark } from 'react-icons/fa';
+import arrow from "../../assets/svgs/right-arrow.svg";
+import { FaBookmark, FaRegBookmark } from "react-icons/fa";
 
-import { capitalize } from '../../utils/capitalize';
-import { useAppData } from '../../contexts/AppDataProvider';
-import { isItemInList } from '../../utils/isItemInList';
-import { constants } from '../../utils/constants';
-import { urlList } from '../../utils/urlList';
+import { capitalize } from "../../utils/capitalize";
+import { useAppData } from "../../contexts";
+import { isItemInList } from "../../utils/isItemInList";
+import { constants } from "../../utils/constants";
+import { urlList } from "../../utils/urlList";
 
 const ProductCard = ({ productDetails }) => {
   const { _id, name, image, specifications, price, quantity } = productDetails;
