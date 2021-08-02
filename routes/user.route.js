@@ -97,11 +97,10 @@ userRouter.route("/login").post(async (req, res) => {
 
     res.status(201).json({
       success: true,
-      data: { token, id: user._id },
+      token: token,
+      id: user._id,
     });
   } catch (error) {
-    console.log(error);
-
     res.status(500).json({
       success: false,
       message: "Error while searching for user.",
