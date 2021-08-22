@@ -49,6 +49,12 @@ body {
   margin: 0.5rem 0.5rem 0 0;
 }
 
+.wc__icon {
+  color: var(--primary-color);
+
+  font-size: 1.5rem;
+}
+
 .wishlist__product__imgcontainer {
   display: flex;
   justify-content: center;

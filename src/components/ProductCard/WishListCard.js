@@ -1,22 +1,20 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import close from "../../assets/svgs/close-btn.svg";
+// import close from "../../assets/svgs/close-btn.svg";
 import "./WishListCard.css";
+// import { IoClose } from "react-icons/io";
 
 import { useAppData } from "../../contexts";
 import { constants } from "../../utils/constants";
 import { urlList } from "../../utils/urlList";
 import { isItemInList } from "../../utils/isItemInList";
+import { BookMarkButton } from "../BookMarkButton/WishlistButton";
 
 const WishListCard = ({ productDetails }) => {
   const { _id, name, image, price } = productDetails;
 
-  const {
-    dispatchAppData,
-    handleAPIOperations,
-    appData: { cartData },
-  } = useAppData();
+  const { dispatchAppData, handleAPIOperations, cartData } = useAppData();
 
   const { REMOVE_FROM_WISHLIST, ADD_TO_CART } = constants;
   const { REMOVE_ITEM_FROM_WISHLIST, ADD_ITEM } = urlList;
@@ -49,9 +47,22 @@ const WishListCard = ({ productDetails }) => {
       state={{ details: { ...productDetails } }}
       className="wishlist__product"
     >
-      <button className="wishlist__product__remove" onClick={handleClick}>
+      {/* <button className="wishlist__product__remove" onClick={handleClick}>
         <img src={close} alt="close_icon" />
-      </button>
+        <IoMdClose className="wc__icon" />
+      </button> */}
+
+      <BookMarkButton
+        data={{
+          type: "REMOVE",
+          btnClass: "wishlist__product__remove",
+          svgClass: "wc__icon",
+          payload: {
+            id: _id,
+          },
+        }}
+      />
+
       <div className="wishlist__product__imgcontainer">
         <img src={image} alt="product_img" className="wishlist__product__img" />
       </div>

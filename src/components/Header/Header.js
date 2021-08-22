@@ -10,9 +10,7 @@ import cart from "../../assets/svgs/cart.svg";
 
 import { useAppData, useAuthData } from "../../contexts";
 const Header = () => {
-  const {
-    appData: { cartData, wishListData },
-  } = useAppData();
+  const { cartData, wishListData } = useAppData();
 
   const { token } = useAuthData();
 

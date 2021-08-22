@@ -3,22 +3,20 @@ import { Link } from "react-router-dom";
 import "./ProductCard.css";
 
 import arrow from "../../assets/svgs/right-arrow.svg";
-import { FaBookmark, FaRegBookmark } from "react-icons/fa";
+// import { FaBookmark, FaRegBookmark } from "react-icons/fa";
 
 import { capitalize } from "../../utils/capitalize";
 import { useAppData } from "../../contexts";
 import { isItemInList } from "../../utils/isItemInList";
 import { constants } from "../../utils/constants";
 import { urlList } from "../../utils/urlList";
+import { BookMarkButton } from "../BookMarkButton/BookMarkButton";
 
 const ProductCard = ({ productDetails }) => {
   const { _id, name, image, specifications, price, quantity } = productDetails;
 
-  const {
-    appData: { cartData, wishListData },
-    dispatchAppData,
-    handleAPIOperations,
-  } = useAppData();
+  const { cartData, wishListData, dispatchAppData, handleAPIOperations } =
+    useAppData();
 
   const { ADD_TO_CART, ADD_TO_WISHLIST, REMOVE_FROM_WISHLIST } = constants;
 
@@ -26,6 +24,7 @@ const ProductCard = ({ productDetails }) => {
 
   const isInWishList = isItemInList(wishListData, _id);
 
+  // eslint-disable-next-line no-unused-vars
   const handleWishlistClick = (event) => {
     event.preventDefault();
     if (isInWishList) {
@@ -57,13 +56,23 @@ const ProductCard = ({ productDetails }) => {
             src={image}
             alt="product"
           />
-          <button className="wish-btn" onClick={handleWishlistClick}>
+          {/* <button className="wish-btn" onClick={handleWishlistClick}>
             {isInWishList ? (
               <FaBookmark className="wishlist__icon" />
             ) : (
               <FaRegBookmark className="wishlist__icon" />
             )}
-          </button>
+          </button> */}
+          <BookMarkButton
+            data={{
+              type: "ADD",
+              btnClass: "wish-btn",
+              svgClass: "wishlist__icon",
+              payload: {
+                id: _id,
+              },
+            }}
+          />
         </span>
         <span className="product-info__text">{name.toUpperCase()}</span>
         <span className="product-info__specifications">

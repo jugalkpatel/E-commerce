@@ -41,12 +41,12 @@ function AppDataProvider({ children }) {
       case ADD_TO_WISHLIST:
         return {
           ...prevState,
-          wishListData: payload.products,
+          wishListData: prevState.wishListData.concat(payload.product),
         };
       case REMOVE_FROM_WISHLIST:
         return {
           ...prevState,
-          wishListData: payload.products,
+          wishListData: prevState.wishListData.filter((product) => product.id),
         };
       case SET_PRODUCTS_DATA:
         return {
@@ -144,7 +144,7 @@ function AppDataProvider({ children }) {
 
   return (
     <AppContext.Provider
-      value={{ appData, dispatchAppData, handleAPIOperations }}
+      value={{ ...appData, dispatchAppData, handleAPIOperations }}
     >
       {children}
     </AppContext.Provider>

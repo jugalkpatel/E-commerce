@@ -1,6 +1,6 @@
 import React from "react";
 import { useLocation, Link } from "react-router-dom";
-import { FaBookmark, FaRegBookmark } from "react-icons/fa";
+// import { FaBookmark, FaRegBookmark } from "react-icons/fa";
 import { IoMdCart, IoIosFlash } from "react-icons/io";
 import arrow from "../../assets/svgs/right-arrow.svg";
 import "./Product.css";
@@ -10,29 +10,30 @@ import { useAppData } from "../../contexts";
 import { constants } from "../../utils/constants";
 import { urlList } from "../../utils/urlList";
 import { isItemInList } from "../../utils/isItemInList";
+import { BookMarkButton } from "../../components/BookMarkButton/BookMarkButton";
 
 const Product = () => {
   const { state } = useLocation();
 
   const { _id, name, image, specifications, price } = state.details;
 
-  const {
-    appData: { cartData, wishListData },
-    handleAPIOperations,
-    dispatchAppData,
-  } = useAppData();
+  const { cartData, wishListData, handleAPIOperations, dispatchAppData } =
+    useAppData();
 
+  // eslint-disable-next-line no-unused-vars
   const { ADD_TO_CART, ADD_TO_WISHLIST, REMOVE_FROM_WISHLIST } = constants;
 
+  // eslint-disable-next-line no-unused-vars
   const { ADD_ITEM, ADD_ITEM_TO_WISHLIST, REMOVE_ITEM_FROM_WISHLIST } = urlList;
 
+  // eslint-disable-next-line no-unused-vars
   const isInWishList = isItemInList(wishListData, _id);
 
   return (
     <div className="product__wrapper">
       <section className="product__section--img">
         <section className="p-box">
-          <button
+          {/* <button
             className="product__button--wishlist"
             onClick={
               isInWishList
@@ -57,7 +58,17 @@ const Product = () => {
             ) : (
               <FaRegBookmark className="wishlist__icon" />
             )}
-          </button>
+          </button> */}
+          <BookMarkButton
+            data={{
+              type: "ADD",
+              btnClass: "product__button--wishlist",
+              svgClass: "wishlist__icon",
+              payload: {
+                id: _id,
+              },
+            }}
+          />
           <section className="i-box">
             <img className="r-img" src={image} alt="product" />
           </section>

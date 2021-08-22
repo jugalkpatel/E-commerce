@@ -12,9 +12,7 @@ import { totalPrice } from "../../utils/totalPrice";
 const Cart = () => {
   const navigate = useNavigate();
 
-  const {
-    appData: { cartData },
-  } = useAppData();
+  const { cartData } = useAppData();
   return (
     <>
       <div className="cart">

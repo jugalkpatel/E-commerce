@@ -26,6 +26,7 @@
   margin: 0 auto;
   font-family: var(--primary-font);
   padding: 1rem;
+  grid-gap: 1rem;
 }
 
 .wishlist__empty {

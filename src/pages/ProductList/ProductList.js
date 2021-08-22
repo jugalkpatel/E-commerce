@@ -23,10 +23,7 @@ const ProductList = () => {
     SET_PRODUCTS_DATA,
   } = constants;
 
-  const {
-    appData: { productsData },
-    dispatchAppData,
-  } = useAppData();
+  const { productsData, dispatchAppData } = useAppData();
 
   const { setupToast } = useToast();
 
