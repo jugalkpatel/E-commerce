@@ -10,14 +10,13 @@ const wishListSchema = new Schema({
   },
   products: [
     {
-      product: {
-        type: Schema.Types.ObjectId,
-        ref: "Product",
-        require: true,
-      },
+      type: Schema.Types.ObjectId,
+      ref: "Product",
     },
   ],
 });
+
+wishListSchema.index({ products: 1 }, { unique: true });
 
 const WishList = mongoose.model("WishList", wishListSchema);
 exports.WishList = WishList;

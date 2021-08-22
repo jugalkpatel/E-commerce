@@ -35,7 +35,6 @@ const userSchema = new Schema({
   },
   addresses: {
     type: Schema.Types.ObjectId,
-    ref: "Address",
   },
 });
 
