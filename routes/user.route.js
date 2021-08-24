@@ -101,9 +101,9 @@ userRouter.route("/login").post(async (req, res) => {
       id: user._id,
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(401).json({
       success: false,
-      message: "Error while searching for user.",
+      message: "Error while searching for user",
       error,
     });
   }

@@ -14,7 +14,7 @@ cartRouter
       const { cart: isCartCreated } = req.user;
 
       if (!isCartCreated) {
-        res.status(200).json({
+        res.status(201).json({
           success: true,
           message: "cart yet not created by user",
           products: [],
@@ -35,7 +35,7 @@ cartRouter
         .populate("specifications")
         .select("-__v");
 
-      res.status(200).json({
+      res.status(201).json({
         success: true,
         products: cart.products,
       });

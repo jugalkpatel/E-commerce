@@ -12,7 +12,7 @@ wishlistRouter.route("/").get(async (req, res) => {
     const { wishlist: isWishListCreated } = req.user;
 
     if (!isWishListCreated) {
-      res.status(200).json({
+      res.status(201).json({
         success: true,
         message: "wishlist yet not created by user",
         products: [],
@@ -23,7 +23,7 @@ wishlistRouter.route("/").get(async (req, res) => {
 
     const wishlist = await WishList.findById(isWishListCreated)
       .populate({
-        path: "products.product",
+        path: "products",
         select: "-__v -quantity",
         populate: {
           path: "specifications",
@@ -33,7 +33,7 @@ wishlistRouter.route("/").get(async (req, res) => {
       .populate("specifications")
       .select("-__v");
 
-    res.status(200).json({
+    res.status(201).json({
       success: true,
       products: wishlist.products,
     });
@@ -53,6 +53,8 @@ wishlistRouter.post("/add", async (req, res) => {
     const { id: userId, user } = req;
 
     const product = await Product.findById(productId);
+
+    console.log({ productId });
 
     if (!product) {
       res.status(404).json({
@@ -80,7 +82,7 @@ wishlistRouter.post("/add", async (req, res) => {
 
       res.status(201).json({
         success: true,
-        message: "item is added to the playlist",
+        message: "Product Added Successfully",
         product: wishlist.products.slice(-1)[0],
       });
 
@@ -91,8 +93,6 @@ wishlistRouter.post("/add", async (req, res) => {
       owner: userId,
       products: [productId],
     });
-
-    console.log({ wishlist });
 
     await wishlist.save();
 
@@ -139,35 +139,22 @@ wishlistRouter.route("/remove").post(async (req, res) => {
       return;
     }
 
-    const wishlist = await WishList.findOne({ owner: userId });
-
-    wishlist.products = wishlist.products.filter(
-      (item) => item.product.toString() !== productId
+    await WishList.findOneAndUpdate(
+      { owner: userId },
+      { $pull: { products: productId } },
+      { new: true }
     );
-
-    await wishlist.save();
-
-    const populatedWishlist = await wishlist
-      .populate({
-        path: "products.product",
-        select: "-quantity -__v",
-        populate: {
-          path: "specifications",
-          select: "-__v -_id -productId",
-        },
-      })
-      .execPopulate();
 
     res.status(201).json({
       success: true,
-      message: "wishlist is created",
-      data: populatedWishlist,
+      message: "Product Removed Successfully",
+      product: productId,
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.status(500).json({
       success: false,
-      message: "error while removing product",
+      message: "failed to remove product from wishlist",
       error,
     });
   }
