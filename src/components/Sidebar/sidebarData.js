@@ -1,5 +1,5 @@
-import { constants } from "../../utils/constants";
-const { EXCLUDE_OUT_OF_STOCK } = constants;
+import { actions } from "../../utils/actions";
+const { EXCLUDE_OUT_OF_STOCK } = actions;
 const sideBarData = [
   {
     filterTitle: "product category",

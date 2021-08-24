@@ -9,12 +9,12 @@ import close from "../../assets/svgs/close-btn.svg";
 
 import { capitalize } from "../../utils/capitalize";
 import { useAppData } from "../../contexts";
-import { constants } from "../../utils/constants";
+import { actions } from "../../utils/actions";
 import { urlList } from "../../utils/urlList";
 
 const CartProductCard = ({ productDetails, quantity }) => {
   const { INCREMENT_QUANTITY, DECREMENT_QUANTITY, REMOVE_FROM_CART } =
-    constants;
+    actions;
 
   const { _id, name, image, specifications, price } = productDetails;
 

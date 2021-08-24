@@ -1,6 +1,6 @@
-import { constants } from "../../utils/constants";
+import { actions } from "../../utils/actions";
 const loginReducer = (state, { type, payload }) => {
-  const { SET_EMAIL, SET_PASSWORD, SHOW_PASSWORD } = constants;
+  const { SET_EMAIL, SET_PASSWORD, SHOW_PASSWORD } = actions;
   switch (type) {
     case SET_EMAIL:
       return { ...state, email: payload.data };

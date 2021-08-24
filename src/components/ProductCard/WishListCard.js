@@ -6,17 +6,17 @@ import "./WishListCard.css";
 // import { IoClose } from "react-icons/io";
 
 import { useAppData } from "../../contexts";
-import { constants } from "../../utils/constants";
+import { actions } from "../../utils/actions";
 import { urlList } from "../../utils/urlList";
 import { isItemInList } from "../../utils/isItemInList";
-import { BookMarkButton } from "../BookMarkButton/WishlistButton";
+import { WishListButton } from "../WishListButton/WishListButton";
 
 const WishListCard = ({ productDetails }) => {
   const { _id, name, image, price } = productDetails;
 
   const { dispatchAppData, handleAPIOperations, cartData } = useAppData();
 
-  const { REMOVE_FROM_WISHLIST, ADD_TO_CART } = constants;
+  const { REMOVE_FROM_WISHLIST, ADD_TO_CART } = actions;
   const { REMOVE_ITEM_FROM_WISHLIST, ADD_ITEM } = urlList;
 
   const handleClick = (event) => {
@@ -52,7 +52,7 @@ const WishListCard = ({ productDetails }) => {
         <IoMdClose className="wc__icon" />
       </button> */}
 
-      <BookMarkButton
+      <WishListButton
         data={{
           type: "REMOVE",
           btnClass: "wishlist__product__remove",

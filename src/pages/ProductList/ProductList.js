@@ -9,19 +9,14 @@ import { Sidebar } from "../../components/Sidebar/Sidebar";
 import { FilterBar } from "../../components/FilterBar/FilterBar";
 import { ProductCard } from "../../components/ProductCard/ProductCard";
 
-import { constants } from "../../utils/constants";
+import { actions } from "../../utils/actions";
 import { useAppData, useToast } from "../../contexts";
 import { getSortedProducts } from "../../utils/getSortedProducts";
+import { filterReducer } from "./filterReducer";
 
 const ProductList = () => {
   const [visibility, setVisibility] = useState("hidden");
-  const {
-    LOW_TO_HIGH,
-    HIGH_TO_LOW,
-    EXCLUDE_OUT_OF_STOCK,
-    RESET_FILTERS,
-    SET_PRODUCTS_DATA,
-  } = constants;
+  const { SET_PRODUCTS_DATA } = actions;
 
   const { productsData, dispatchAppData } = useAppData();
 
@@ -31,6 +26,7 @@ const ProductList = () => {
     (async () => {
       try {
         const response = await axios.get("/products");
+
         if (response.status === 201) {
           dispatchAppData({
             type: SET_PRODUCTS_DATA,
@@ -39,28 +35,10 @@ const ProductList = () => {
         }
       } catch (error) {
         //TODO: SHOW TOAST
-        setupToast(true, "failed to fetch products");
+        setupToast("failed to fetch products");
       }
     })();
   }, []);
-
-  const filterReducer = (state, { type, payload }) => {
-    switch (type) {
-      case LOW_TO_HIGH:
-        return { ...state, byLowest: payload.flag, byHighest: "" };
-      case HIGH_TO_LOW:
-        return { ...state, byLowest: "", byHighest: payload.flag };
-      case EXCLUDE_OUT_OF_STOCK:
-        return {
-          ...state,
-          byAvailability: state.byAvailability ? "" : payload.flag,
-        };
-      case RESET_FILTERS:
-        return { ...state, byLowest: "", byHighest: "", byAvailability: "" };
-      default:
-        throw new Error("Action is not available");
-    }
-  };
 
   const [filter, dispatchFilter] = useReducer(filterReducer, {
     byLowest: "",

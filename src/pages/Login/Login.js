@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 import "./Login.css";
 
 import { loginReducer } from "./loginReducer";
-import { constants } from "../../utils/constants";
+import { actions } from "../../utils/actions";
 import { AuthButton } from "../../components/AuthButton/AuthButton";
 
 const Login = () => {
-  const { SET_EMAIL, SET_PASSWORD, SHOW_PASSWORD } = constants;
+  const { SET_EMAIL, SET_PASSWORD, SHOW_PASSWORD } = actions;
 
   const [loginCredentials, dispatchLoginCredentials] = useReducer(
     loginReducer,

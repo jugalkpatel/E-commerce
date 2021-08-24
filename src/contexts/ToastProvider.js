@@ -15,8 +15,9 @@ const ToastProvider = ({ children }) => {
     return () => clearTimeout(timer);
   });
 
-  const setupToast = (viewToast, message) => {
-    setShowToast(viewToast);
+  const setupToast = (message) => {
+    console.log(message);
+    setShowToast(true);
     setToastMsg(message);
   };
 

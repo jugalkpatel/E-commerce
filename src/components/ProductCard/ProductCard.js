@@ -8,9 +8,9 @@ import arrow from "../../assets/svgs/right-arrow.svg";
 import { capitalize } from "../../utils/capitalize";
 import { useAppData } from "../../contexts";
 import { isItemInList } from "../../utils/isItemInList";
-import { constants } from "../../utils/constants";
+import { actions } from "../../utils/actions";
 import { urlList } from "../../utils/urlList";
-import { BookMarkButton } from "../BookMarkButton/BookMarkButton";
+import { WishListButton } from "../WishListButton/WishListButton";
 
 const ProductCard = ({ productDetails }) => {
   const { _id, name, image, specifications, price, quantity } = productDetails;
@@ -18,7 +18,7 @@ const ProductCard = ({ productDetails }) => {
   const { cartData, wishListData, dispatchAppData, handleAPIOperations } =
     useAppData();
 
-  const { ADD_TO_CART, ADD_TO_WISHLIST, REMOVE_FROM_WISHLIST } = constants;
+  const { ADD_TO_CART, ADD_TO_WISHLIST, REMOVE_FROM_WISHLIST } = actions;
 
   const { ADD_ITEM, ADD_ITEM_TO_WISHLIST, REMOVE_ITEM_FROM_WISHLIST } = urlList;
 
@@ -63,7 +63,7 @@ const ProductCard = ({ productDetails }) => {
               <FaRegBookmark className="wishlist__icon" />
             )}
           </button> */}
-          <BookMarkButton
+          <WishListButton
             data={{
               type: "ADD",
               btnClass: "wish-btn",

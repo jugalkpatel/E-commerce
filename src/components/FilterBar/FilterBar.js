@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import "./FilterBar.css";
 import downArrow from "../../assets/svgs/down-arrow.svg";
-import { constants } from "../../utils/constants";
+import { actions } from "../../utils/actions";
 const FilterBar = ({ setFilter }) => {
   const [visibility, setVisibility] = useState("hidden");
-  const { LOW_TO_HIGH, HIGH_TO_LOW } = constants;
+  const { LOW_TO_HIGH, HIGH_TO_LOW } = actions;
   return (
     <div className="filterbar">
       <div className="filterbar__sortby">

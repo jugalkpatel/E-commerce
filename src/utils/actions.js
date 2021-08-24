@@ -1,4 +1,4 @@
-const constants = {
+const actions = {
   LOW_TO_HIGH: "LOW_TO_HIGH",
   HIGH_TO_LOW: "HIGH_TO_LOW",
   EXCLUDE_OUT_OF_STOCK: "EXCLUDE_OUT_OF_STOCK",
@@ -20,6 +20,8 @@ const constants = {
   STAY_LOGGEDIN: "STAY_LOGGEDIN",
   SET_CART: "SET_CART",
   SET_WISHLIST: "SET_WISHLIST",
+  REMOVE_USER_CREDNETIALS: "REMOVE_USER_CREDENTIALS",
+  REMOVE_USER_DATA: "REMOVE_USER_DATA",
 };
 
-export { constants };
+export { actions };

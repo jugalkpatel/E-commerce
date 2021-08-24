@@ -3,7 +3,7 @@ import "./Sidebar.css";
 import closeBtn from "../../assets/svgs/close-btn.svg";
 import { sideBarData } from "./sidebarData";
 import { capitalize } from "../../utils/capitalize";
-import { constants } from "../../utils/constants";
+import { actions } from "../../utils/actions";
 const Sidebar = ({
   status: {
     visibility: sidebarVisibility,
@@ -11,7 +11,7 @@ const Sidebar = ({
   },
   setFilter,
 }) => {
-  const { RESET_FILTERS } = constants;
+  const { RESET_FILTERS } = actions;
   return (
     <div className="sidebar" style={{ visibility: sidebarVisibility }}>
       <div className="sidebar__content">

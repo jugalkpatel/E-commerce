@@ -5,7 +5,7 @@ import "./Signup.css";
 
 import { signUpReducer } from "./signupReducer";
 import { AuthButton } from "../../components/AuthButton/AuthButton";
-import { constants } from "../../utils/constants";
+import { actions } from "../../utils/actions";
 
 const Signup = () => {
   const {
@@ -15,7 +15,7 @@ const Signup = () => {
     SET_CONFIRM_PASSWORD,
     RESET_SIGNUP,
     SHOW_PASSWORD,
-  } = constants;
+  } = actions;
 
   const [signUpCredentials, dispatchSignUpCredentials] = useReducer(
     signUpReducer,
@@ -28,8 +28,6 @@ const Signup = () => {
       isPasswordsMatching: false,
     }
   );
-
-  console.log({ signUpCredentials });
 
   return (
     <form onSubmit={(e) => e.preventDefault()}>

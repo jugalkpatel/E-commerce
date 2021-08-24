@@ -12,7 +12,7 @@ const WishList = () => {
   return (
     <div className="wishlist">
       {wishListData.length > 0 ? (
-        wishListData.map(({ product }) => {
+        wishListData.map((product) => {
           return <WishListCard productDetails={product} key={product._id} />;
         })
       ) : (

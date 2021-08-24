@@ -7,10 +7,10 @@ import "./Product.css";
 
 import { capitalize } from "../../utils/capitalize";
 import { useAppData } from "../../contexts";
-import { constants } from "../../utils/constants";
+import { actions } from "../../utils/actions";
 import { urlList } from "../../utils/urlList";
 import { isItemInList } from "../../utils/isItemInList";
-import { BookMarkButton } from "../../components/BookMarkButton/BookMarkButton";
+import { WishListButton } from "../../components/WishListButton/WishListButton";
 
 const Product = () => {
   const { state } = useLocation();
@@ -21,7 +21,7 @@ const Product = () => {
     useAppData();
 
   // eslint-disable-next-line no-unused-vars
-  const { ADD_TO_CART, ADD_TO_WISHLIST, REMOVE_FROM_WISHLIST } = constants;
+  const { ADD_TO_CART, ADD_TO_WISHLIST, REMOVE_FROM_WISHLIST } = actions;
 
   // eslint-disable-next-line no-unused-vars
   const { ADD_ITEM, ADD_ITEM_TO_WISHLIST, REMOVE_ITEM_FROM_WISHLIST } = urlList;
@@ -59,7 +59,7 @@ const Product = () => {
               <FaRegBookmark className="wishlist__icon" />
             )}
           </button> */}
-          <BookMarkButton
+          <WishListButton
             data={{
               type: "ADD",
               btnClass: "product__button--wishlist",

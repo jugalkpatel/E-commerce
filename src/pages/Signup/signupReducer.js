@@ -1,4 +1,4 @@
-import { constants } from "../../utils/constants";
+import { actions } from "../../utils/actions";
 const signUpReducer = (state, { type, payload }) => {
   const {
     SET_EMAIL,
@@ -7,7 +7,7 @@ const signUpReducer = (state, { type, payload }) => {
     SET_CONFIRM_PASSWORD,
     RESET_SIGNUP,
     SHOW_PASSWORD,
-  } = constants;
+  } = actions;
   switch (type) {
     case SET_EMAIL:
       return { ...state, email: payload.data };

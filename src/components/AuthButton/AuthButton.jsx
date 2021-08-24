@@ -4,6 +4,7 @@ import Loader from "react-loader-spinner";
 
 import { useAuthData, useToast } from "../../contexts";
 import { postAPI } from "../../utils/postAPI";
+import { useSetupAuth } from "../../utils/useSetupAuth";
 import {
   validatLoginCredentials,
   validateSignUpCredentials,
@@ -11,9 +12,16 @@ import {
 
 const AuthButton = ({ data }) => {
   const { type, btnText, btnClass, payload } = data;
+  const { setToken, setLogin, setUserID, clearUserCredentials } = useAuthData();
   const [loading, setLoading] = useState(false);
-  const { setupAuth } = useAuthData();
+  const setupAuth = useSetupAuth({
+    setToken,
+    setLogin,
+    setUserID,
+    clearUserCredentials,
+  });
   const { setupToast } = useToast();
+
   const validate =
     type === "LOGIN" ? validatLoginCredentials : validateSignUpCredentials;
   const url = type === "LOGIN" ? "/user/login" : "/user/signup";
@@ -23,7 +31,7 @@ const AuthButton = ({ data }) => {
 
     if (!validate(payload)) {
       setLoading(false);
-      setupToast(true, "Invalid Credentials....");
+      setupToast("Invalid Credentials....");
       return;
     }
 
@@ -33,16 +41,16 @@ const AuthButton = ({ data }) => {
 
     if (status === 201) {
       const { id, token } = data;
-      localStorage?.setItem("vst", JSON.stringify({ token, id }));
+      localStorage?.setItem("vtk", JSON.stringify({ token, id }));
       setLoading(false);
       setupAuth(token, id);
       return;
     }
 
     if (status === 401) {
-      setupToast(true, "Invalid email or password....");
+      setupToast("Invalid email or password....");
     } else {
-      setupToast(true, "something went wrong....");
+      setupToast("something went wrong....");
     }
 
     setLoading(false);
