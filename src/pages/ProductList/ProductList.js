@@ -55,9 +55,6 @@ const ProductList = () => {
         <div className="product-list__container">
           <div className="product-list">
             <FilterBar setFilter={dispatchFilter} />
-            <span className="product-list__results">
-              {filteredProducts.length} results found
-            </span>
             {filteredProducts.map((product, index) => {
               return <ProductCard productDetails={product} key={index} />;
             })}
