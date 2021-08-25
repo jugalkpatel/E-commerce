@@ -14,7 +14,7 @@ const CartButton = ({ data }) => {
   const { isLoggedIn, userID } = useAuthData();
   const { cartData, dispatchAppData } = useAppData();
   const { setupToast } = useToast();
-  const { type, btnClass, payload } = data;
+  const { type, btnClass, payload, svg } = data;
   const navigate = useNavigate();
 
   const isProductInCart = isItemInList(cartData, payload.id);
@@ -69,7 +69,9 @@ const CartButton = ({ data }) => {
       {isLoading ? (
         <Loader type="Bars" color="#FFF" width={13} height={13} />
       ) : (
-        btnText
+        <>
+          {svg && svg} {btnText}
+        </>
       )}
     </button>
   );

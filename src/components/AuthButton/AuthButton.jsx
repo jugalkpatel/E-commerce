@@ -4,7 +4,7 @@ import Loader from "react-loader-spinner";
 
 import { useAuthData, useToast } from "../../contexts";
 import { postAPI } from "../../utils/postAPI";
-import { useSetupAuth } from "../../utils/useSetupAuth";
+import { useSetupAuth } from "../../hooks/useSetupAuth";
 import {
   validatLoginCredentials,
   validateSignUpCredentials,

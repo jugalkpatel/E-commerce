@@ -5,20 +5,12 @@ import "./CartProductCard.css";
 import arrow from "../../assets/svgs/right-arrow.svg";
 
 import { capitalize } from "../../utils/capitalize";
-import { useAppData } from "../../contexts";
-import { actions } from "../../utils/actions";
-import { urlList } from "../../utils/urlList";
 import { CartButton } from "../CartButton/CartButton";
 import { QuantityButton } from "../QuantityButton/QuantityButton";
 
 const CartProductCard = ({ productDetails }) => {
-  const { INCREMENT_QUANTITY, DECREMENT_QUANTITY } = actions;
-
   const { _id, name, image, specifications, price, quantity } = productDetails;
 
-  const { UPDATE_ITEM } = urlList;
-
-  const { dispatchAppData, handleAPIOperations } = useAppData();
   return (
     <a href="#home" className="product">
       <CartButton
@@ -62,19 +54,6 @@ const CartProductCard = ({ productDetails }) => {
             payload: { id: _id, quantity: quantity + 1 },
           }}
         />
-        {/* <button
-          className="product__buy__increment"
-          onClick={() =>
-            handleAPIOperations(
-              UPDATE_ITEM,
-              { id: _id, quantity: quantity + 1 },
-              dispatchAppData,
-              INCREMENT_QUANTITY
-            )
-          }
-        >
-          <img src={plus} alt="plus icon" />
-        </button> */}
         <span className="product__buy__quantity">{quantity}</span>
 
         <QuantityButton
@@ -84,20 +63,6 @@ const CartProductCard = ({ productDetails }) => {
             payload: { id: _id, quantity: quantity > 1 ? quantity - 1 : 1 },
           }}
         />
-
-        {/* <button
-          className="product__buy__decrement"
-          onClick={() =>
-            handleAPIOperations(
-              UPDATE_ITEM,
-              { id: _id, quantity: quantity > 1 ? quantity - 1 : 1 },
-              dispatchAppData,
-              DECREMENT_QUANTITY
-            )
-          }
-        >
-          <img src={minus} alt="minus icon" />
-        </button> */}
       </div>
     </a>
   );

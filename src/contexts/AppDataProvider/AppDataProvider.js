@@ -1,38 +1,28 @@
 import React, { createContext, useContext, useReducer, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-import { useAuthData, useToast } from "..";
-import { postAPI } from "../../utils/postAPI";
+import { useAuthData } from "..";
 import { actions } from "../../utils/actions";
 import { appDataReducer } from "./appDataReducer";
+import { useStableSetupToast } from "../../hooks/useStableSetupToast";
 
 const AppContext = createContext();
 
 function AppDataProvider({ children }) {
-  const navigate = useNavigate();
-
   const { isLoggedIn, userID, token } = useAuthData();
-
-  const { setupToast } = useToast();
+  const setupToast = useStableSetupToast();
 
   useEffect(() => {
-    console.log("AppProvider useEffect called");
-
-    const { SET_CART, SET_WISHLIST } = actions;
     if (!token || !userID || !isLoggedIn) {
       return;
     }
     (async () => {
-      const URLs = [`/user/${userID}/cart`, `/user/${userID}/wishlist`];
-
-      console.log({ URLs });
+      const { SET_CART, SET_WISHLIST } = actions;
+      const URLs = [`/user/${userID}/car`, `/user/${userID}/wishlist`];
 
       try {
         const requests = URLs.map((URL) => axios.get(URL));
         const [cart, wishlist] = await axios.all(requests);
-
-        console.log({ cart, wishlist });
 
         if (cart.status === 201) {
           dispatchAppData({
@@ -48,27 +38,10 @@ function AppDataProvider({ children }) {
           });
         }
       } catch (error) {
-        console.log(error);
-        setupToast("Operation failed");
+        setupToast("failed to fetch cart and wishlist details....");
       }
     })();
-  }, [token, userID, isLoggedIn]);
-
-  const handleAPIOperations = async (url, postData, callback, action) => {
-    if (!isLoggedIn) {
-      navigate("/login", { state: { from: "/" } });
-      return;
-    }
-
-    const response = await postAPI(url, postData);
-
-    if (typeof response === "number") {
-      setupToast(`${response} operation failed`);
-      return;
-    }
-    const { data } = response;
-    callback({ type: action, payload: data });
-  };
+  }, [token, userID, isLoggedIn, setupToast]);
 
   const [appData, dispatchAppData] = useReducer(appDataReducer, {
     productsData: [],
@@ -79,9 +52,7 @@ function AppDataProvider({ children }) {
   console.log({ appData });
 
   return (
-    <AppContext.Provider
-      value={{ ...appData, dispatchAppData, handleAPIOperations }}
-    >
+    <AppContext.Provider value={{ ...appData, dispatchAppData }}>
       {children}
     </AppContext.Provider>
   );

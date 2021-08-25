@@ -7,7 +7,7 @@ import {
   useRef,
 } from "react";
 
-import { useSetupAuth } from "../utils/useSetupAuth";
+import { useSetupAuth } from "../hooks/useSetupAuth";
 
 const AuthContext = createContext();
 

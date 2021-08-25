@@ -1,7 +1,7 @@
 import { useToast } from "../contexts";
 import { useNavigate } from "react-router";
-import { setupAuthHeaderForServiceCalls } from "./setupHeaders";
-import { setupAuthExceptionHandler } from "./setupAuthExceptionHandler";
+import { setupAuthHeaderForServiceCalls } from "../utils/setupHeaders";
+import { setupAuthExceptionHandler } from "../utils/setupAuthExceptionHandler";
 const useSetupAuth = ({
   setToken,
   setLogin,

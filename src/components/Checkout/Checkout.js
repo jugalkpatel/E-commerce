@@ -7,9 +7,7 @@ import { IoClose } from "react-icons/io5";
 import { useAppData } from "../../contexts";
 
 const Checkout = () => {
-  const {
-    appData: { cartData },
-  } = useAppData();
+  const { cartData } = useAppData();
 
   const navigate = useNavigate();
 
