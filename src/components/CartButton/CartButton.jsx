@@ -35,8 +35,6 @@ const CartButton = ({ data }) => {
         ? `/user/${userID}/cart/add`
         : `/user/${userID}/cart/remove`;
 
-      console.log({ url, payload });
-
       const action = !isProductInCart ? ADD_TO_CART : REMOVE_FROM_CART;
 
       const { data, status } = await postAPI(url, payload);
