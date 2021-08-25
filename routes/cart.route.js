@@ -174,33 +174,22 @@ cartRouter.post("/remove", async (req, res) => {
 cartRouter.route("/update").post(async (req, res) => {
   const { id: userId } = req;
   const { id: productId, quantity } = req.body;
-  console.log(productId, quantity);
   try {
-    const cart = await Cart.findOne({ owner: userId });
-
-    cart.products.forEach((item) => {
-      if (item.product.toString() === productId) {
-        item.quantity = quantity;
+    await Cart.findOneAndUpdate(
+      {
+        owner: userId,
+        "products.product": productId,
+      },
+      {
+        $set: { "products.$.quantity": Number(quantity) },
       }
-    });
-
-    await cart.save();
-
-    const populatedCart = await cart
-      .populate({
-        path: "products.product",
-        select: "-__v -quantity",
-        populate: {
-          path: "specifications",
-          select: "-productId -_id -__v",
-        },
-      })
-      .execPopulate();
+    );
 
     res.status(201).json({
       success: true,
-      messasge: "Quantity is updates Successfully",
-      data: populatedCart,
+      message: "quantity updated successfully",
+      product: productId,
+      quantity,
     });
   } catch (error) {
     res.status(500).json({
