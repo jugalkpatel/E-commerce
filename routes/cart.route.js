@@ -6,131 +6,133 @@ const { Cart } = require("../models/cart.model");
 const { Product } = require("../models/product.model");
 const { User } = require("../models/user.model");
 const { validateToken } = require("../middlewares/validateToken");
+
 cartRouter.use(validateToken);
-cartRouter
-  .route("/")
-  .get(async (req, res) => {
-    try {
-      const { cart: isCartCreated } = req.user;
+cartRouter.get("/", async (req, res) => {
+  try {
+    const { cart: cartID } = req.user;
 
-      if (!isCartCreated) {
-        res.status(201).json({
-          success: true,
-          message: "cart yet not created by user",
-          products: [],
-        });
-
-        return;
-      }
-
-      const cart = await Cart.findById(isCartCreated)
-        .populate({
-          path: "products.product",
-          select: "-__v -quantity",
-          populate: {
-            path: "specifications",
-            select: "-_id -__v -productId",
-          },
-        })
-        .populate("specifications")
-        .select("-__v");
-
+    if (!cartID) {
       res.status(201).json({
         success: true,
-        products: cart.products,
+        message: "cart yet not created by user",
+        products: [],
       });
-    } catch (error) {
+
+      return;
+    }
+
+    const cart = await Cart.findById(cartID);
+
+    await Cart.populate(cart, {
+      path: "products.product",
+      select: "-__v -quantity",
+      populate: {
+        path: "specifications",
+        select: "-productId -_id -__v",
+      },
+    });
+
+    const resCart = cart.products.map(({ product, quantity }) => {
+      return { ...product._doc, quantity };
+    });
+
+    res.status(201).json({
+      success: true,
+      products: resCart,
+    });
+  } catch (error) {
+    res.status(404).json({
+      success: false,
+      message: "there is no cart associated with user",
+      error,
+    });
+  }
+});
+
+/* create cart or add item to the cart */
+cartRouter.post("/add", async (req, res) => {
+  try {
+    const { id: productId } = req.body;
+    const { id: userId, user } = req;
+    console.log({ productId, userId });
+
+    const product = await Product.findById(productId);
+
+    if (!product) {
       res.status(404).json({
         success: false,
-        message: "there is no cart associated with user",
-        error,
+        message: "there is no product with given id",
       });
+      return;
     }
-  })
-  /* create cart or add item to the cart */
-  .post(async (req, res) => {
-    try {
-      const { id: productId } = req.body;
-      const { id: userId, user } = req;
-      console.log("productId", productId);
-      const product = await Product.findById(productId);
 
-      if (!product) {
-        res.status(404).json({
-          success: false,
-          message: "there is no product with given id",
-        });
-        return;
-      }
+    if (user.cart) {
+      const cart = await Cart.findOneAndUpdate(
+        {
+          owner: userId,
+        },
+        { $addToSet: { products: { product: productId } } },
+        { new: true }
+      );
 
-      // add item case: if cart is already created then.
-      if (user.cart) {
-        const cart = await Cart.findOne({ owner: userId });
-        console.log(cart);
-
-        cart.products.push({ product: product });
-
-        await cart.save();
-
-        const populatedCart = await cart
-          .populate({
-            path: "products.product",
-            select: "-__v -quantity",
-            populate: {
-              path: "specifications",
-              select: "-productId -_id -__v",
-            },
-          })
-          .execPopulate();
-
-        res.status(201).json({
-          success: true,
-          message: "item is added to the cart",
-          data: populatedCart,
-        });
-
-        return;
-      }
-
-      const cart = new Cart({
-        products: [{ product: product._id }],
-        owner: userId,
+      await Cart.populate(cart, {
+        path: "products.product",
+        select: "-__v -quantity",
+        populate: {
+          path: "specifications",
+          select: "-productId -_id -__v",
+        },
       });
 
-      await cart.save();
-
-      await User.findByIdAndUpdate(userId, { cart: cart });
-      // product.quantity = product.quantity - 1;
-      // await product.save();
-
-      const populatedCart = await cart
-        .populate({
-          path: "products.product",
-          select: "-__v -quantity",
-          populate: {
-            path: "specifications",
-            select: "-productId -_id -__v",
-          },
-        })
-        .execPopulate();
+      const resProduct = cart.products.slice(-1)[0];
 
       res.status(201).json({
         success: true,
-        message: "cart created successfully",
-        data: populatedCart,
+        message: "Product is Successfully added to the cart",
+        product: { ...resProduct.product._doc, quantity: resProduct.quantity },
       });
-    } catch (error) {
-      console.log(error);
-      res.status(500).json({
-        success: false,
-        message: "failed to create cart or item is not added to the cart",
-        error,
-      });
+
+      return;
     }
-  });
+
+    const cart = new Cart({
+      products: [{ product: productId }],
+      owner: userId,
+    });
+
+    await cart.save();
+
+    await User.findByIdAndUpdate(userId, { cart: cart });
+
+    await Cart.populate(cart, {
+      path: "products.product",
+      select: "-__v -quantity",
+      populate: {
+        path: "specifications",
+        select: "-productId -_id -__v",
+      },
+    });
+
+    const resProduct = cart.products.slice(-1)[0];
+
+    res.status(201).json({
+      success: true,
+      message: "Product is successfully added to the cart",
+      product: { ...resProduct.product._doc, quantity: resProduct.quantity },
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "failed to create cart or item is not added to the cart",
+      error,
+    });
+  }
+});
 
 /* remove item from cart */
-cartRouter.route("/remove").post(async (req, res) => {
+cartRouter.post("/remove", async (req, res) => {
   const { id: productId } = req.body;
   const { id: userId } = req;
 
@@ -145,29 +147,18 @@ cartRouter.route("/remove").post(async (req, res) => {
       return;
     }
 
-    const cart = await Cart.findOne({ owner: userId });
-
-    cart.products = cart.products.filter(
-      (item) => item.product.toString() !== productId
+    await Cart.findOneAndUpdate(
+      {
+        owner: userId,
+      },
+      { $pull: { products: { product: productId } } },
+      { new: true }
     );
-
-    await cart.save();
-
-    const populatedCart = await cart
-      .populate({
-        path: "products.product",
-        select: "-__v -quantity",
-        populate: {
-          path: "specifications",
-          select: "-productId -_id -__v",
-        },
-      })
-      .execPopulate();
 
     res.status(201).json({
       success: true,
-      message: "item is successfully removed from cart",
-      data: populatedCart,
+      message: "product successfully removed from cart",
+      product: productId,
     });
   } catch (error) {
     console.log(error);

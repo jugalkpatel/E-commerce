@@ -54,8 +54,6 @@ wishlistRouter.post("/add", async (req, res) => {
 
     const product = await Product.findById(productId);
 
-    console.log({ productId });
-
     if (!product) {
       res.status(404).json({
         success: false,
