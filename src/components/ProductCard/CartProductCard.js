@@ -11,19 +11,19 @@ import { capitalize } from "../../utils/capitalize";
 import { useAppData } from "../../contexts";
 import { actions } from "../../utils/actions";
 import { urlList } from "../../utils/urlList";
+import { CartButton } from "../CartButton/CartButton";
 
-const CartProductCard = ({ productDetails, quantity }) => {
-  const { INCREMENT_QUANTITY, DECREMENT_QUANTITY, REMOVE_FROM_CART } =
-    actions;
+const CartProductCard = ({ productDetails }) => {
+  const { INCREMENT_QUANTITY, DECREMENT_QUANTITY, REMOVE_FROM_CART } = actions;
 
-  const { _id, name, image, specifications, price } = productDetails;
+  const { _id, name, image, specifications, price, quantity } = productDetails;
 
   const { REMOVE_ITEM, UPDATE_ITEM } = urlList;
 
   const { dispatchAppData, handleAPIOperations } = useAppData();
   return (
     <a href="#home" className="product">
-      <button
+      {/* <button
         className="product__remove"
         onClick={() =>
           handleAPIOperations(
@@ -35,7 +35,18 @@ const CartProductCard = ({ productDetails, quantity }) => {
         }
       >
         <img src={close} alt="close_icon" />
-      </button>
+      </button> */}
+
+      <CartButton
+        data={{
+          type: "REMOVE",
+          btnClass: "product__remove",
+          payload: {
+            id: _id,
+          },
+        }}
+      />
+
       <div className="product__imgcontainer">
         <img src={image} alt="product_img" className="product__img" />
       </div>

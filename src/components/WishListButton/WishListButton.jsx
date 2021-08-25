@@ -8,8 +8,8 @@ import Loader from "react-loader-spinner";
 import { useAppData, useAuthData, useToast } from "../../contexts";
 import { isItemInList } from "../../utils/isItemInList";
 import { actions } from "../../utils/actions";
-
 import { postAPI } from "../../utils/postAPI";
+
 const WishListButton = ({ data }) => {
   const [isLoading, setLoading] = useState(false);
   const { type, btnClass, svgClass, payload } = data;
@@ -49,13 +49,11 @@ const WishListButton = ({ data }) => {
       }
 
       const { data, status } = await postAPI(url, payload);
-      console.log({ data, status });
 
       if (status === 201) {
         const { product } = data;
-        console.log({ product });
-        dispatchAppData({ type: action, payload: product });
         setLoading(false);
+        dispatchAppData({ type: action, payload: product });
         return;
       }
 

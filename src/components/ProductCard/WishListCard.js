@@ -1,9 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-// import close from "../../assets/svgs/close-btn.svg";
 import "./WishListCard.css";
-// import { IoClose } from "react-icons/io";
 
 import { useAppData } from "../../contexts";
 import { actions } from "../../utils/actions";
@@ -47,11 +45,6 @@ const WishListCard = ({ productDetails }) => {
       state={{ details: { ...productDetails } }}
       className="wishlist__product"
     >
-      {/* <button className="wishlist__product__remove" onClick={handleClick}>
-        <img src={close} alt="close_icon" />
-        <IoMdClose className="wc__icon" />
-      </button> */}
-
       <WishListButton
         data={{
           type: "REMOVE",

@@ -35,3 +35,9 @@
   padding: 0rem;
   min-height: 100vh;
 }
+
+.close_icon {
+  color: var(--primary-color);
+
+  font-size: 1.5rem;
+}

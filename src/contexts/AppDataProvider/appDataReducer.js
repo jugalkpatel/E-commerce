@@ -17,10 +17,9 @@ const appDataReducer = (state, { type, payload }) => {
     case ADD_TO_CART:
       return {
         ...state,
-        cartData: payload.products,
+        cartData: state.cartData.concat(payload),
       };
     case ADD_TO_WISHLIST:
-      console.log({ payload });
       return {
         ...state,
         wishListData: state.wishListData.concat(payload),
@@ -50,7 +49,7 @@ const appDataReducer = (state, { type, payload }) => {
     case REMOVE_FROM_CART:
       return {
         ...state,
-        cartData: payload.products,
+        cartData: state.cartData.filter((product) => product._id !== payload),
       };
     case SET_CART:
       return {

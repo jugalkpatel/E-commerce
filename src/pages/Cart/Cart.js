@@ -19,13 +19,9 @@ const Cart = () => {
         {cartData.length > 0 ? (
           <div className="c-grid">
             <div className="cart__products">
-              {cartData.map(({ quantity, product }) => {
+              {cartData.map((product) => {
                 return (
-                  <CartProductCard
-                    productDetails={product}
-                    quantity={quantity}
-                    key={product._id}
-                  />
+                  <CartProductCard productDetails={product} key={product._id} />
                 );
               })}
             </div>

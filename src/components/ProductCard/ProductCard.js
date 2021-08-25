@@ -3,45 +3,13 @@ import { Link } from "react-router-dom";
 import "./ProductCard.css";
 
 import arrow from "../../assets/svgs/right-arrow.svg";
-// import { FaBookmark, FaRegBookmark } from "react-icons/fa";
 
 import { capitalize } from "../../utils/capitalize";
-import { useAppData } from "../../contexts";
-import { isItemInList } from "../../utils/isItemInList";
-import { actions } from "../../utils/actions";
-import { urlList } from "../../utils/urlList";
 import { WishListButton } from "../WishListButton/WishListButton";
+import { CartButton } from "../CartButton/CartButton";
 
 const ProductCard = ({ productDetails }) => {
   const { _id, name, image, specifications, price, quantity } = productDetails;
-
-  const { cartData, wishListData, dispatchAppData, handleAPIOperations } =
-    useAppData();
-
-  const { ADD_TO_CART, ADD_TO_WISHLIST, REMOVE_FROM_WISHLIST } = actions;
-
-  const { ADD_ITEM, ADD_ITEM_TO_WISHLIST, REMOVE_ITEM_FROM_WISHLIST } = urlList;
-
-  const isInWishList = isItemInList(wishListData, _id);
-
-  // eslint-disable-next-line no-unused-vars
-  const handleWishlistClick = (event) => {
-    event.preventDefault();
-    if (isInWishList) {
-      handleAPIOperations(
-        REMOVE_ITEM_FROM_WISHLIST,
-        { id: _id },
-        dispatchAppData,
-        REMOVE_FROM_WISHLIST
-      );
-    }
-    handleAPIOperations(
-      ADD_ITEM_TO_WISHLIST,
-      { id: _id },
-      dispatchAppData,
-      ADD_TO_WISHLIST
-    );
-  };
 
   return (
     <div className="product-container" key={_id}>
@@ -56,13 +24,6 @@ const ProductCard = ({ productDetails }) => {
             src={image}
             alt="product"
           />
-          {/* <button className="wish-btn" onClick={handleWishlistClick}>
-            {isInWishList ? (
-              <FaBookmark className="wishlist__icon" />
-            ) : (
-              <FaRegBookmark className="wishlist__icon" />
-            )}
-          </button> */}
           <WishListButton
             data={{
               type: "ADD",
@@ -93,25 +54,11 @@ const ProductCard = ({ productDetails }) => {
         </span>
         <span className="price-tag">${price}</span>
       </Link>
-      {isItemInList(cartData, _id) ? (
-        <Link to="/cart" className="primary-btn">
-          GO TO CART
-        </Link>
-      ) : (
-        <button
-          className="primary-btn"
-          onClick={() =>
-            handleAPIOperations(
-              ADD_ITEM,
-              { id: _id },
-              dispatchAppData,
-              ADD_TO_CART
-            )
-          }
-        >
-          ADD TO CART
-        </button>
-      )}
+
+      <CartButton
+        data={{ type: "ADD", btnClass: "primary-btn", payload: { id: _id } }}
+      />
+
       {quantity < 1 ? (
         <div className="overlay-div">
           <span className="overlay-text"> OUT OF STOCK </span>
