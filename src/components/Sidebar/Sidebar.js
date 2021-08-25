@@ -1,9 +1,12 @@
 import React from "react";
+
 import "./Sidebar.css";
 import closeBtn from "../../assets/svgs/close-btn.svg";
+
 import { sideBarData } from "./sidebarData";
 import { capitalize } from "../../utils/capitalize";
 import { actions } from "../../utils/actions";
+
 const Sidebar = ({
   status: {
     visibility: sidebarVisibility,

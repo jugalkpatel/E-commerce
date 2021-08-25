@@ -1,28 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap");
-:root {
-  --primary-color: #fff;
-  --secondary-color: #76b900;
-  --background-color: #000;
-
-  --primary-font: Lato;
-
-  --reset-black: #1a1a1a;
-  --dropdown-white: #ccc;
-
-  --border-grey: #666;
-  --reset-color: #bdbdbd;
-
-  --zindex-one: 1;
-  --zindex-two: 2;
-  --zindex-three: 3;
-  --zindex-four: 4;
-}
 .product-list__container {
   display: flex;
   flex-direction: column;
 }
-
-/* loader spinner */
 
 .product-list__spinner {
   display: flex;
@@ -38,8 +17,6 @@
   justify-content: center;
   padding: 1rem 0;
 }
-
-/* sidebar filter button */
 
 .product-list__filterbtn {
   position: sticky;
@@ -84,7 +61,7 @@
 @media screen and (min-width: 1025px) {
   .product-list__container {
     display: grid;
-    grid-template-columns: 25% auto;
+    grid-template-columns: 20% auto;
     grid-template-rows: auto;
     grid-template-areas:
       "header header"
@@ -96,5 +73,11 @@
   }
   .product-list {
     grid-area: main;
+  }
+}
+
+@media screen and (min-width: 1025px) and (max-width: 1250px) {
+  .product-list__container {
+    grid-template-columns: 25% auto;
   }
 }
