@@ -3,8 +3,7 @@ import { actions } from "../../utils/actions";
 const {
   ADD_TO_CART,
   ADD_TO_WISHLIST,
-  INCREMENT_QUANTITY,
-  DECREMENT_QUANTITY,
+  SET_QUANTITY,
   REMOVE_FROM_CART,
   REMOVE_FROM_WISHLIST,
   SET_PRODUCTS_DATA,
@@ -12,6 +11,7 @@ const {
   SET_WISHLIST,
   REMOVE_USER_DATA,
 } = actions;
+
 const appDataReducer = (state, { type, payload }) => {
   switch (type) {
     case ADD_TO_CART:
@@ -36,15 +36,15 @@ const appDataReducer = (state, { type, payload }) => {
         ...state,
         productsData: payload.products,
       };
-    case INCREMENT_QUANTITY:
+    case SET_QUANTITY:
       return {
         ...state,
-        cartData: payload.products,
-      };
-    case DECREMENT_QUANTITY:
-      return {
-        ...state,
-        cartData: payload.products,
+        cartData: state.cartData.map((product) => {
+          if (product._id === payload.product) {
+            return { ...product, quantity: payload.quantity };
+          }
+          return product;
+        }),
       };
     case REMOVE_FROM_CART:
       return {
@@ -62,7 +62,6 @@ const appDataReducer = (state, { type, payload }) => {
         wishListData: payload.wishlist,
       };
     case REMOVE_USER_DATA:
-      console.log("at remove user data reducer");
       return { ...state, cartData: [], wishListData: [] };
     default:
       return state;

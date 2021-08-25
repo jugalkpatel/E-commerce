@@ -3,40 +3,24 @@ import React from "react";
 import "./CartProductCard.css";
 
 import arrow from "../../assets/svgs/right-arrow.svg";
-import minus from "../../assets/svgs/minus.svg";
-import plus from "../../assets/svgs/plus.svg";
-import close from "../../assets/svgs/close-btn.svg";
 
 import { capitalize } from "../../utils/capitalize";
 import { useAppData } from "../../contexts";
 import { actions } from "../../utils/actions";
 import { urlList } from "../../utils/urlList";
 import { CartButton } from "../CartButton/CartButton";
+import { QuantityButton } from "../QuantityButton/QuantityButton";
 
 const CartProductCard = ({ productDetails }) => {
-  const { INCREMENT_QUANTITY, DECREMENT_QUANTITY, REMOVE_FROM_CART } = actions;
+  const { INCREMENT_QUANTITY, DECREMENT_QUANTITY } = actions;
 
   const { _id, name, image, specifications, price, quantity } = productDetails;
 
-  const { REMOVE_ITEM, UPDATE_ITEM } = urlList;
+  const { UPDATE_ITEM } = urlList;
 
   const { dispatchAppData, handleAPIOperations } = useAppData();
   return (
     <a href="#home" className="product">
-      {/* <button
-        className="product__remove"
-        onClick={() =>
-          handleAPIOperations(
-            REMOVE_ITEM,
-            { id: _id },
-            dispatchAppData,
-            REMOVE_FROM_CART
-          )
-        }
-      >
-        <img src={close} alt="close_icon" />
-      </button> */}
-
       <CartButton
         data={{
           type: "REMOVE",
@@ -71,7 +55,14 @@ const CartProductCard = ({ productDetails }) => {
       </div>
       <div className="product__buy">
         <span className="product__buy__price">$ {price}</span>
-        <button
+        <QuantityButton
+          data={{
+            type: "INCREMENT",
+            btnClass: "product__buy__increment",
+            payload: { id: _id, quantity: quantity + 1 },
+          }}
+        />
+        {/* <button
           className="product__buy__increment"
           onClick={() =>
             handleAPIOperations(
@@ -83,9 +74,18 @@ const CartProductCard = ({ productDetails }) => {
           }
         >
           <img src={plus} alt="plus icon" />
-        </button>
+        </button> */}
         <span className="product__buy__quantity">{quantity}</span>
-        <button
+
+        <QuantityButton
+          data={{
+            type: "DECREMENT",
+            btnClass: "product__buy__decrement",
+            payload: { id: _id, quantity: quantity > 1 ? quantity - 1 : 1 },
+          }}
+        />
+
+        {/* <button
           className="product__buy__decrement"
           onClick={() =>
             handleAPIOperations(
@@ -97,7 +97,7 @@ const CartProductCard = ({ productDetails }) => {
           }
         >
           <img src={minus} alt="minus icon" />
-        </button>
+        </button> */}
       </div>
     </a>
   );
