@@ -95,10 +95,13 @@ userRouter.route("/login").post(async (req, res) => {
       expiresIn: "24h",
     });
 
+    console.log(user._id, user.name);
+
     res.status(201).json({
       success: true,
       token: token,
-      id: user._id,
+      userID: user._id,
+      userName: user.name,
     });
   } catch (error) {
     res.status(401).json({

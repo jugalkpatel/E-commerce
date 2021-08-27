@@ -50,19 +50,37 @@ cartRouter.get("/", async (req, res) => {
   }
 });
 
+cartRouter.use(async (req, res, next) => {
+  try {
+    const { id: productId } = req.body;
+
+    const product = await Product.findById(productId);
+
+    req.product = product;
+
+    console.log({ product });
+
+    next();
+  } catch (error) {
+    res.status(404).json({
+      success: true,
+      message: "product is not available",
+    });
+  }
+});
+
 /* create cart or add item to the cart */
 cartRouter.post("/add", async (req, res) => {
   try {
     const { id: productId } = req.body;
-    const { id: userId, user } = req;
-    console.log({ productId, userId });
+    const { id: userId, user, product } = req;
 
-    const product = await Product.findById(productId);
+    const totalQuantity = await decrementTotalQuantity(product);
 
-    if (!product) {
-      res.status(404).json({
+    if (!totalQuantity) {
+      res.status(500).json({
         success: false,
-        message: "there is no product with given id",
+        message: "error while updating total quantity",
       });
       return;
     }
@@ -91,6 +109,7 @@ cartRouter.post("/add", async (req, res) => {
         success: true,
         message: "Product is Successfully added to the cart",
         product: { ...resProduct.product._doc, quantity: resProduct.quantity },
+        totalQuantity,
       });
 
       return;
@@ -120,6 +139,7 @@ cartRouter.post("/add", async (req, res) => {
       success: true,
       message: "Product is successfully added to the cart",
       product: { ...resProduct.product._doc, quantity: resProduct.quantity },
+      totalQuantity,
     });
   } catch (error) {
     console.log(error);
@@ -134,31 +154,30 @@ cartRouter.post("/add", async (req, res) => {
 /* remove item from cart */
 cartRouter.post("/remove", async (req, res) => {
   const { id: productId } = req.body;
-  const { id: userId } = req;
+  const { id: userId, product } = req;
 
   try {
-    const product = await Product.findById(productId);
-
-    if (!product) {
-      res.status(404).json({
-        success: false,
-        message: "there is no product with given id",
-      });
-      return;
-    }
-
-    await Cart.findOneAndUpdate(
+    const cart = await Cart.findOneAndUpdate(
       {
         owner: userId,
       },
       { $pull: { products: { product: productId } } },
-      { new: true }
+      { new: false }
     );
+
+    const removedProduct = cart.products.find((item) => {
+      return JSON.stringify(item.product) === JSON.stringify(product._id);
+    });
+
+    product.quantity = product.quantity + removedProduct.quantity;
+
+    await product.save();
 
     res.status(201).json({
       success: true,
       message: "product successfully removed from cart",
       product: productId,
+      totalQuantity: product.quantity,
     });
   } catch (error) {
     console.log(error);
@@ -171,25 +190,38 @@ cartRouter.post("/remove", async (req, res) => {
 });
 
 /* update quantity in cart */
-cartRouter.route("/update").post(async (req, res) => {
-  const { id: userId } = req;
-  const { id: productId, quantity } = req.body;
+cartRouter.post("/update/increment", async (req, res) => {
   try {
+    const { id: userId, product } = req;
+    const { id: productId } = req.body;
+
+    /* decrementing total quantity */
+    const totalQuantity = await decrementTotalQuantity(product);
+
+    if (totalQuantity < 0) {
+      res.status(500).json({
+        success: false,
+        message: "error while updating total quantity",
+      });
+      return;
+    }
+
     await Cart.findOneAndUpdate(
       {
         owner: userId,
         "products.product": productId,
       },
       {
-        $set: { "products.$.quantity": Number(quantity) },
-      }
+        $inc: { "products.$.quantity": 1 },
+      },
+      { new: true }
     );
 
     res.status(201).json({
       success: true,
-      message: "quantity updated successfully",
+      message: "cart quantity updated successfully",
       product: productId,
-      quantity,
+      totalQuantity,
     });
   } catch (error) {
     res.status(500).json({
@@ -199,4 +231,86 @@ cartRouter.route("/update").post(async (req, res) => {
     });
   }
 });
+
+cartRouter.post("/update/decrement", async (req, res) => {
+  try {
+    const { id: userId, product } = req;
+    const { id: productId } = req.body;
+
+    /* incrementing total quantity */
+    const totalQuantity = await incrementTotalQuantity(product);
+
+    if (totalQuantity < 0) {
+      res.status(500).json({
+        success: false,
+        message: "error while updating total quantity",
+      });
+      return;
+    }
+
+    await Cart.findOneAndUpdate(
+      {
+        owner: userId,
+        "products.product": productId,
+        "products.$.quantity": { $gt: 1 },
+      },
+      {
+        $inc: { "products.$.quantity": -1 },
+      },
+      {
+        new: true,
+      }
+    );
+
+    res.status(201).json({
+      success: true,
+      message: "cart quantity updated successfully",
+      product: productId,
+      totalQuantity,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "error while updating quantity in cart",
+      error,
+    });
+  }
+});
+
+const incrementTotalQuantity = async ({ _id }) => {
+  try {
+    const product = await Product.findOneAndUpdate(
+      {
+        $and: [{ _id }, { quantity: { $gte: 0 } }],
+      },
+      {
+        $inc: { quantity: 1 },
+      },
+      { new: true }
+    );
+
+    return product.quantity;
+  } catch (error) {
+    return false;
+  }
+};
+
+const decrementTotalQuantity = async ({ _id }) => {
+  try {
+    const product = await Product.findOneAndUpdate(
+      {
+        $and: [{ _id }, { quantity: { $gt: 0 } }],
+      },
+      {
+        $inc: { quantity: -1 },
+      },
+      { new: true }
+    );
+
+    return product.quantity;
+  } catch (error) {
+    return -1;
+  }
+};
+
 exports.cartRouter = cartRouter;
