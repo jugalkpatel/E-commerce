@@ -51,16 +51,19 @@ const CartProductCard = ({ productDetails }) => {
           data={{
             type: "INCREMENT",
             btnClass: "product__buy__increment",
-            payload: { id: _id, quantity: quantity + 1 },
+            payload: { id: _id },
+            quantity,
           }}
         />
+
         <span className="product__buy__quantity">{quantity}</span>
 
         <QuantityButton
           data={{
             type: "DECREMENT",
             btnClass: "product__buy__decrement",
-            payload: { id: _id, quantity: quantity > 1 ? quantity - 1 : 1 },
+            payload: { id: _id },
+            quantity,
           }}
         />
       </div>

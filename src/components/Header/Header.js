@@ -12,7 +12,7 @@ import { useAppData, useAuthData } from "../../contexts";
 const Header = () => {
   const { cartData, wishListData } = useAppData();
 
-  const { token } = useAuthData();
+  const { token, userName } = useAuthData();
 
   return (
     <div className="header" id="home">
@@ -43,9 +43,14 @@ const Header = () => {
             </li>
           </Link>
           <li className="header__navigation__list__item">
-            {token ? (
+            {token && userName ? (
               <Link to="/profile" className="badge-icon">
-                <img src={profile} alt="profile__icon" />
+                <span className="header__username">Hi {userName}!</span>
+                <img
+                  src={profile}
+                  className="icon--profile"
+                  alt="profile__icon"
+                />
               </Link>
             ) : (
               <Link to="/login" className="badge-icon header__login">

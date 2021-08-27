@@ -1,5 +1,4 @@
-import React, { useReducer, useState, useEffect } from "react";
-import axios from "axios";
+import React, { useReducer, useState } from "react";
 
 import filterIcon from "../../assets/svgs/filter.svg";
 import Loader from "react-loader-spinner";
@@ -9,36 +8,14 @@ import { Sidebar } from "../../components/Sidebar/Sidebar";
 import { FilterBar } from "../../components/FilterBar/FilterBar";
 import { ProductCard } from "../../components/ProductCard/ProductCard";
 
-import { actions } from "../../utils/actions";
-import { useAppData, useToast } from "../../contexts";
+import { useAppData } from "../../contexts";
 import { getSortedProducts } from "../../utils/getSortedProducts";
 import { filterReducer } from "./filterReducer";
 
 const ProductList = () => {
   const [visibility, setVisibility] = useState("hidden");
-  const { SET_PRODUCTS_DATA } = actions;
 
-  const { productsData, dispatchAppData } = useAppData();
-
-  const { setupToast } = useToast();
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const response = await axios.get("/products");
-
-        if (response.status === 201) {
-          dispatchAppData({
-            type: SET_PRODUCTS_DATA,
-            payload: { products: response.data.products },
-          });
-        }
-      } catch (error) {
-        //TODO: SHOW TOAST
-        setupToast("failed to fetch products");
-      }
-    })();
-  }, []);
+  const { productsData } = useAppData();
 
   const [filter, dispatchFilter] = useReducer(filterReducer, {
     byLowest: "",

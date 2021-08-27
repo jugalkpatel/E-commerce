@@ -12,18 +12,14 @@ import {
 
 const AuthButton = ({ data }) => {
   const { type, btnText, btnClass, payload } = data;
-  const { setToken, setLogin, setUserID, clearUserCredentials } = useAuthData();
+  const { dispatchAuthData } = useAuthData();
   const [loading, setLoading] = useState(false);
-  const setupAuth = useSetupAuth({
-    setToken,
-    setLogin,
-    setUserID,
-    clearUserCredentials,
-  });
+  const setupAuth = useSetupAuth(dispatchAuthData);
   const { setupToast } = useToast();
 
   const validate =
     type === "LOGIN" ? validatLoginCredentials : validateSignUpCredentials;
+
   const url = type === "LOGIN" ? "/user/login" : "/user/signup";
 
   const onButtonClick = async () => {
@@ -40,10 +36,10 @@ const AuthButton = ({ data }) => {
     console.log({ data, status });
 
     if (status === 201) {
-      const { id, token } = data;
-      localStorage?.setItem("vtk", JSON.stringify({ token, id }));
+      const { token, userID, userName } = data;
+      localStorage?.setItem("vtk", JSON.stringify({ token, userID, userName }));
       setLoading(false);
-      setupAuth(token, id);
+      setupAuth({ token, userID, userName });
       return;
     }
 

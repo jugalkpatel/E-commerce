@@ -1,9 +1,11 @@
 import { setupAuthHeaderForServiceCalls } from "./setupHeaders";
-
-const logout = (callback) => {
+import { actions } from "./actions";
+const logout = (callback, navigate) => {
+  const { REMOVE_USER_CREDENTIALS } = actions;
   localStorage?.removeItem("vtk");
-  callback();
+  callback({ type: REMOVE_USER_CREDENTIALS });
   setupAuthHeaderForServiceCalls(null);
+  navigate("/login");
 };
 
 export { logout };

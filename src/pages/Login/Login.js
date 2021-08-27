@@ -10,13 +10,15 @@ import { AuthButton } from "../../components/AuthButton/AuthButton";
 const Login = () => {
   const { SET_EMAIL, SET_PASSWORD, SHOW_PASSWORD } = actions;
 
+  const initialLoginCredentials = {
+    email: "",
+    password: "",
+    showPassword: "",
+  };
+
   const [loginCredentials, dispatchLoginCredentials] = useReducer(
     loginReducer,
-    {
-      email: "",
-      password: "",
-      showPassword: "",
-    }
+    initialLoginCredentials
   );
 
   return (

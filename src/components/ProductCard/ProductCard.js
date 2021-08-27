@@ -34,6 +34,11 @@ const ProductCard = ({ productDetails }) => {
               },
             }}
           />
+          {quantity < 1 ? (
+            <div className="overlay-div">
+              <span className="overlay-text"> OUT OF STOCK </span>
+            </div>
+          ) : null}
         </span>
         <span className="product-info__text">{name.toUpperCase()}</span>
         <span className="product-info__specifications">
@@ -58,12 +63,6 @@ const ProductCard = ({ productDetails }) => {
       <CartButton
         data={{ type: "ADD", btnClass: "primary-btn", payload: { id: _id } }}
       />
-
-      {quantity < 1 ? (
-        <div className="overlay-div">
-          <span className="overlay-text"> OUT OF STOCK </span>
-        </div>
-      ) : null}
     </div>
   );
 };

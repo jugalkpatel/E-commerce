@@ -63,12 +63,13 @@
 
   text-decoration: none;
 
-  display: inline-block;
+  display: flex;
+  justify-content: center;
 
   background-color: transparent;
   border: 0;
-  /* padding: 1rem; */
   margin: 1rem;
+  padding: 0;
 
   border-radius: 50%;
 
@@ -104,10 +105,25 @@
   font-size: 0.7rem;
   font-weight: 600;
 
-  top: -0.5rem;
-  left: 1rem;
+  top: -0.7rem;
+  left: 0.5rem;
 
   text-align: center;
+}
+
+.header__username {
+  display: none;
+  color: var(--primary-color);
+
+  font-size: 1rem;
+
+  margin-right: 0.3rem;
+}
+
+@media screen and (min-width: 568px) {
+  .header__username {
+    display: block;
+  }
 }
 
 @media screen and (min-width: 1024px) {

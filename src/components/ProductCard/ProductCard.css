@@ -53,7 +53,7 @@ body {
   right: 0rem;
   top: 0rem;
 
-  z-index: var(--zindex-two);
+  z-index: var(--zindex-three);
   cursor: pointer;
 }
 

@@ -1,18 +1,19 @@
 import React from "react";
+import { useNavigate } from "react-router";
+
 import "./Profile.css";
 
 import { logout } from "../../utils/logout";
-import { useAppData, useAuthData } from "../../contexts";
+import { useAuthData } from "../../contexts";
 
 const Profile = () => {
-  const { clearUserCredentials } = useAuthData();
-  const { dispatchAppData } = useAppData();
-  console.log({ clearUserCredentials });
+  const { dispatchAuthData } = useAuthData();
+  const navigate = useNavigate();
   return (
     <div className="profile">
       <button
         className="profile__logout"
-        onClick={() => logout(clearUserCredentials, dispatchAppData)}
+        onClick={() => logout(dispatchAuthData, navigate)}
       >
         LOGOUT
       </button>

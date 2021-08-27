@@ -13,12 +13,32 @@ function AppDataProvider({ children }) {
   const setupToast = useStableSetupToast();
 
   useEffect(() => {
+    (async () => {
+      try {
+        const { SET_PRODUCTS_DATA } = actions;
+        const { data, status } = await axios.get("/products");
+
+        if (status === 201) {
+          dispatchAppData({
+            type: SET_PRODUCTS_DATA,
+            payload: {
+              products: data.products,
+            },
+          });
+        }
+      } catch (error) {
+        setupToast("failed to fetch products data");
+      }
+    })();
+  }, [setupToast]);
+
+  useEffect(() => {
     if (!token || !userID || !isLoggedIn) {
       return;
     }
     (async () => {
       const { SET_CART, SET_WISHLIST } = actions;
-      const URLs = [`/user/${userID}/car`, `/user/${userID}/wishlist`];
+      const URLs = [`/user/${userID}/cart`, `/user/${userID}/wishlist`];
 
       try {
         const requests = URLs.map((URL) => axios.get(URL));

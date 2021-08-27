@@ -4,7 +4,7 @@ import { logout } from "./logout";
 const setupAuthExceptionHandler = ({
   navigate,
   setupToast,
-  clearUserCredentials,
+  dispatchAuthData,
 }) => {
   const UNAUTHORIZED = 401;
   axios.interceptors.response.use(
@@ -12,8 +12,7 @@ const setupAuthExceptionHandler = ({
     (error) => {
       if (error?.response?.status === UNAUTHORIZED) {
         setupToast("Token Expired: Please Login Again....");
-        logout(clearUserCredentials);
-        navigate("/login");
+        logout(dispatchAuthData, navigate);
       }
       return Promise.reject(error);
     }

@@ -16,7 +16,7 @@ const QuantityButton = ({ data }) => {
   const { dispatchAppData } = useAppData();
   const { setupToast } = useToast();
 
-  const { type, btnClass, payload } = data;
+  const { type, btnClass, payload, quantity } = data;
 
   const onButtonClick = async () => {
     if (!isLoggedIn || !userID) {
@@ -27,19 +27,29 @@ const QuantityButton = ({ data }) => {
     setLoading(true);
 
     if (!isLoading) {
-      const { SET_QUANTITY } = actions;
+      const { INCREMENT_QUANTITY, DECREMENT_QUANTITY } = actions;
 
-      const { data, status } = await postAPI(
-        `/user/${userID}/cart/update`,
-        payload
-      );
+      const url =
+        type === "INCREMENT"
+          ? `/user/${userID}/cart/update/increment`
+          : `/user/${userID}/cart/update/decrement`;
+
+      const action =
+        type === "INCREMENT" ? INCREMENT_QUANTITY : DECREMENT_QUANTITY;
+
+      console.log(action);
+
+      const { data, status } = await postAPI(url, payload);
 
       console.log({ data });
 
       if (status === 201) {
-        const { product, quantity } = data;
+        const { product, totalQuantity } = data;
         setLoading(false);
-        dispatchAppData({ type: SET_QUANTITY, payload: { product, quantity } });
+        dispatchAppData({
+          type: action,
+          payload: { product, totalQuantity },
+        });
         return;
       }
 
@@ -55,8 +65,13 @@ const QuantityButton = ({ data }) => {
       <AiOutlineMinus className="quantity_icon" />
     );
 
+  const handleClick =
+    quantity === 1 && type === "DECREMENT"
+      ? undefined
+      : (e) => onButtonClick(e);
+
   return (
-    <button className={btnClass} onClick={onButtonClick}>
+    <button className={btnClass} onClick={handleClick}>
       {isLoading ? (
         <Loader type="Bars" color="#FFF" width={16} height={16} />
       ) : (
