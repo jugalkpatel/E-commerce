@@ -18,7 +18,9 @@ const QuantityButton = ({ data }) => {
 
   const { type, btnClass, payload, quantity } = data;
 
-  const onButtonClick = async () => {
+  const onButtonClick = async (e) => {
+    e.preventDefault();
+
     if (!isLoggedIn || !userID) {
       navigate("/login");
       return;
@@ -37,24 +39,20 @@ const QuantityButton = ({ data }) => {
       const action =
         type === "INCREMENT" ? INCREMENT_QUANTITY : DECREMENT_QUANTITY;
 
-      console.log(action);
-
       const { data, status } = await postAPI(url, payload);
 
-      console.log({ data });
-
       if (status === 201) {
-        const { product, totalQuantity } = data;
+        const { product, availableQuantity } = data;
         setLoading(false);
         dispatchAppData({
           type: action,
-          payload: { product, totalQuantity },
+          payload: { product, availableQuantity },
         });
         return;
       }
 
       setLoading(false);
-      setupToast("Quantity updation failed....");
+      setupToast("Quantity updation failed.....");
     }
   };
 
@@ -66,9 +64,7 @@ const QuantityButton = ({ data }) => {
     );
 
   const handleClick =
-    quantity === 1 && type === "DECREMENT"
-      ? undefined
-      : (e) => onButtonClick(e);
+    quantity === 1 && type === "DECREMENT" ? null : (e) => onButtonClick(e);
 
   return (
     <button className={btnClass} onClick={handleClick}>

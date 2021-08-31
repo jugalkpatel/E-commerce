@@ -7,7 +7,6 @@ const ToastProvider = ({ children }) => {
   const [toastMsg, setToastMsg] = useState("");
 
   useEffect(() => {
-    console.log("ToastProvider useEffect called....");
     const timer = setTimeout(() => {
       setShowToast(false);
       setToastMsg("");
@@ -16,7 +15,6 @@ const ToastProvider = ({ children }) => {
   });
 
   const setupToast = (message) => {
-    console.log(message);
     setShowToast(true);
     setToastMsg(message);
   };

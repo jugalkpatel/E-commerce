@@ -40,9 +40,12 @@ const CartButton = ({ data }) => {
       const { data, status } = await postAPI(url, payload);
 
       if (status === 201) {
-        const { product, totalQuantity } = data;
+        const { product, availableQuantity } = data;
         setLoading(false);
-        dispatchAppData({ type: action, payload: { product, totalQuantity } });
+        dispatchAppData({
+          type: action,
+          payload: { product, availableQuantity },
+        });
         return;
       }
 

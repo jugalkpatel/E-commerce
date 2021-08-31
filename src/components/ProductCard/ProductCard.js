@@ -9,7 +9,8 @@ import { WishListButton } from "../WishListButton/WishListButton";
 import { CartButton } from "../CartButton/CartButton";
 
 const ProductCard = ({ productDetails }) => {
-  const { _id, name, image, specifications, price, quantity } = productDetails;
+  const { _id, name, image, specifications, price, availableQuantity } =
+    productDetails;
 
   return (
     <div className="product-container" key={_id}>
@@ -34,7 +35,7 @@ const ProductCard = ({ productDetails }) => {
               },
             }}
           />
-          {quantity < 1 ? (
+          {availableQuantity < 1 ? (
             <div className="overlay-div">
               <span className="overlay-text"> OUT OF STOCK </span>
             </div>

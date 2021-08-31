@@ -3,8 +3,6 @@ import React from "react";
 import "./Sidebar.css";
 import closeBtn from "../../assets/svgs/close-btn.svg";
 
-import { sideBarData } from "./sidebarData";
-import { capitalize } from "../../utils/capitalize";
 import { actions } from "../../utils/actions";
 
 const Sidebar = ({
@@ -12,65 +10,32 @@ const Sidebar = ({
     visibility: sidebarVisibility,
     setVisibility: changeSidebarVisibility,
   },
-  setFilter,
+  setFilters,
+  children,
 }) => {
   const { RESET_FILTERS } = actions;
+
   return (
     <div className="sidebar" style={{ visibility: sidebarVisibility }}>
-      <div className="sidebar__content">
+      <article className="sidebar__content">
         <button
-          className="sidebar__content__close"
+          className="sidebar__btn--close"
           onClick={() => changeSidebarVisibility("hidden")}
         >
-          <span className="sidebar__content__close__icon">
-            <img src={closeBtn} alt="close icon" />
+          <span className="sidebar__icon--close">
+            <img src={closeBtn} alt="close_icon" />
           </span>
         </button>
+
         <button
-          className="sidebar__content__reset"
-          onClick={() =>
-            setFilter({ type: RESET_FILTERS, payload: { flag: RESET_FILTERS } })
-          }
+          className="sidebar__btn--reset"
+          onClick={() => setFilters({ type: RESET_FILTERS })}
         >
-          <span className="sidebar__content__reset__text">RESET FILTERS</span>
+          <span className="sidebar__btn__text--reset">RESET FILTERS</span>
         </button>
-        {sideBarData.map((filter) => {
-          return (
-            <div
-              className="sidebar__content__product-category"
-              key={filter.filterTitle}
-            >
-              <h3 className="sidebar__content__product-category__title">
-                <span className="sidebar__content__product-category__title__text">
-                  {capitalize(filter.filterTitle)}
-                </span>
-              </h3>
-              <ul className="sidebar__content__product-category__list">
-                {filter.filterData.map((item) => {
-                  return (
-                    <li
-                      className="sidebar__content__product-category__list__item"
-                      key={item.filterLabel}
-                    >
-                      <input
-                        type="checkbox"
-                        id={item.filterLabel}
-                        onChange={() => setFilter(item.payloadInfo)}
-                      />
-                      <label
-                        htmlFor={item.filterLabel}
-                        className="checkbox__text"
-                      >
-                        {capitalize(item.filterName)}
-                      </label>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          );
-        })}
-      </div>
+
+        {children}
+      </article>
     </div>
   );
 };

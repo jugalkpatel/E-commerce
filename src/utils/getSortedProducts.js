@@ -1,25 +1,44 @@
 import { actions } from "./actions";
 
-const { LOW_TO_HIGH, HIGH_TO_LOW, EXCLUDE_OUT_OF_STOCK } = actions;
-const getSortedProducts = (list, filterFlags) => {
-  const localProductsData = [...list];
-  const filteredList = Object.keys(filterFlags).reduce((acc, item) => {
-    switch (filterFlags[item]) {
-      case LOW_TO_HIGH:
-        return acc.sort((firstItem, secondItem) => {
-          return parseInt(firstItem.price) - parseInt(secondItem.price);
-        });
-      case HIGH_TO_LOW:
-        return acc.sort((firstItem, secondItem) => {
-          return parseInt(secondItem.price) - parseInt(firstItem.price);
-        });
-      case EXCLUDE_OUT_OF_STOCK:
-        return acc.filter((item) => item.quantity > 0);
+const { LOW_TO_HIGH } = actions;
+
+const getSortedProducts = (productList, filterList) => {
+  const localProductsList = [...productList];
+
+  const filteredProductsList = Object.keys(filterList).reduce((acc, filter) => {
+    switch (filter.toUpperCase()) {
+      case "BYPRICE": {
+        return filterList[filter]
+          ? filterList[filter] === LOW_TO_HIGH
+            ? acc.sort(
+                (firstItem, secondItem) =>
+                  parseInt(firstItem.price) - parseInt(secondItem.price)
+              )
+            : acc.sort(
+                (firstItem, secondItem) =>
+                  parseInt(secondItem.price) - parseInt(firstItem.price)
+              )
+          : acc;
+      }
+      case "BYAVAILABILITY":
+        return filterList[filter]
+          ? acc.filter((item) => item.availableQuantity > 0)
+          : acc;
+      case "BYMANUFACTURERS":
+        return filterList[filter].length > 0
+          ? acc.filter(({ manufacturer }) =>
+              filterList[filter].find(
+                (company) =>
+                  company.toLowerCase() === manufacturer.toLowerCase()
+              )
+            )
+          : acc;
       default:
         return acc;
     }
-  }, localProductsData);
-  return filteredList;
+  }, localProductsList);
+
+  return filteredProductsList;
 };
 
 export { getSortedProducts };

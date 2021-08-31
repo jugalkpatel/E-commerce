@@ -15,7 +15,7 @@ function AppDataProvider({ children }) {
   useEffect(() => {
     (async () => {
       try {
-        const { SET_PRODUCTS_DATA } = actions;
+        const { SET_PRODUCTS_DATA, SET_MANUFACTURERS } = actions;
         const { data, status } = await axios.get("/products");
 
         if (status === 201) {
@@ -23,6 +23,13 @@ function AppDataProvider({ children }) {
             type: SET_PRODUCTS_DATA,
             payload: {
               products: data.products,
+            },
+          });
+
+          dispatchAppData({
+            type: SET_MANUFACTURERS,
+            payload: {
+              manufacturers: data.manufacturers,
             },
           });
         }
@@ -37,7 +44,7 @@ function AppDataProvider({ children }) {
       return;
     }
     (async () => {
-      const { SET_CART, SET_WISHLIST } = actions;
+      const { SET_CART, SET_WISHLIST, REMOVE_USER_DATA } = actions;
       const URLs = [`/user/${userID}/cart`, `/user/${userID}/wishlist`];
 
       try {
@@ -59,15 +66,19 @@ function AppDataProvider({ children }) {
         }
       } catch (error) {
         setupToast("failed to fetch cart and wishlist details....");
+        dispatchAppData({ type: REMOVE_USER_DATA });
       }
     })();
   }, [token, userID, isLoggedIn, setupToast]);
 
-  const [appData, dispatchAppData] = useReducer(appDataReducer, {
+  const initialAppData = {
     productsData: [],
+    manufacturers: [],
     cartData: [],
     wishListData: [],
-  });
+  };
+
+  const [appData, dispatchAppData] = useReducer(appDataReducer, initialAppData);
 
   console.log({ appData });
 

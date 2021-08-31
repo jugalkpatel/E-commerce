@@ -1,8 +1,10 @@
-import { useToast } from "../contexts";
 import { useNavigate } from "react-router";
+
+import { useToast } from "../contexts";
 import { setupAuthHeaderForServiceCalls } from "../utils/setupHeaders";
 import { setupAuthExceptionHandler } from "../utils/setupAuthExceptionHandler";
 import { actions } from "../utils/actions";
+
 const useSetupAuth = (dispatchAuthData) => {
   const { SET_USER_CREDENTIALS } = actions;
   const { setupToast } = useToast();

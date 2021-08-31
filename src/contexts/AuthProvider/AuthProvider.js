@@ -25,7 +25,6 @@ const AuthProvider = ({ children }) => {
   const stableSetupAuth = useRef(useSetupAuth(dispatchAuthData));
 
   useEffect(() => {
-    console.log("AuthProvider useEffect called....");
     (async () => {
       const setupAuth = stableSetupAuth.current;
       const { token, userID, userName } = (await JSON.parse(

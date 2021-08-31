@@ -28,7 +28,7 @@
   font-family: var(--primary-font);
 }
 
-.sidebar__content__close {
+.sidebar__btn--close {
   position: absolute;
   top: 0;
   right: 0;
@@ -42,26 +42,14 @@
   margin: 0.5em 0.5rem 0 0;
 }
 
-.sidebar__content__product-category {
-  padding: 1.5em;
-}
+.sidebar__category {
+  padding: 1.5rem;
 
-.sidebar__content__product-category__list {
-  margin: 0;
-
-  padding: 0;
-
-  list-style-type: none;
-}
-
-.sidebar__content__product-category__list__item {
   display: flex;
-  align-items: center;
-
-  margin-top: 0.5em;
+  flex-direction: column;
 }
 
-.sidebar__content__product-category__title {
+.sidebar__category__title {
   margin: 0;
   margin-bottom: 1em;
 
@@ -72,12 +60,12 @@
   font-size: 1em;
 }
 
-.sidebar__content__product-category__title__text {
+.sidebar__category__title--text {
   display: block;
   margin-bottom: 1em;
 }
 
-.sidebar__content__reset {
+.sidebar__btn--reset {
   background-color: var(--reset-color);
   color: var(--background-color);
 
@@ -94,49 +82,6 @@
   cursor: pointer;
 }
 
-.checkbox__text {
-  color: var(--primary-color);
-
-  font-size: 1em;
-  margin-left: 0.5em;
-
-  font-family: var(--primary-font);
-  font-weight: 400;
-}
-
-input[type="checkbox"] {
-  appearance: none;
-  -webkit-appearance: none;
-
-  height: 1.5em;
-  width: 1.5em;
-
-  background-color: var(--background-color);
-  cursor: pointer;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border: 2px solid var(--primary-color);
-  border-radius: 0.1rem;
-}
-
-input[type="checkbox"]:after {
-  content: url("../../assets/svgs/check.svg");
-  display: none;
-}
-
-input[type="checkbox"]:checked {
-  background-color: var(--secondary-color);
-
-  border-color: var(--secondary-color);
-}
-
-input[type="checkbox"]:checked:after {
-  display: block;
-}
-
 @media screen and (min-width: 768px) and (max-width: 1025px) {
   .sidebar__content {
     flex-direction: row;
@@ -144,7 +89,7 @@ input[type="checkbox"]:checked:after {
     justify-content: center;
   }
 
-  .sidebar__content__product-category {
+  .sidebar__category {
     width: 25rem;
   }
 }
@@ -166,11 +111,11 @@ input[type="checkbox"]:checked:after {
     z-index: 4;
   }
 
-  .sidebar__content__product-category {
+  .sidebar__category {
     padding: 0.7em;
   }
 
-  .sidebar__content__reset {
+  .sidebar__btn--reset {
     position: relative;
 
     width: fit-content;
@@ -181,7 +126,7 @@ input[type="checkbox"]:checked:after {
     margin: 0 1em 1em 1em;
   }
 
-  .sidebar__content__close {
+  .sidebar__btn--close {
     display: none;
   }
 }

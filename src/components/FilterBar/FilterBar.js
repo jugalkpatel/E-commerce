@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./FilterBar.css";
 import downArrow from "../../assets/svgs/down-arrow.svg";
 import { actions } from "../../utils/actions";
-const FilterBar = ({ setFilter }) => {
+const FilterBar = ({ setFilters }) => {
   const [visibility, setVisibility] = useState("hidden");
   const { LOW_TO_HIGH, HIGH_TO_LOW } = actions;
   return (
@@ -31,12 +31,7 @@ const FilterBar = ({ setFilter }) => {
               <a
                 href="#cart"
                 className="dropdown__item__link"
-                onClick={() =>
-                  setFilter({
-                    type: LOW_TO_HIGH,
-                    payload: { flag: LOW_TO_HIGH },
-                  })
-                }
+                onClick={() => setFilters({ type: LOW_TO_HIGH })}
               >
                 Lowest Price
               </a>
@@ -45,12 +40,7 @@ const FilterBar = ({ setFilter }) => {
               <a
                 href="#cart"
                 className="dropdown__item__link"
-                onClick={() =>
-                  setFilter({
-                    type: HIGH_TO_LOW,
-                    payload: { flag: HIGH_TO_LOW },
-                  })
-                }
+                onClick={() => setFilters({ type: HIGH_TO_LOW })}
               >
                 Highest Price
               </a>

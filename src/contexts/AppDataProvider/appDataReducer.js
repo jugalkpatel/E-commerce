@@ -11,27 +11,33 @@ const {
   REMOVE_USER_DATA,
   INCREMENT_QUANTITY,
   DECREMENT_QUANTITY,
+  SET_MANUFACTURERS,
 } = actions;
 
 const appDataReducer = (state, { type, payload }) => {
+  console.log({ type, payload });
   switch (type) {
     case ADD_TO_CART:
+      console.log(state.cartData);
       return {
         ...state,
         productsData: state.productsData.map((product) => {
           if (product._id === payload.product._id) {
-            return { ...product, quantity: payload.totalQuantity };
+            return { ...product, availableQuantity: payload.availableQuantity };
           }
           return product;
         }),
-        cartData: state.cartData.concat(payload.product),
+        cartData:
+          payload.availableQuantity > -1
+            ? state.cartData.concat(payload.product)
+            : state.cartData,
       };
     case REMOVE_FROM_CART:
       return {
         ...state,
         productsData: state.productsData.map((product) => {
           if (product._id === payload.product) {
-            return { ...product, quantity: payload.totalQuantity };
+            return { ...product, availableQuantity: payload.availableQuantity };
           }
           return product;
         }),
@@ -57,13 +63,19 @@ const appDataReducer = (state, { type, payload }) => {
         ...state,
         productsData: state.productsData.map((product) => {
           if (product._id === payload.product) {
-            return { ...product, quantity: payload.totalQuantity };
+            return { ...product, availableQuantity: payload.availableQuantity };
           }
           return product;
         }),
         cartData: state.cartData.map((product) => {
           if (product._id === payload.product) {
-            return { ...product, quantity: product.quantity + 1 };
+            return {
+              ...product,
+              quantity:
+                payload.availableQuantity > -1
+                  ? product.quantity + 1
+                  : product.quantity,
+            };
           }
           return product;
         }),
@@ -73,7 +85,7 @@ const appDataReducer = (state, { type, payload }) => {
         ...state,
         productsData: state.productsData.map((product) => {
           if (product._id === payload.product) {
-            return { ...product, quantity: payload.totalQuantity };
+            return { ...product, availableQuantity: payload.availableQuantity };
           }
           return product;
         }),
@@ -89,16 +101,6 @@ const appDataReducer = (state, { type, payload }) => {
         ...state,
         productsData: payload.products,
       };
-    // case SET_QUANTITY:
-    //   return {
-    //     ...state,
-    //     cartData: state.cartData.map((product) => {
-    //       if (product._id === payload.product) {
-    //         return { ...product, quantity:  };
-    //       }
-    //       return product;
-    //     }),
-    //   };
     case SET_CART:
       return {
         ...state,
@@ -108,6 +110,11 @@ const appDataReducer = (state, { type, payload }) => {
       return {
         ...state,
         wishListData: payload.wishlist,
+      };
+    case SET_MANUFACTURERS:
+      return {
+        ...state,
+        manufacturers: payload.manufacturers,
       };
     case REMOVE_USER_DATA:
       return { ...state, cartData: [], wishListData: [] };

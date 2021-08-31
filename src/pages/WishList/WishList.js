@@ -24,7 +24,7 @@ const WishList = () => {
           <span className="wishlist__empty__subtext">
             You have no items in your wishlist Start adding!
           </span>
-          <Link to="/products">
+          <Link to="/">
             <button className="wishlist__empty__shopbtn">ADD NOW</button>
           </Link>
         </div>
