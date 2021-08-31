@@ -70,7 +70,6 @@ userRouter
 userRouter.route("/login").post(async (req, res) => {
   try {
     const { email, password } = req.body;
-    console.log(email);
     const user = await User.findOne({ email: email });
 
     if (!user) {

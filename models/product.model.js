@@ -20,16 +20,24 @@ const productSchema = new Schema({
     type: mongoose.SchemaTypes.Url,
     required: [true, "Please Provide Url for Product"],
   },
-  quantity: {
-    type: Number,
-    require: [true, "Please Provide quantity for Product"],
-  },
   specifications: {
     type: Schema.Types.ObjectId,
     ref: "Specification",
   },
   link: {
     type: String,
+  },
+  totalQuantity: {
+    type: Number,
+    required: [true, "Please Provide total quantity for product"],
+  },
+  availableQuantity: {
+    type: Number,
+    required: [true, "Please Provide available quantity for product"],
+  },
+  manufacturer: {
+    type: String,
+    required: [true, "Please Provide manufacturer of the product"],
   },
 });
 

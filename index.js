@@ -6,22 +6,22 @@ const cors = require("cors");
 
 require("dotenv").config();
 
-const bodyParser = require("body-parser");
-
 const { getConnection } = require("./connections/mongoose.connection");
 
 const { productRouter } = require("./routes/product.route");
 const { specRouter } = require("./routes/specifications.route");
 const { userRouter } = require("./routes/user.route");
+const { manufacturerRouter } = require("./routes/manufacturers.route");
 
 const PORT = process.env.PORT || 8000;
 
 getConnection();
-app.use(bodyParser.json());
+app.use(express.json());
 app.use(cors());
 app.use("/user", userRouter);
 app.use("/products", productRouter);
 app.use("/specs", specRouter);
+app.use("/manufacturers", manufacturerRouter);
 
 app.get("/", (req, res) => {
   res

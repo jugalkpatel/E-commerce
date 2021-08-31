@@ -58,8 +58,6 @@ cartRouter.use(async (req, res, next) => {
 
     req.product = product;
 
-    console.log({ product });
-
     next();
   } catch (error) {
     res.status(404).json({
@@ -75,12 +73,14 @@ cartRouter.post("/add", async (req, res) => {
     const { id: productId } = req.body;
     const { id: userId, user, product } = req;
 
-    const totalQuantity = await decrementTotalQuantity(product);
+    const availableQuantity = await decrementTotalQuantity(product);
 
-    if (!totalQuantity) {
-      res.status(500).json({
+    if (availableQuantity < 0) {
+      res.status(201).json({
         success: false,
-        message: "error while updating total quantity",
+        message: "Product is out of stock",
+        product: { _id: productId },
+        availableQuantity: -1,
       });
       return;
     }
@@ -109,7 +109,7 @@ cartRouter.post("/add", async (req, res) => {
         success: true,
         message: "Product is Successfully added to the cart",
         product: { ...resProduct.product._doc, quantity: resProduct.quantity },
-        totalQuantity,
+        availableQuantity,
       });
 
       return;
@@ -139,7 +139,7 @@ cartRouter.post("/add", async (req, res) => {
       success: true,
       message: "Product is successfully added to the cart",
       product: { ...resProduct.product._doc, quantity: resProduct.quantity },
-      totalQuantity,
+      availableQuantity,
     });
   } catch (error) {
     console.log(error);
@@ -169,7 +169,10 @@ cartRouter.post("/remove", async (req, res) => {
       return JSON.stringify(item.product) === JSON.stringify(product._id);
     });
 
-    product.quantity = product.quantity + removedProduct.quantity;
+    const quantitySum = product.availableQuantity + removedProduct.quantity;
+
+    product.availableQuantity =
+      quantitySum > product.totalQuantity ? product.totalQuantity : quantitySum;
 
     await product.save();
 
@@ -177,7 +180,7 @@ cartRouter.post("/remove", async (req, res) => {
       success: true,
       message: "product successfully removed from cart",
       product: productId,
-      totalQuantity: product.quantity,
+      availableQuantity: product.availableQuantity,
     });
   } catch (error) {
     console.log(error);
@@ -196,12 +199,14 @@ cartRouter.post("/update/increment", async (req, res) => {
     const { id: productId } = req.body;
 
     /* decrementing total quantity */
-    const totalQuantity = await decrementTotalQuantity(product);
+    const availableQuantity = await decrementTotalQuantity(product);
 
-    if (totalQuantity < 0) {
-      res.status(500).json({
+    if (availableQuantity < 0) {
+      res.status(201).json({
         success: false,
-        message: "error while updating total quantity",
+        message: "Product is out of stock",
+        product: productId,
+        availableQuantity: -1,
       });
       return;
     }
@@ -221,7 +226,7 @@ cartRouter.post("/update/increment", async (req, res) => {
       success: true,
       message: "cart quantity updated successfully",
       product: productId,
-      totalQuantity,
+      availableQuantity,
     });
   } catch (error) {
     res.status(500).json({
@@ -238,9 +243,11 @@ cartRouter.post("/update/decrement", async (req, res) => {
     const { id: productId } = req.body;
 
     /* incrementing total quantity */
-    const totalQuantity = await incrementTotalQuantity(product);
+    const availableQuantity = await incrementTotalQuantity(product);
 
-    if (totalQuantity < 0) {
+    console.log({ availableQuantity });
+
+    if (availableQuantity < 0) {
       res.status(500).json({
         success: false,
         message: "error while updating total quantity",
@@ -266,7 +273,7 @@ cartRouter.post("/update/decrement", async (req, res) => {
       success: true,
       message: "cart quantity updated successfully",
       product: productId,
-      totalQuantity,
+      availableQuantity,
     });
   } catch (error) {
     res.status(500).json({
@@ -281,15 +288,15 @@ const incrementTotalQuantity = async ({ _id }) => {
   try {
     const product = await Product.findOneAndUpdate(
       {
-        $and: [{ _id }, { quantity: { $gte: 0 } }],
+        $and: [{ _id }, { availableQuantity: { $gte: 0 } }],
       },
       {
-        $inc: { quantity: 1 },
+        $inc: { availableQuantity: 1 },
       },
       { new: true }
     );
 
-    return product.quantity;
+    return product.availableQuantity;
   } catch (error) {
     return false;
   }
@@ -299,15 +306,15 @@ const decrementTotalQuantity = async ({ _id }) => {
   try {
     const product = await Product.findOneAndUpdate(
       {
-        $and: [{ _id }, { quantity: { $gt: 0 } }],
+        $and: [{ _id }, { availableQuantity: { $gt: 0 } }],
       },
       {
-        $inc: { quantity: -1 },
+        $inc: { availableQuantity: -1 },
       },
       { new: true }
     );
 
-    return product.quantity;
+    return product.availableQuantity;
   } catch (error) {
     return -1;
   }

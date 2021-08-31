@@ -1,8 +1,7 @@
 const express = require("express");
+const { Manufacturer } = require("../models/manufacturers.model");
 const productRouter = express.Router();
 const { Product } = require("../models/product.model");
-const mongoose = require("mongoose");
-const { Schema } = mongoose;
 
 productRouter.param("productId", async (req, res, next, id) => {
   try {
@@ -13,7 +12,6 @@ productRouter.param("productId", async (req, res, next, id) => {
         message: "Product Not found",
       });
     }
-    console.log("yes, there is a product with such id");
     req.id = id;
     next();
   } catch (error) {
@@ -30,12 +28,15 @@ productRouter
   .get(async (req, res) => {
     try {
       const products = await Product.find({})
-        .select("-__v")
-        .populate("specifications", "cooling clockSpeed memory -_id");
+        .populate("specifications", "cooling clockSpeed memory -_id")
+        .select("-__v");
+
+      const manufacturers = await Manufacturer.find({}).select("-__v");
 
       res.status(201).json({
         success: true,
-        products: products,
+        products,
+        manufacturers,
       });
     } catch (error) {
       res.status(404).json({
@@ -55,7 +56,9 @@ productRouter
         image: image,
         quantity: quantity,
       });
+
       await product.save();
+
       res.status(201).json({
         success: true,
         message: "Product added successfully",
@@ -70,17 +73,19 @@ productRouter
     }
   });
 
-productRouter.route("/:productId").get(async (req, res) => {
+productRouter.get("/:productId", async (req, res) => {
   const { id } = req;
+
   try {
     const product = await Product.findById(id).populate("specifications");
+
     res.status(200).json({ success: true, data: product });
   } catch (error) {
     res.status(404).json({ success: false, message: "Data not found", error });
   }
 });
 
-productRouter.route("/fields").post(async (req, res) => {
+productRouter.post("/fields", async (req, res) => {
   try {
     const { id, link } = req.body;
 
@@ -103,6 +108,62 @@ productRouter.route("/fields").post(async (req, res) => {
       success: false,
       message: "error while adding new field to Products",
     });
+  }
+});
+
+productRouter.post("/removeField", async (req, res) => {
+  try {
+    await Product.updateMany({}, { $unset: { quantity: "" } });
+
+    res.status(201).json({
+      sucecss: true,
+      message: "field are removed successfully",
+    });
+  } catch (error) {
+    console.error("failed to remove field");
+  }
+});
+
+productRouter.post("/addField", async (req, res) => {
+  try {
+    await Product.updateMany(
+      {},
+      {
+        $set: {
+          manufacturer: "nvidea",
+        },
+      }
+    );
+
+    res.status(201).json({
+      sucecss: true,
+      message: "fields are added successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "error while adding new fields",
+    });
+  }
+});
+
+productRouter.post("/updateManufacturer", async (req, res) => {
+  try {
+    const { id: productID, manufacturer } = req.body;
+
+    const product = await Product.findByIdAndUpdate(
+      { _id: productID },
+      { manufacturer },
+      { new: true }
+    );
+
+    res.status(201).json({
+      success: true,
+      message: "manfacturer updated successfully",
+      product,
+    });
+  } catch (error) {
+    console.log("error occured while updating ", error);
   }
 });
 
