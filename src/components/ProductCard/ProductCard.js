@@ -29,7 +29,7 @@ const ProductCard = ({ productDetails }) => {
             data={{
               type: "ADD",
               btnClass: "wish-btn",
-              svgClass: "wishlist__icon",
+              svgClass: "wishlist_icon",
               payload: {
                 id: _id,
               },

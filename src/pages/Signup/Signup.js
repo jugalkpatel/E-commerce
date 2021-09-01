@@ -145,6 +145,7 @@ const Signup = () => {
                 password: signUpCredentials.password,
                 isPasswordsMatching: signUpCredentials.isPasswordsMatching,
               },
+              path: "/",
             }}
           />
         </span>

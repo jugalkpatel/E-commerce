@@ -11,7 +11,7 @@ import {
 } from "../../utils/validateCredentials";
 
 const AuthButton = ({ data }) => {
-  const { type, btnText, btnClass, payload } = data;
+  const { type, btnText, btnClass, payload, path } = data;
   const { dispatchAuthData } = useAuthData();
   const [loading, setLoading] = useState(false);
   const setupAuth = useSetupAuth(dispatchAuthData);
@@ -39,7 +39,7 @@ const AuthButton = ({ data }) => {
       const { token, userID, userName } = data;
       localStorage?.setItem("vtk", JSON.stringify({ token, userID, userName }));
       setLoading(false);
-      setupAuth({ token, userID, userName });
+      setupAuth({ token, userID, userName, path });
       return;
     }
 

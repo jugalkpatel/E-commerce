@@ -1,0 +1,38 @@
+.nr {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  color: var(--primary-color);
+
+  border: 1px solid var(--primary-color);
+
+  padding: 1rem;
+
+  max-width: 1225px;
+}
+
+.nr__empty__imgcontainer {
+  max-width: 300px;
+  max-height: 300px;
+}
+
+.nr__maintext {
+  margin: 0;
+  margin: 1rem 0;
+}
+
+.nr__redirectbtn {
+  margin: 1rem 0;
+  border: 0;
+
+  background-color: var(--secondary-color);
+
+  color: var(--primary-color);
+
+  padding: 1rem;
+
+  font-weight: 900;
+
+  text-decoration: none;
+}

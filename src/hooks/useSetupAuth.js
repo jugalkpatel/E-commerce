@@ -10,7 +10,6 @@ const useSetupAuth = (dispatchAuthData) => {
   const { setupToast } = useToast();
   const navigate = useNavigate();
   return ({ token, userID, userName, path }) => {
-    console.log({ token, userID, userName });
     if (!token || !userID || !userName) {
       setupToast("you're not logged in");
       navigate("/login");

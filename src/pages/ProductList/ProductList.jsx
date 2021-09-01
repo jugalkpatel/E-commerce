@@ -1,18 +1,19 @@
 import React, { useReducer, useState } from "react";
 
-import filterIcon from "../../assets/svgs/filter.svg";
-import Loader from "react-loader-spinner";
 import "./ProductList.css";
+import filterIcon from "../../assets/svgs/filter.svg";
 
 import { useAppData } from "../../contexts";
 import { Sidebar } from "../../components/Sidebar/Sidebar";
 import { FilterBar } from "../../components/FilterBar/FilterBar";
 import { ProductCard } from "../../components/ProductCard/ProductCard";
 import { Filter } from "../../components/Filter/Filter";
+import { Spinner } from "../../components/Spinner/Spinner";
 import { CheckBox } from "../../components/CheckBox/CheckBox";
 import { filterReducer } from "./filterReducer";
 import { getSortedProducts } from "../../utils/getSortedProducts";
 import { actions } from "../../utils/actions";
+import { NoResults } from "../../components/NoResults/NoResults";
 
 const ProductList = () => {
   const { EXCLUDE_OUT_OF_STOCK, BY_MANUFACTURERS } = actions;
@@ -37,9 +38,17 @@ const ProductList = () => {
         <div className="ct--pl">
           <div className="pl">
             <FilterBar setFilters={dispatchFilters} />
-            {filteredProducts.map((product, index) => {
-              return <ProductCard productDetails={product} key={index} />;
-            })}
+            {filteredProducts.length > 0 ? (
+              filteredProducts.map((product, index) => {
+                return <ProductCard productDetails={product} key={index} />;
+              })
+            ) : (
+              <NoResults
+                mainText="No results found!"
+                subText="Please reset filters."
+                redirect={false}
+              />
+            )}
           </div>
 
           <Sidebar
@@ -89,9 +98,7 @@ const ProductList = () => {
           </button>
         </div>
       ) : (
-        <span className="pl__spinner">
-          <Loader type="Oval" color="#b9b9b9" height={100} width={100} />
-        </span>
+        <Spinner />
       )}
     </>
   );

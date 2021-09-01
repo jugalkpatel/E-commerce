@@ -1,13 +1,13 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 
 import "./Cart.css";
 import gpu from "../../assets/svgs/gpu.svg";
 
 import { useAppData } from "../../contexts";
 import { CartProductCard } from "../../components/ProductCard/CartProductCard";
-import { Link, Outlet } from "react-router-dom";
 import { totalPrice } from "../../utils/totalPrice";
+import { NoResults } from "../../components/NoResults/NoResults";
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ const Cart = () => {
     <>
       <div className="cart">
         {cartData.length > 0 ? (
-          <div className="c-grid">
+          <div className="cart--grid">
             <div className="cart__products">
               {cartData.map((product) => {
                 return (
@@ -31,7 +31,7 @@ const Cart = () => {
                 Total Amount: $ {totalPrice(cartData)}
               </span>
               <button
-                className="cart__checkout__checkoutbtn"
+                className="cart__checkoutbtn"
                 onClick={() =>
                   navigate("/cart/checkout", {
                     state: { details: { cartData } },
@@ -43,16 +43,11 @@ const Cart = () => {
             </div>
           </div>
         ) : (
-          <div className="cart__empty">
-            <div className="cart__empty__imgcontainer">
-              <img src={gpu} alt="gpu" className="cart__empty__image" />
-            </div>
-            <h3 className="cart__empty__text">Your cart is empty!</h3>
-            <span className="cart__empty__subtext">Add items to it now.</span>
-            <Link to="/products" className="cart__empty__shopbtn">
-              SHOP NOW
-            </Link>
-          </div>
+          <NoResults
+            mainText="Your cart is empty!"
+            subText="Add items to it now."
+            redirect
+          />
         )}
       </div>
       <Outlet />

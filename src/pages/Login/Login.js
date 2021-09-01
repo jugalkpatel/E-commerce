@@ -1,14 +1,18 @@
 import React, { useReducer } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import "./Login.css";
 
 import { loginReducer } from "./loginReducer";
-import { actions } from "../../utils/actions";
 import { AuthButton } from "../../components/AuthButton/AuthButton";
+import { actions } from "../../utils/actions";
 
 const Login = () => {
   const { SET_EMAIL, SET_PASSWORD, SHOW_PASSWORD } = actions;
+
+  const { state } = useLocation();
+
+  const path = state?.from ? state.from : -1;
 
   const initialLoginCredentials = {
     email: "",
@@ -90,6 +94,7 @@ const Login = () => {
               email: loginCredentials.email,
               password: loginCredentials.password,
             },
+            path,
           }}
         />
 

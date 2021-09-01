@@ -20,11 +20,12 @@ const getSortedProducts = (productList, filterList) => {
               )
           : acc;
       }
-      case "BYAVAILABILITY":
+      case "BYAVAILABILITY": {
         return filterList[filter]
           ? acc.filter((item) => item.availableQuantity > 0)
           : acc;
-      case "BYMANUFACTURERS":
+      }
+      case "BYMANUFACTURERS": {
         return filterList[filter].length > 0
           ? acc.filter(({ manufacturer }) =>
               filterList[filter].find(
@@ -33,6 +34,7 @@ const getSortedProducts = (productList, filterList) => {
               )
             )
           : acc;
+      }
       default:
         return acc;
     }

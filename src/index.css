@@ -1,1 +1,28 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
+:root {
+  --primary-color: #fff;
+  --secondary-color: #76b900;
+  --border-color: #fff;
+  --background-color: #000;
+  --reset-black: #1a1a1a;
+  --dropdown-white: #ccc;
+  --border-grey: #666;
+  --reset-color: #bdbdbd;
 
+  --primary-font: Lato;
+  --input-font-size: 1.3rem;
+
+  --input-back-color: #ededed;
+  --valid--text-color: #3bb54a;
+  --invalid-text-color: #d1403f;
+  --login-font-color: #000;
+
+  --zindex-one: 1;
+  --zindex-two: 2;
+  --zindex-three: 3;
+  --zindex-four: 4;
+}
+
+* {
+  box-sizing: border-box;
+}

@@ -1,4 +1,4 @@
-:root {
+/* :root {
   --primary-color: #fff;
   --secondary-color: #76b900;
   --border-color: #fff;
@@ -10,7 +10,7 @@
   --valid-text-color: #3bb54a;
   --invalid-text-color: #d1403f;
   --login-font-color: #000000;
-}
+} */
 
 .login__container {
   display: flex;

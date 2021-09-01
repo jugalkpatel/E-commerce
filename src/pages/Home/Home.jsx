@@ -6,7 +6,7 @@ import { Toast } from "../../components/Toast/Toast";
 
 function Home() {
   return (
-    <div className="App">
+    <div className="home">
       <Header />
       <Router />
       <Toast />
@@ -14,4 +14,4 @@ function Home() {
   );
 }
 
-export default Home;
+export { Home };

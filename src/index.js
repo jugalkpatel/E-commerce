@@ -7,7 +7,7 @@ import "./index.css";
 
 import { ToastProvider, AuthProvider, AppDataProvider } from "./contexts";
 
-import Home from "./pages/Home/Home";
+import { Home } from "./pages/Home/Home";
 
 // axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
 axios.defaults.baseURL = process.env.REACT_APP_DEV_URL;

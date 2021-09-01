@@ -12,7 +12,15 @@ function AppDataProvider({ children }) {
   const { isLoggedIn, userID, token } = useAuthData();
   const setupToast = useStableSetupToast();
 
+  // const fetchProductsData = async () => {
+  //   try {
+  //   } catch(err) {
+
+  //   }
+  // }
+
   useEffect(() => {
+    console.log("Products Data useEffect called");
     (async () => {
       try {
         const { SET_PRODUCTS_DATA, SET_MANUFACTURERS } = actions;

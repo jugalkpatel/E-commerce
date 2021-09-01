@@ -3,6 +3,7 @@ import { useAuthData } from "../contexts";
 import { Route, Navigate } from "react-router-dom";
 const PrivateRoute = ({ path, ...props }) => {
   const { isLoggedIn } = useAuthData();
+  console.log({ path });
   return isLoggedIn ? (
     <Route path={path} {...props} />
   ) : (

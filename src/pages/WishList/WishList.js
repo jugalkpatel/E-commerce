@@ -2,10 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import "./WishList.css";
-import gpu from "../../assets/svgs/gpu.svg";
 
 import { WishListCard } from "../../components/ProductCard/WishListCard";
 import { useAppData } from "../../contexts";
+import { NoResults } from "../../components/NoResults/NoResults";
 
 const WishList = () => {
   const { wishListData } = useAppData();
@@ -16,18 +16,11 @@ const WishList = () => {
           return <WishListCard productDetails={product} key={product._id} />;
         })
       ) : (
-        <div className="wishlist__empty">
-          <div className="wishlist__empty__imgcontainer">
-            <img src={gpu} alt="gpu" className="wishlist__empty__image" />
-          </div>
-          <h3 className="wishlist__empty__text">Empty Wishlist</h3>
-          <span className="wishlist__empty__subtext">
-            You have no items in your wishlist Start adding!
-          </span>
-          <Link to="/">
-            <button className="wishlist__empty__shopbtn">ADD NOW</button>
-          </Link>
-        </div>
+        <NoResults
+          mainText="Empty Wishlist"
+          subText="You have no items in your wishlsit stard adding!"
+          redirect
+        />
       )}
     </div>
   );

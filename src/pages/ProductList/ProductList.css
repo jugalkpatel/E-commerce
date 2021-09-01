@@ -49,11 +49,6 @@
   font-size: 1.3rem;
 }
 
-/* .wishlist__icon {
-  color: var(--secondary-color);
-  font-size: 1.5rem;
-} */
-
 @media screen and (min-width: 660px) {
   .pl {
     grid-template-columns: repeat(auto-fit, 23rem);
