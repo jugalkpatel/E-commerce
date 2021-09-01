@@ -15,10 +15,8 @@ const {
 } = actions;
 
 const appDataReducer = (state, { type, payload }) => {
-  console.log({ type, payload });
   switch (type) {
     case ADD_TO_CART:
-      console.log(state.cartData);
       return {
         ...state,
         productsData: state.productsData.map((product) => {
@@ -58,7 +56,6 @@ const appDataReducer = (state, { type, payload }) => {
         ),
       };
     case INCREMENT_QUANTITY:
-      console.log({ payload });
       return {
         ...state,
         productsData: state.productsData.map((product) => {

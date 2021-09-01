@@ -1,38 +1,37 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 import "./CartProductCard.css";
 
 import arrow from "../../assets/svgs/right-arrow.svg";
 
+import { QuantityButton, CartButton } from "..";
 import { capitalize } from "../../utils/capitalize";
-import { CartButton } from "../CartButton/CartButton";
-import { QuantityButton } from "../QuantityButton/QuantityButton";
 
 const CartProductCard = ({ productDetails }) => {
   const { _id, name, image, specifications, price, quantity } = productDetails;
 
   return (
-    <a href="#home" className="product">
+    <Link to={`/product/${_id}`} className="c-card">
       <CartButton
         data={{
           type: "REMOVE",
-          btnClass: "product__remove",
+          btnClass: "c-card__remove",
           payload: {
             id: _id,
           },
         }}
       />
 
-      <div className="product__imgcontainer">
-        <img src={image} alt="product_img" className="product__img" />
+      <div className="c-card__ibox">
+        <img src={image} alt="c-card_img" className="c-card__img" />
       </div>
-      <div className="product__details">
-        <span className="product__details__title">{name}</span>
-        <span className="prouduct__details__specs">
-          <ul className="product__details__specs__list">
+      <div className="c-card__details">
+        <span className="c-card__details__title">{name}</span>
+        <span className="c-card__details__specs">
+          <ul className="cc__list">
             {Object.keys(specifications).map((spec, index) => {
               return (
-                <li className="product__details__specs__list__item" key={index}>
+                <li className="cc__list__item" key={index}>
                   <img
                     className="specifications__arrow"
                     src={arrow}
@@ -45,29 +44,29 @@ const CartProductCard = ({ productDetails }) => {
           </ul>
         </span>
       </div>
-      <div className="product__buy">
-        <span className="product__buy__price">$ {price}</span>
+      <div className="c-card__buy">
+        <span className="c-card__buy__price">$ {price}</span>
         <QuantityButton
           data={{
             type: "INCREMENT",
-            btnClass: "product__buy__increment",
+            btnClass: "c-card__buy__increment",
             payload: { id: _id },
             quantity,
           }}
         />
 
-        <span className="product__buy__quantity">{quantity}</span>
+        <span className="c-card__buy__quantity">{quantity}</span>
 
         <QuantityButton
           data={{
             type: "DECREMENT",
-            btnClass: "product__buy__decrement",
+            btnClass: "c-card__buy__decrement",
             payload: { id: _id },
             quantity,
           }}
         />
       </div>
-    </a>
+    </Link>
   );
 };
 

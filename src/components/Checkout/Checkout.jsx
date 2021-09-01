@@ -14,10 +14,10 @@ const Checkout = () => {
   return (
     <div className="checkout">
       <div className="checkout__dialog">
-        <ul className="c-list">
+        <ul className="ch__list">
           {cartData.map(({ name, image, link }, index) => {
             return (
-              <li className="c-item" key={index}>
+              <li className="ch__list__item" key={index}>
                 <span className="i-wrapper">
                   <img src={image} alt="product" className="r-img" />
                 </span>
@@ -26,7 +26,7 @@ const Checkout = () => {
                   href={link}
                   className="checkout__product__link"
                   target="_blank"
-                  rel="noreferrer"
+                  rel="nopener noreferrer"
                 >
                   BUY
                 </a>

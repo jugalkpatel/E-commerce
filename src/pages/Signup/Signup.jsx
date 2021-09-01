@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 
 import "./Signup.css";
 
+import { AuthButton } from "../../components";
 import { signUpReducer } from "./signupReducer";
-import { AuthButton } from "../../components/AuthButton/AuthButton";
 import { actions } from "../../utils/actions";
 
 const Signup = () => {
@@ -17,24 +17,26 @@ const Signup = () => {
     SHOW_PASSWORD,
   } = actions;
 
+  const initialSignUpCredentials = {
+    email: "",
+    uname: "",
+    password: "",
+    confirmPassword: "",
+    showPassword: false,
+    isPasswordsMatching: false,
+  };
+
   const [signUpCredentials, dispatchSignUpCredentials] = useReducer(
     signUpReducer,
-    {
-      email: "",
-      uname: "",
-      password: "",
-      confirmPassword: "",
-      showPassword: false,
-      isPasswordsMatching: false,
-    }
+    initialSignUpCredentials
   );
 
   return (
     <form onSubmit={(e) => e.preventDefault()}>
-      <div className="signup__container">
+      <div className="signup">
         <h2 className="signup__title">CREATE AN ACCOUNT</h2>
 
-        <label htmlFor="uname" className="signup__label-text">
+        <label htmlFor="uname" className="signup__label--text">
           Username
         </label>
         <input
@@ -54,7 +56,7 @@ const Signup = () => {
           required
         />
 
-        <label htmlFor="email" className="signup__label-text">
+        <label htmlFor="email" className="signup__label--text">
           Email
         </label>
         <input
@@ -73,7 +75,7 @@ const Signup = () => {
           required
         />
 
-        <label htmlFor="password" className="signup__label-text">
+        <label htmlFor="password" className="signup__label--text">
           Password
           <span
             href="#"
@@ -99,7 +101,7 @@ const Signup = () => {
           required
         />
 
-        <label htmlFor="password" className="signup__label-text">
+        <label htmlFor="password" className="signup__label--text">
           Confirm Password
           <span
             href="#"
@@ -125,7 +127,7 @@ const Signup = () => {
           required
         />
 
-        <span className="signup__btn-container">
+        <span className="sg--container">
           <button
             type="reset"
             className="reset__btn"
@@ -150,7 +152,7 @@ const Signup = () => {
           />
         </span>
 
-        <span className="signup__create-account-container">
+        <span className="sg--create-acc-container">
           <span className="signup-accout-text">Already have an account ?</span>
           <Link to="/login" className="signup__create-account-btn">
             Log in

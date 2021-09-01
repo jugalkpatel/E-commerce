@@ -1,13 +1,11 @@
 import React from "react";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 import "./Cart.css";
-import gpu from "../../assets/svgs/gpu.svg";
 
 import { useAppData } from "../../contexts";
-import { CartProductCard } from "../../components/ProductCard/CartProductCard";
+import { CartProductCard, NoResults } from "../../components";
 import { totalPrice } from "../../utils/totalPrice";
-import { NoResults } from "../../components/NoResults/NoResults";
 
 const Cart = () => {
   const navigate = useNavigate();

@@ -33,8 +33,6 @@ const AuthButton = ({ data }) => {
 
     const { data, status } = await postAPI(url, payload);
 
-    console.log({ data, status });
-
     if (status === 201) {
       const { token, userID, userName } = data;
       localStorage?.setItem("vtk", JSON.stringify({ token, userID, userName }));

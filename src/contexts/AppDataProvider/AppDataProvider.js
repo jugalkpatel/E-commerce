@@ -12,15 +12,7 @@ function AppDataProvider({ children }) {
   const { isLoggedIn, userID, token } = useAuthData();
   const setupToast = useStableSetupToast();
 
-  // const fetchProductsData = async () => {
-  //   try {
-  //   } catch(err) {
-
-  //   }
-  // }
-
   useEffect(() => {
-    console.log("Products Data useEffect called");
     (async () => {
       try {
         const { SET_PRODUCTS_DATA, SET_MANUFACTURERS } = actions;
@@ -79,6 +71,13 @@ function AppDataProvider({ children }) {
     })();
   }, [token, userID, isLoggedIn, setupToast]);
 
+  useEffect(() => {
+    if (!isLoggedIn) {
+      const { REMOVE_USER_DATA } = actions;
+      dispatchAppData({ type: REMOVE_USER_DATA });
+    }
+  }, [isLoggedIn]);
+
   const initialAppData = {
     productsData: [],
     manufacturers: [],
@@ -87,8 +86,6 @@ function AppDataProvider({ children }) {
   };
 
   const [appData, dispatchAppData] = useReducer(appDataReducer, initialAppData);
-
-  console.log({ appData });
 
   return (
     <AppContext.Provider value={{ ...appData, dispatchAppData }}>

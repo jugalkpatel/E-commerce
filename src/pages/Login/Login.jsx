@@ -3,8 +3,8 @@ import { Link, useLocation } from "react-router-dom";
 
 import "./Login.css";
 
+import { AuthButton } from "../../components";
 import { loginReducer } from "./loginReducer";
-import { AuthButton } from "../../components/AuthButton/AuthButton";
 import { actions } from "../../utils/actions";
 
 const Login = () => {
@@ -27,10 +27,10 @@ const Login = () => {
 
   return (
     <form onSubmit={(e) => e.preventDefault()}>
-      <div className="login__container">
+      <div className="login">
         <h2 className="login__title">LOG IN</h2>
 
-        <label htmlFor="email" className="login__label-text">
+        <label htmlFor="email" className="login__label--text">
           Email
         </label>
         <input
@@ -49,7 +49,7 @@ const Login = () => {
           required
         />
 
-        <label htmlFor="password" className="login__label-text">
+        <label htmlFor="password" className="login__label--text">
           Password
           <span
             href="#"
@@ -98,11 +98,11 @@ const Login = () => {
           }}
         />
 
-        <span className="login__create-account-container">
-          <span className="login__create-accout-text">
+        <span className="lg__container">
+          <span className="login__create-account-text">
             Don't have an account ?
           </span>
-          <Link to="/signup" className="login__create-account-btn">
+          <Link to="/signup" className="login__create-account__btn">
             Create account
           </Link>
         </span>

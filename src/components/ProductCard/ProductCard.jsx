@@ -4,27 +4,22 @@ import "./ProductCard.css";
 
 import arrow from "../../assets/svgs/right-arrow.svg";
 
+import { WishListButton, CartButton } from "..";
 import { capitalize } from "../../utils/capitalize";
-import { WishListButton } from "../WishListButton/WishListButton";
-import { CartButton } from "../CartButton/CartButton";
 
 const ProductCard = ({ productDetails }) => {
   const { _id, name, image, specifications, price, availableQuantity } =
     productDetails;
 
   return (
-    <div className="product-container" key={_id}>
+    <div className="pc--container" key={_id}>
       <Link
         to={`/product/${_id}`}
         state={{ details: { ...productDetails } }}
-        className="product-info"
+        className="p-card"
       >
-        <span className="product__img__container">
-          <img
-            className="product-img product-info__img"
-            src={image}
-            alt="product"
-          />
+        <span className="p-card__img--container">
+          <img className="p-card__img" src={image} alt="product_img" />
           <WishListButton
             data={{
               type: "ADD",
@@ -36,17 +31,17 @@ const ProductCard = ({ productDetails }) => {
             }}
           />
           {availableQuantity < 1 ? (
-            <div className="overlay-div">
-              <span className="overlay-text"> OUT OF STOCK </span>
+            <div className="p-card__overlay">
+              <span className="p-card__overlay__text"> OUT OF STOCK </span>
             </div>
           ) : null}
         </span>
-        <span className="product-info__text">{name.toUpperCase()}</span>
-        <span className="product-info__specifications">
-          <ul className="specifications__list">
+        <span className="p-card__title">{name.toUpperCase()}</span>
+        <span className="p-card__specifications">
+          <ul className="pc__list">
             {Object.keys(specifications).map((spec, index) => {
               return (
-                <li className="specifications__list__item" key={index}>
+                <li className="pc__list__item" key={index}>
                   <img
                     className="specifications__arrow"
                     src={arrow}

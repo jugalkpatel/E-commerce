@@ -4,16 +4,19 @@ import "./ProductList.css";
 import filterIcon from "../../assets/svgs/filter.svg";
 
 import { useAppData } from "../../contexts";
-import { Sidebar } from "../../components/Sidebar/Sidebar";
-import { FilterBar } from "../../components/FilterBar/FilterBar";
-import { ProductCard } from "../../components/ProductCard/ProductCard";
-import { Filter } from "../../components/Filter/Filter";
-import { Spinner } from "../../components/Spinner/Spinner";
-import { CheckBox } from "../../components/CheckBox/CheckBox";
+
+import {
+  Sidebar,
+  FilterBar,
+  ProductCard,
+  Filter,
+  Spinner,
+  CheckBox,
+  NoResults,
+} from "../../components";
 import { filterReducer } from "./filterReducer";
 import { getSortedProducts } from "../../utils/getSortedProducts";
 import { actions } from "../../utils/actions";
-import { NoResults } from "../../components/NoResults/NoResults";
 
 const ProductList = () => {
   const { EXCLUDE_OUT_OF_STOCK, BY_MANUFACTURERS } = actions;
@@ -38,6 +41,7 @@ const ProductList = () => {
         <div className="ct--pl">
           <div className="pl">
             <FilterBar setFilters={dispatchFilters} />
+
             {filteredProducts.length > 0 ? (
               filteredProducts.map((product, index) => {
                 return <ProductCard productDetails={product} key={index} />;

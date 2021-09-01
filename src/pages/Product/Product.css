@@ -6,7 +6,12 @@
   --sp-color: #aaa;
 }
 
-.product__wrapper {
+/* .product {
+  display: flex;
+  justify-content: center;
+} */
+
+.product__content {
   display: flex;
   flex-direction: column;
 
@@ -143,7 +148,7 @@
 }
 
 @media screen and (min-width: 768px) {
-  .product__wrapper {
+  .product__content {
     flex-direction: row;
     border-bottom: 1px solid var(--primary-color);
     padding-bottom: 3rem;
@@ -185,5 +190,12 @@
   .product__button--cart,
   .product__button--order {
     font-size: 0.8rem;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .product__content {
+    max-width: 70rem;
+    margin: auto;
   }
 }

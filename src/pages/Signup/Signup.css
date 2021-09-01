@@ -4,7 +4,7 @@
   --border-color: #fff;
 
   --primary-font: Lato;
-  --input-font-size: 1.3rem;
+  --input-font-size: 0.8rem;
 
   --input-back-color: #ededed;
   --valid-text-color: #3bb54a;
@@ -12,7 +12,7 @@
   --login-font-color: #000000;
 }
 
-.signup__container {
+.signup {
   display: flex;
   flex-direction: column;
 
@@ -47,7 +47,7 @@
   border: 2px solid var(--invalid-text-color);
 }
 
-.signup__label-text {
+.signup__label--text {
   display: flex;
   align-items: center;
 
@@ -63,7 +63,7 @@
   margin-top: 0.5rem;
 }
 
-.signup__btn-container {
+.sg--container {
   display: flex;
   justify-content: flex-end;
 }
@@ -127,7 +127,6 @@
   background-color: var(--secondary-color);
   color: var(--primary-color);
 
-  /* font-weight: 900; */
   font-size: 1rem;
 
   margin-left: 1rem;
@@ -138,7 +137,7 @@
   font-family: var(--primary-font);
 }
 
-.signup__create-account-container {
+.sg--create-acc-container {
   display: inline-flex;
   justify-content: flex-end;
 
@@ -168,14 +167,14 @@
 }
 
 @media screen and (min-width: 768px) {
-  .signup__container {
+  .signup {
     width: 70%;
     margin: 0 auto;
   }
 }
 
 @media screen and (min-width: 1200px) {
-  .signup__container {
+  .signup {
     width: 50%;
     margin: 0 auto;
   }

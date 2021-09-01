@@ -1,17 +1,20 @@
 import React, { useState } from "react";
+
 import "./FilterBar.css";
 import downArrow from "../../assets/svgs/down-arrow.svg";
+
 import { actions } from "../../utils/actions";
+
 const FilterBar = ({ setFilters }) => {
   const [visibility, setVisibility] = useState("hidden");
   const { LOW_TO_HIGH, HIGH_TO_LOW } = actions;
   return (
     <div className="filterbar">
-      <div className="filterbar__sortby">
-        <span className="filterbar__sortby__text">Sort By:</span>
-        <div className="dropdown">
+      <div className="filterbar__content">
+        <span className="filterbar__text">Sort By:</span>
+        <div className="filterbar__dropdown">
           <button
-            className="dropdown__button__primary"
+            className="filterbar__dropdown__btn"
             onClick={() =>
               setVisibility((prev) => {
                 return prev === "hidden" ? "visible" : "hidden";
@@ -22,28 +25,26 @@ const FilterBar = ({ setFilters }) => {
             <img
               src={downArrow}
               alt="down arrow"
-              className="dropdown__downarrow"
+              className="filterbar__dropdown__downarrow"
             />
           </button>
 
-          <ul className="dropdown__list" style={{ visibility: visibility }}>
-            <li className="dropdown__item">
-              <a
-                href="#cart"
-                className="dropdown__item__link"
+          <ul className="fb__list" style={{ visibility: visibility }}>
+            <li className="fb__list__item">
+              <button
+                className="filterbar__dropdown__btn--low"
                 onClick={() => setFilters({ type: LOW_TO_HIGH })}
               >
                 Lowest Price
-              </a>
+              </button>
             </li>
-            <li className="dropdown__item">
-              <a
-                href="#cart"
-                className="dropdown__item__link"
+            <li className="fb__list__item">
+              <button
+                className="filterbar__dropdown__btn--high"
                 onClick={() => setFilters({ type: HIGH_TO_LOW })}
               >
                 Highest Price
-              </a>
+              </button>
             </li>
           </ul>
         </div>

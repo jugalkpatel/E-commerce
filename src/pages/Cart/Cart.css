@@ -43,11 +43,6 @@
   flex-direction: column;
 }
 
-/* .cart__checkout__totalprice {
-  display: block;
-  color: var(--primary-color);
-} */
-
 .cart__checkout__title {
   margin: 0;
   margin-top: 1rem;

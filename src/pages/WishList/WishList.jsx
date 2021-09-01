@@ -1,11 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 import "./WishList.css";
 
-import { WishListCard } from "../../components/ProductCard/WishListCard";
 import { useAppData } from "../../contexts";
 import { NoResults } from "../../components/NoResults/NoResults";
+import { WishListCard } from "../../components";
 
 const WishList = () => {
   const { wishListData } = useAppData();

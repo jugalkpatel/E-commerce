@@ -12,13 +12,21 @@
   --login-font-color: #000000;
 } */
 
-.login__container {
+.login {
   display: flex;
   flex-direction: column;
 
   width: 100%;
 
   padding: 1rem;
+}
+
+.login__title {
+  color: var(--primary-color);
+
+  font-family: var(--primary-font);
+
+  margin-bottom: 1.5rem;
 }
 
 .login__extra {
@@ -57,15 +65,7 @@
   cursor: pointer;
 }
 
-.login__title {
-  color: var(--primary-color);
-
-  font-family: var(--primary-font);
-
-  margin-bottom: 1.5rem;
-}
-
-.login__label-text {
+.login__label--text {
   display: flex;
   align-items: center;
 
@@ -98,7 +98,7 @@
   cursor: pointer;
 }
 
-.login__container .login--common {
+.login .login--common {
   font-size: var(--input-font-size);
   font-family: var(--primary-font);
   color: var(--primary-color);
@@ -129,7 +129,7 @@
   border: 2px solid var(--invalid-text-color);
 }
 
-.login__create-account-container {
+.lg__container {
   display: inline-flex;
   justify-content: flex-end;
 
@@ -138,7 +138,7 @@
   font-family: var(--primary-font);
 }
 
-.login__create-account-btn {
+.login__create-account__btn {
   text-decoration: none;
 
   background-color: transparent;
@@ -156,25 +156,25 @@
 }
 
 @media screen and (min-width: 568px) {
-  .login__container .login--common {
+  .login .login--common {
     font-size: 0.9rem;
   }
 }
 
 @media screen and (min-width: 768px) {
-  .login__container {
+  .login {
     width: 70%;
 
     margin: 0 auto;
   }
 
-  .login__container .login--common {
+  .login .login--common {
     font-size: 1rem;
   }
 }
 
 @media screen and (min-width: 1200px) {
-  .login__container {
+  .login {
     width: 50%;
 
     margin: 0 auto;
