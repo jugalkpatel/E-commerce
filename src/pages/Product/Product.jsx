@@ -8,6 +8,7 @@ import "./Product.css";
 import { useAppData } from "../../contexts";
 import { WishListButton, CartButton, Spinner } from "../../components";
 import { capitalize } from "../../utils/capitalize";
+import { ScrollList } from "../../components";
 
 const Product = () => {
   const { id: productID } = useParams();
@@ -77,6 +78,9 @@ const Product = () => {
                 })}
               </ul>
             </article>
+          </div>
+          <div className="product__similar">
+            <ScrollList id={product._id} manufacturer={product.manufacturer} />
           </div>
         </div>
       ) : (

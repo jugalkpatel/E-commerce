@@ -1,0 +1,21 @@
+.sl {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media screen and (min-width: 568px) {
+  .sl {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    /* overflow-x: auto; */
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .sl {
+    justify-content: flex-start;
+  }
+}

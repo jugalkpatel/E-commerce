@@ -15,3 +15,5 @@ export { Sidebar } from "./Sidebar/Sidebar";
 export { Spinner } from "./Spinner/Spinner";
 export { Toast } from "./Toast/Toast";
 export { WishListButton } from "./WishListButton/WishListButton";
+export { ScrollList } from "./ScrollList/ScrollList";
+export { ScrollCard } from "./ScrollCard/ScrollCard";

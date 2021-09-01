@@ -10,6 +10,8 @@
   padding: 1rem;
 
   max-width: 1225px;
+
+  font-family: var(--primary-font);
 }
 
 .nr__empty__imgcontainer {

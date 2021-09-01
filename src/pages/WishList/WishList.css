@@ -1,24 +1,3 @@
-/* @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"); */
-
-:root {
-  --primary-color: #fff;
-  --secondary-color: #76b900;
-  --background-color: #000;
-
-  --primary-font: Lato;
-
-  --reset-black: #1a1a1a;
-  --dropdown-white: #ccc;
-
-  --border-grey: #666;
-  --reset-color: #bdbdbd;
-
-  --zindex-one: 1;
-  --zindex-two: 2;
-  --zindex-three: 3;
-  --zindex-four: 4;
-}
-
 .wishlist {
   display: grid;
   grid-template-columns: 1fr 1fr;
