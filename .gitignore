@@ -5,7 +5,7 @@
 /.pnp
 .pnp.js
 .eslintrc.json
-/src/assets/svgs/
+# /src/assets/svgs/
 
 # testing
 /coverage
