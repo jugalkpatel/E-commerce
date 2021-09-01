@@ -37,8 +37,6 @@ const AuthProvider = ({ children }) => {
     })();
   }, []);
 
-  console.log({ authData });
-
   return (
     <AuthContext.Provider
       value={{
