@@ -94,8 +94,6 @@ userRouter.route("/login").post(async (req, res) => {
       expiresIn: "24h",
     });
 
-    console.log(user._id, user.name);
-
     res.status(201).json({
       success: true,
       token: token,
@@ -131,10 +129,10 @@ userRouter.route("/signup").post(async (req, res) => {
       success: true,
       message: "user created successfully",
       token: token,
-      id: user._id,
+      userID: user._id,
+      userName: user.name,
     });
   } catch (error) {
-    console.log({ error });
     res.status(500).json({
       success: false,
       message: "error while creating user",

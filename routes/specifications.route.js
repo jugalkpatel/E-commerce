@@ -44,7 +44,6 @@ specRouter.route("/:productId").post(async (req, res) => {
       data: spec,
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json({
       success: false,
       message: "failed to create entry for specification",

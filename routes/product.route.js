@@ -89,8 +89,6 @@ productRouter.post("/fields", async (req, res) => {
   try {
     const { id, link } = req.body;
 
-    console.log(id, link);
-
     const result = await Product.findByIdAndUpdate(
       id,
       { $set: { link: link } },
@@ -103,7 +101,6 @@ productRouter.post("/fields", async (req, res) => {
       product: result,
     });
   } catch (err) {
-    console.log(err);
     res.status(500).json({
       success: false,
       message: "error while adding new field to Products",

@@ -142,7 +142,6 @@ cartRouter.post("/add", async (req, res) => {
       availableQuantity,
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json({
       success: false,
       message: "failed to create cart or item is not added to the cart",
@@ -183,7 +182,6 @@ cartRouter.post("/remove", async (req, res) => {
       availableQuantity: product.availableQuantity,
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json({
       success: false,
       message: "error while removing item from cart",
@@ -244,8 +242,6 @@ cartRouter.post("/update/decrement", async (req, res) => {
 
     /* incrementing total quantity */
     const availableQuantity = await incrementTotalQuantity(product);
-
-    console.log({ availableQuantity });
 
     if (availableQuantity < 0) {
       res.status(500).json({
