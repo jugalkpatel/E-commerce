@@ -70,7 +70,7 @@ const CartButton = ({ data }) => {
   return (
     <button className={btnClass} onClick={btnAction}>
       {isLoading ? (
-        <Loader type="Bars" color="#FFF" width={13} height={13} />
+        <Loader type="Bars" color="#FFF" width={16} height={16} />
       ) : (
         <>
           {svg && svg} {btnText}

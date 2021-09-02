@@ -18,8 +18,10 @@ const QuantityButton = ({ data }) => {
 
   const { type, btnClass, payload, quantity } = data;
 
+  const stopPropagation = (e) => e.preventDefault();
+
   const onButtonClick = async (e) => {
-    e.preventDefault();
+    stopPropagation(e);
 
     if (!isLoggedIn || !userID) {
       navigate("/login");
@@ -64,7 +66,9 @@ const QuantityButton = ({ data }) => {
     );
 
   const handleClick =
-    quantity === 1 && type === "DECREMENT" ? null : (e) => onButtonClick(e);
+    quantity === 1 && type === "DECREMENT"
+      ? (e) => stopPropagation(e)
+      : (e) => onButtonClick(e);
 
   return (
     <button className={btnClass} onClick={handleClick}>
