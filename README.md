@@ -1,3 +1,3 @@
-# E-commerce
+# E-commerce App
 Backend for E-Commerce Project
-- https://neog-ecommerce--backend.herokuapp.com/
+- https://verse--backend.herokuapp.com/
