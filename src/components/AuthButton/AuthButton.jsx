@@ -41,10 +41,12 @@ const AuthButton = ({ data }) => {
       return;
     }
 
-    if (status === 401) {
-      setupToast("Invalid email or password....");
+    if (status === 404) {
+      setupToast("User not found!");
+    } else if (status === 401) {
+      setupToast("Invalid email or password");
     } else {
-      setupToast("something went wrong....");
+      setupToast("something went wrong...")
     }
 
     setLoading(false);
