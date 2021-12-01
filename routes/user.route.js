@@ -83,7 +83,7 @@ userRouter.route("/login").post(async (req, res) => {
     const validatePassword = await bcrypt.compare(password, user.password);
 
     if (!validatePassword) {
-      res.status(404).json({
+      res.status(401).json({
         success: false,
         message: "user validation failed: Email or Password is invalid",
       });
