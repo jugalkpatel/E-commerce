@@ -38,7 +38,7 @@ const Login = () => {
           type="email"
           className="login__email login--common"
           placeholder="Enter Email"
-          pattern="[^@]+@[^@]+\.[a-zA-Z]{2,}"
+          pattern="[a-z0-9]+@[a-z]+\.[a-z]{2,3}"
           value={loginCredentials.email}
           onChange={(e) =>
             dispatchLoginCredentials({
