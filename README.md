@@ -1,3 +1,3 @@
-# E-commerce App
-Backend for E-Commerce Project
-- https://verse--backend.herokuapp.com/
+# Verse Backend
+Backend for [Verse](https://github.com/jugalkpatel/E-commerce/tree/development--frontend) built using Node, Express, Mongoose ODM, MongoDB.
+
