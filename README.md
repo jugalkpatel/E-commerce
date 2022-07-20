@@ -21,7 +21,7 @@ Frontend: React, HTML, CSS
   - Filter by stock
   - Filter by brand
 
-# Preview
+## Preview
 
 https://user-images.githubusercontent.com/39916455/179989342-ba01443e-8804-4963-abf1-b80c7e164575.mp4
 
