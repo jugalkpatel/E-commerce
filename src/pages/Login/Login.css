@@ -131,11 +131,13 @@
 
 .lg__container {
   display: inline-flex;
-  justify-content: flex-end;
+  /* justify-content: flex-end; */
 
   color: var(--primary-color);
 
   font-family: var(--primary-font);
+
+  font-size: 0.8rem;
 }
 
 .login__create-account__btn {
@@ -153,6 +155,13 @@
   padding-right: 0;
 
   margin-left: 0.5rem;
+}
+
+.login__guest {
+  color: var(--secondary-color);
+  text-align: center;
+  font-weight: 500;
+  cursor: pointer;
 }
 
 @media screen and (min-width: 568px) {

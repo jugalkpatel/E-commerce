@@ -8,7 +8,7 @@ import { loginReducer } from "./loginReducer";
 import { actions } from "../../utils/actions";
 
 const Login = () => {
-  const { SET_EMAIL, SET_PASSWORD, SHOW_PASSWORD } = actions;
+  const { SET_EMAIL, SET_PASSWORD, SHOW_PASSWORD, LOGIN_AS_GUEST } = actions;
 
   const { state } = useLocation();
 
@@ -18,12 +18,15 @@ const Login = () => {
     email: "",
     password: "",
     showPassword: "",
+    loginAsGuest: false,
   };
 
   const [loginCredentials, dispatchLoginCredentials] = useReducer(
     loginReducer,
     initialLoginCredentials
   );
+
+  console.log({ loginCredentials });
 
   return (
     <form onSubmit={(e) => e.preventDefault()}>
@@ -76,28 +79,14 @@ const Login = () => {
           required
         />
 
-        <span className="login__extra">
+        {/* <span className="login__extra">
           <button
             className="login__forget-password"
             onClick={() => console.log("forget password")}
           >
             Forget Password ?
           </button>
-        </span>
-
-        <AuthButton
-          data={{
-            type: "LOGIN",
-            btnText: "LOG IN",
-            btnClass: "login__btn",
-            payload: {
-              email: loginCredentials.email,
-              password: loginCredentials.password,
-            },
-            path,
-          }}
-        />
-
+        </span> */}
         <span className="lg__container">
           <span className="login__create-account-text">
             Don't have an account ?
@@ -106,6 +95,27 @@ const Login = () => {
             Create account
           </Link>
         </span>
+
+        <AuthButton
+          data={{
+            type: "LOGIN",
+            btnText: "LOG IN",
+            btnClass: "login__btn",
+            payload: {
+              email: loginCredentials.email.trim() || loginCredentials.email,
+              password:
+                loginCredentials.password.trim() || loginCredentials.password,
+            },
+            path,
+          }}
+        />
+
+        <p
+          className="login__guest"
+          onClick={() => dispatchLoginCredentials({ type: LOGIN_AS_GUEST })}
+        >
+          Login as Guest
+        </p>
       </div>
     </form>
   );

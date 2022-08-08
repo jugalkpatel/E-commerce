@@ -31,6 +31,8 @@ const Signup = () => {
     initialSignUpCredentials
   );
 
+  console.log({ signUpCredentials });
+
   return (
     <form onSubmit={(e) => e.preventDefault()}>
       <div className="signup">
@@ -142,9 +144,13 @@ const Signup = () => {
               btnText: "SIGN UP",
               btnClass: "signup__btn",
               payload: {
-                uname: signUpCredentials.uname,
-                email: signUpCredentials.email,
-                password: signUpCredentials.password,
+                uname:
+                  signUpCredentials.uname.trim() || signUpCredentials.uname,
+                email:
+                  signUpCredentials.email.trim() || signUpCredentials.email,
+                password:
+                  signUpCredentials.password.trim() ||
+                  signUpCredentials.password,
                 isPasswordsMatching: signUpCredentials.isPasswordsMatching,
               },
               path: "/",

@@ -29,6 +29,7 @@ const actions = {
   BY_MANUFACTURERS: "BY_MANUFACTURERS",
   ADD_TOAST: "ADD_TOAST",
   REMOVE_TOAST: "REMOVE_TOAST",
+  LOGIN_AS_GUEST: "LOGIN_AS_GUEST",
 };
 
 export { actions };

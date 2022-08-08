@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
@@ -14,9 +14,13 @@ const QuantityButton = ({ data }) => {
 
   const { isLoggedIn, userID } = useAuthData();
   const { dispatchAppData } = useAppData();
-  const { setupToast } = useToast();
+  const { addToast } = useToast();
 
   const { type, btnClass, payload, quantity } = data;
+
+  useEffect(() => {
+    return () => setLoading(false);
+  }, []);
 
   const stopPropagation = (e) => e.preventDefault();
 
@@ -45,6 +49,11 @@ const QuantityButton = ({ data }) => {
 
       if (status === 201) {
         const { product, availableQuantity } = data;
+
+        if (availableQuantity < 0) {
+          addToast("Item is out of stock", "error");
+        }
+
         setLoading(false);
         dispatchAppData({
           type: action,
@@ -54,7 +63,7 @@ const QuantityButton = ({ data }) => {
       }
 
       setLoading(false);
-      setupToast("Quantity updation failed.....");
+      addToast("Error while updating quantity", "error");
     }
   };
 

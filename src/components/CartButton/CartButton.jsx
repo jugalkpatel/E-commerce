@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 
 import { IoMdClose } from "react-icons/io";
@@ -13,11 +13,15 @@ const CartButton = ({ data }) => {
   const [isLoading, setLoading] = useState(false);
   const { isLoggedIn, userID } = useAuthData();
   const { cartData, dispatchAppData } = useAppData();
-  const { setupToast } = useToast();
+  const { addToast } = useToast();
   const { type, btnClass, payload, svg } = data;
   const navigate = useNavigate();
 
   const isProductInCart = isItemInList(cartData, payload.id);
+
+  useEffect(() => {
+    return () => setLoading(false);
+  }, []);
 
   const onButtonClick = async (e) => {
     e.preventDefault();
@@ -36,7 +40,12 @@ const CartButton = ({ data }) => {
         : `/user/${userID}/cart/remove`;
 
       const action = !isProductInCart ? ADD_TO_CART : REMOVE_FROM_CART;
-
+      const toastMessage = isProductInCart
+        ? "Item Successfully removed from your cart"
+        : "Item added to cart";
+      const errorMessage = isProductInCart
+        ? "Error while adding item to cart"
+        : "Error while removing item cart";
       const { data, status } = await postAPI(url, payload);
 
       if (status === 201) {
@@ -46,11 +55,12 @@ const CartButton = ({ data }) => {
           type: action,
           payload: { product, availableQuantity },
         });
+        addToast(toastMessage, "success");
         return;
       }
 
       setLoading(false);
-      setupToast("error while performing operation....");
+      addToast(errorMessage, "error");
     }
   };
 

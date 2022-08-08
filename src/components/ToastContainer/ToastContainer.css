@@ -1,3 +1,7 @@
+:root {
+  --zindex-six: 6;
+}
+
 .toast__container {
   display: flex;
   flex-direction: column;
@@ -6,15 +10,13 @@
   bottom: 0;
   left: 0;
   right: 0;
-  /* width: calc(90vw - 1rem); */
-  /* height: 60vh; */
-  /* background-color: red; */
   margin: 1rem;
+  z-index: var(--zindex-six);
 }
 
 @media screen and (min-width: 568px) {
   .toast__container {
     left: unset;
-    width: 25rem;
+    width: 27rem;
   }
 }

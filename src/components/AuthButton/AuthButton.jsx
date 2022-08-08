@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 
 import Loader from "react-loader-spinner";
 
@@ -9,25 +10,28 @@ import {
   validatLoginCredentials,
   validateSignUpCredentials,
 } from "../../utils/validateCredentials";
-
 const AuthButton = ({ data }) => {
   const { type, btnText, btnClass, payload, path } = data;
   const { dispatchAuthData } = useAuthData();
   const [loading, setLoading] = useState(false);
   const setupAuth = useSetupAuth(dispatchAuthData);
-  const { setupToast } = useToast();
-
+  const { addToast } = useToast();
+  const navigate = useNavigate();
   const validate =
     type === "LOGIN" ? validatLoginCredentials : validateSignUpCredentials;
 
   const url = type === "LOGIN" ? "/user/login" : "/user/signup";
 
-  const onButtonClick = async () => {
+  useEffect(() => {
+    return () => setLoading(false);
+  }, []);
+
+  const register = useCallback(async () => {
     setLoading(true);
 
     if (!validate(payload)) {
       setLoading(false);
-      setupToast("Invalid Credentials....");
+      addToast("invalid credentials", "error");
       return;
     }
 
@@ -38,25 +42,33 @@ const AuthButton = ({ data }) => {
       localStorage?.setItem("vtk", JSON.stringify({ token, userID, userName }));
       setLoading(false);
       setupAuth({ token, userID, userName, path });
+      navigate("/");
       return;
     }
 
     if (status === 404) {
-      setupToast("User not found!");
+      // setupToast("User not found!");
+      addToast("User not found!", "error");
     } else if (status === 401) {
-      setupToast("Invalid email or password");
+      // setupToast("Invalid email or password");
+      addToast("Invalid email or password", "error");
     } else {
-      setupToast("something went wrong...")
+      addToast("Something went wrong", "error");
+      // setupToast("something went wrong...");
     }
 
     setLoading(false);
-  };
+  }, []);
 
+  useEffect(() => {
+    if (data.loginAsUser) {
+      register();
+    }
+  }, [data.loginAsUser, register]);
+
+  // const onButtonClick =
   return (
-    <button
-      className={btnClass}
-      onClick={!loading ? () => onButtonClick() : null}
-    >
+    <button className={btnClass} onClick={!loading ? () => register() : null}>
       {loading ? (
         <Loader type="Bars" color="#fff" width={16} height={16} />
       ) : (
