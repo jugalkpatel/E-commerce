@@ -1,3 +1,4 @@
+import { nanoid } from "nanoid";
 import { useAppData } from "../../contexts";
 
 import "./ScrollList.css";
@@ -11,7 +12,10 @@ const ScrollList = ({ id, manufacturer }) => {
   );
   return (
     <div className="sl">
-      {products && products.map((product) => <ScrollCard details={product} />)}
+      {products &&
+        products.map((product) => (
+          <ScrollCard key={nanoid()} details={product} />
+        ))}
     </div>
   );
 };

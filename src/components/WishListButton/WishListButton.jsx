@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 
 import { FaBookmark, FaRegBookmark } from "react-icons/fa";
@@ -14,7 +14,7 @@ const WishListButton = ({ data }) => {
   const [isLoading, setLoading] = useState(false);
   const { type, btnClass, svgClass, payload } = data;
   const { wishListData, dispatchAppData } = useAppData();
-  const { setupToast } = useToast();
+  const { addToast } = useToast();
   const { ADD_TO_WISHLIST, REMOVE_FROM_WISHLIST } = actions;
 
   const { isLoggedIn, userID } = useAuthData();
@@ -37,6 +37,10 @@ const WishListButton = ({ data }) => {
     <FaBookmark className={svgClass} />
   );
 
+  useEffect(() => {
+    return () => setLoading(false);
+  }, []);
+
   const onButtonClick = async (e) => {
     e.preventDefault();
 
@@ -49,16 +53,23 @@ const WishListButton = ({ data }) => {
       }
 
       const { data, status } = await postAPI(url, payload);
+      const toastMessage = !isInWishList
+        ? "Item added to wishlist"
+        : "Item Successfully removed from wishlist";
+      const errorMessage = !isInWishList
+        ? "Error while adding item to the wishlist"
+        : "Error while removing item from wishlist";
 
       if (status === 201) {
         const { product } = data;
         setLoading(false);
         dispatchAppData({ type: action, payload: product });
+        addToast(toastMessage, "success");
         return;
       }
 
       setLoading(false);
-      setupToast("error while adding to the wishlist....");
+      addToast(errorMessage, "error");
     }
   };
 

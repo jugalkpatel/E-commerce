@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import Loader from "react-loader-spinner";
 
@@ -11,23 +11,28 @@ import {
 } from "../../utils/validateCredentials";
 
 const AuthButton = ({ data }) => {
-  const { type, btnText, btnClass, payload, path } = data;
+  const { type, btnText, btnClass, payload, path, callback, submitting } = data;
   const { dispatchAuthData } = useAuthData();
   const [loading, setLoading] = useState(false);
   const setupAuth = useSetupAuth(dispatchAuthData);
-  const { setupToast } = useToast();
-
+  const { addToast } = useToast();
   const validate =
     type === "LOGIN" ? validatLoginCredentials : validateSignUpCredentials;
 
   const url = type === "LOGIN" ? "/user/login" : "/user/signup";
 
-  const onButtonClick = async () => {
+  useEffect(() => {
+    return () => setLoading(false);
+  }, []);
+
+  const submit = async () => {
     setLoading(true);
+
+    if (callback) callback();
 
     if (!validate(payload)) {
       setLoading(false);
-      setupToast("Invalid Credentials....");
+      addToast("invalid credentials", "error");
       return;
     }
 
@@ -42,11 +47,11 @@ const AuthButton = ({ data }) => {
     }
 
     if (status === 404) {
-      setupToast("User not found!");
+      addToast("User not found!", "error");
     } else if (status === 401) {
-      setupToast("Invalid email or password");
+      addToast("Invalid email or password", "error");
     } else {
-      setupToast("something went wrong...")
+      addToast("Something went wrong", "error");
     }
 
     setLoading(false);
@@ -55,7 +60,8 @@ const AuthButton = ({ data }) => {
   return (
     <button
       className={btnClass}
-      onClick={!loading ? () => onButtonClick() : null}
+      onClick={!loading ? () => submit() : null}
+      disabled={submitting ? true : false}
     >
       {loading ? (
         <Loader type="Bars" color="#fff" width={16} height={16} />

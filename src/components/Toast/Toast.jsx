@@ -1,20 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { RiErrorWarningFill } from "react-icons/ri";
+import { IoMdClose, IoMdCheckmarkCircleOutline } from "react-icons/io";
 
 import "./Toast.css";
-import { RiErrorWarningFill } from "react-icons/ri";
-import { IoMdClose } from "react-icons/io";
 
 import { useToast } from "../../contexts";
 
-const Toast = () => {
-  const { showToast, toastMsg, setShowToast } = useToast();
+const Toast = ({ id, text, variant }) => {
+  const { removeToast } = useToast();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      removeToast(id);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [removeToast, id]);
+
   return (
-    <div className={`toast ${showToast ? "visible" : "hidden"}`}>
+    <div className={`toast ${variant === "success" && "success_variant"}`}>
       <span className="toast__icon">
-        <RiErrorWarningFill />
+        {variant === "success" ? (
+          <IoMdCheckmarkCircleOutline />
+        ) : (
+          <RiErrorWarningFill />
+        )}
       </span>
-      <p className="toast__message">{toastMsg}</p>
-      <button className="toast__button" onClick={() => setShowToast(false)}>
+      <p className="toast__message">{text}</p>
+      <button className="toast__button" onClick={() => removeToast(id)}>
         <span className="toast__icon">
           <IoMdClose />
         </span>

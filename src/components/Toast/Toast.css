@@ -4,9 +4,9 @@
   --toast-text-color: #ffffff;
   --c-pd: 1rem;
   --h-mg: 0.5rem;
-  --c-mg: 1rem;
+  --c-mg: 0.5rem;
   --i-font-size: 1.5rem;
-  --zindex-five: 5;
+  --toast-text-size: 1.1rem;
 }
 
 .hidden {
@@ -20,23 +20,19 @@
 .toast {
   display: flex;
   align-items: center;
-
-  position: fixed;
-  bottom: 0;
-  right: 0;
-
-  width: 95vw;
+  width: 100%;
 
   background-color: var(--toast-color);
-  border-radius: var(--toast-radius);
 
   padding: var(--c-pd);
 
   font-family: var(--primary-font);
 
-  margin: var(--h-mg);
-
   z-index: var(--zindex-five);
+}
+
+.success_variant {
+  background-color: var(--secondary-color);
 }
 
 .toast__icon {
@@ -56,6 +52,8 @@
   width: 90%;
 
   color: var(--toast-text-color);
+  font-size: var(--toast-text-size);
+  line-height: 1rem;
 }
 
 .toast__button {
@@ -68,22 +66,4 @@
 
   border: 0;
   padding: 0;
-}
-
-@media screen and (min-width: 568px) {
-  .toast {
-    max-width: 50vw;
-  }
-}
-
-@media screen and (min-width: 768px) {
-  .toast {
-    max-width: 45vw;
-  }
-}
-
-@media screen and (min-width: 1050px) {
-  .toast {
-    max-width: 35vw;
-  }
 }

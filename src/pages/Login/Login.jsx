@@ -8,16 +8,17 @@ import { loginReducer } from "./loginReducer";
 import { actions } from "../../utils/actions";
 
 const Login = () => {
-  const { SET_EMAIL, SET_PASSWORD, SHOW_PASSWORD } = actions;
+  const { SET_EMAIL, SET_PASSWORD, SHOW_PASSWORD, LOGIN_AS_GUEST } = actions;
 
   const { state } = useLocation();
 
-  const path = state?.from ? state.from : -1;
+  const path = state?.from ? state.from : "/";
 
   const initialLoginCredentials = {
     email: "",
     password: "",
     showPassword: "",
+    submitting: false,
   };
 
   const [loginCredentials, dispatchLoginCredentials] = useReducer(
@@ -76,28 +77,14 @@ const Login = () => {
           required
         />
 
-        <span className="login__extra">
+        {/* <span className="login__extra">
           <button
             className="login__forget-password"
             onClick={() => console.log("forget password")}
           >
             Forget Password ?
           </button>
-        </span>
-
-        <AuthButton
-          data={{
-            type: "LOGIN",
-            btnText: "LOG IN",
-            btnClass: "login__btn",
-            payload: {
-              email: loginCredentials.email,
-              password: loginCredentials.password,
-            },
-            path,
-          }}
-        />
-
+        </span> */}
         <span className="lg__container">
           <span className="login__create-account-text">
             Don't have an account ?
@@ -106,6 +93,38 @@ const Login = () => {
             Create account
           </Link>
         </span>
+
+        <AuthButton
+          data={{
+            type: "LOGIN",
+            btnText: "LOG IN",
+            btnClass: "login__btn",
+            payload: {
+              email: loginCredentials.email.trim() || loginCredentials.email,
+              password:
+                loginCredentials.password.trim() || loginCredentials.password,
+            },
+            path,
+            submitting: loginCredentials.sub,
+          }}
+        />
+
+        <div className="guestLogin__container">
+          <AuthButton
+            data={{
+              type: "LOGIN",
+              btnText: "Login as Guest",
+              btnClass: "guestLogin__btn",
+              submitting: loginCredentials.submitting,
+              callback: () =>
+                dispatchLoginCredentials({ type: LOGIN_AS_GUEST }),
+              payload: {
+                email: process.env.REACT_APP_GUEST_EMAIL,
+                password: process.env.REACT_APP_GUEST_PASSWORD,
+              },
+            }}
+          />
+        </div>
       </div>
     </form>
   );
