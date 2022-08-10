@@ -22,7 +22,13 @@ const signUpReducer = (state, { type, payload }) => {
         isPasswordsMatching: state.password === payload.data ? true : false,
       };
     case RESET_SIGNUP:
-      return { ...state, email: "", uname: "", password: "" };
+      return {
+        ...state,
+        email: "",
+        uname: "",
+        password: "",
+        confirmPassword: "",
+      };
     case SHOW_PASSWORD:
       return { ...state, showPassword: !state.showPassword };
     default:

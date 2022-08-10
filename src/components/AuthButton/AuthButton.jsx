@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 
 import Loader from "react-loader-spinner";
 
@@ -10,13 +9,13 @@ import {
   validatLoginCredentials,
   validateSignUpCredentials,
 } from "../../utils/validateCredentials";
+
 const AuthButton = ({ data }) => {
-  const { type, btnText, btnClass, payload, path } = data;
+  const { type, btnText, btnClass, payload, path, callback, submitting } = data;
   const { dispatchAuthData } = useAuthData();
   const [loading, setLoading] = useState(false);
   const setupAuth = useSetupAuth(dispatchAuthData);
   const { addToast } = useToast();
-  const navigate = useNavigate();
   const validate =
     type === "LOGIN" ? validatLoginCredentials : validateSignUpCredentials;
 
@@ -26,8 +25,10 @@ const AuthButton = ({ data }) => {
     return () => setLoading(false);
   }, []);
 
-  const register = useCallback(async () => {
+  const submit = async () => {
     setLoading(true);
+
+    if (callback) callback();
 
     if (!validate(payload)) {
       setLoading(false);
@@ -42,33 +43,26 @@ const AuthButton = ({ data }) => {
       localStorage?.setItem("vtk", JSON.stringify({ token, userID, userName }));
       setLoading(false);
       setupAuth({ token, userID, userName, path });
-      navigate("/");
       return;
     }
 
     if (status === 404) {
-      // setupToast("User not found!");
       addToast("User not found!", "error");
     } else if (status === 401) {
-      // setupToast("Invalid email or password");
       addToast("Invalid email or password", "error");
     } else {
       addToast("Something went wrong", "error");
-      // setupToast("something went wrong...");
     }
 
     setLoading(false);
-  }, []);
+  };
 
-  useEffect(() => {
-    if (data.loginAsUser) {
-      register();
-    }
-  }, [data.loginAsUser, register]);
-
-  // const onButtonClick =
   return (
-    <button className={btnClass} onClick={!loading ? () => register() : null}>
+    <button
+      className={btnClass}
+      onClick={!loading ? () => submit() : null}
+      disabled={submitting ? true : false}
+    >
       {loading ? (
         <Loader type="Bars" color="#fff" width={16} height={16} />
       ) : (

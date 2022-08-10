@@ -4,7 +4,6 @@ import { useToast } from "../../contexts";
 
 function ToastContainer() {
   const { toasts } = useToast();
-  console.log({ toasts });
   return (
     <>
       <div className="toast__container">

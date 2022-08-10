@@ -11,7 +11,7 @@ const loginReducer = (state, { type, payload }) => {
     case LOGIN_AS_GUEST:
       return {
         ...state,
-        loginAsGuest: true,
+        submitting: true,
         email: process.env.REACT_APP_GUEST_EMAIL,
         password: process.env.REACT_APP_GUEST_PASSWORD,
       };

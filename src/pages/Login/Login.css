@@ -157,10 +157,22 @@
   margin-left: 0.5rem;
 }
 
-.login__guest {
+.guestLogin__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.guestLogin__btn {
+  background-color: transparent;
   color: var(--secondary-color);
-  text-align: center;
-  font-weight: 500;
+  border-color: transparent;
+
+  padding: 0.5rem 1rem;
+
+  font-size: 1rem;
+
+  margin: 1rem 0;
   cursor: pointer;
 }
 

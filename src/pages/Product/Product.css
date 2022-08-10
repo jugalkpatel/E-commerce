@@ -35,6 +35,7 @@
   outline-color: transparent;
 
   border: 0;
+  display: flex;
 }
 
 .r-img {
@@ -203,6 +204,6 @@
 @media screen and (min-width: 900px) {
   .product__content {
     max-width: 70rem;
-    margin: auto;
+    margin: 2rem auto;
   }
 }

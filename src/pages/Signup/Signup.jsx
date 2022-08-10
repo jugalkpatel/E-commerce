@@ -31,8 +31,6 @@ const Signup = () => {
     initialSignUpCredentials
   );
 
-  console.log({ signUpCredentials });
-
   return (
     <form onSubmit={(e) => e.preventDefault()}>
       <div className="signup">

@@ -12,21 +12,19 @@ const Login = () => {
 
   const { state } = useLocation();
 
-  const path = state?.from ? state.from : -1;
+  const path = state?.from ? state.from : "/";
 
   const initialLoginCredentials = {
     email: "",
     password: "",
     showPassword: "",
-    loginAsGuest: false,
+    submitting: false,
   };
 
   const [loginCredentials, dispatchLoginCredentials] = useReducer(
     loginReducer,
     initialLoginCredentials
   );
-
-  console.log({ loginCredentials });
 
   return (
     <form onSubmit={(e) => e.preventDefault()}>
@@ -107,15 +105,26 @@ const Login = () => {
                 loginCredentials.password.trim() || loginCredentials.password,
             },
             path,
+            submitting: loginCredentials.sub,
           }}
         />
 
-        <p
-          className="login__guest"
-          onClick={() => dispatchLoginCredentials({ type: LOGIN_AS_GUEST })}
-        >
-          Login as Guest
-        </p>
+        <div className="guestLogin__container">
+          <AuthButton
+            data={{
+              type: "LOGIN",
+              btnText: "Login as Guest",
+              btnClass: "guestLogin__btn",
+              submitting: loginCredentials.submitting,
+              callback: () =>
+                dispatchLoginCredentials({ type: LOGIN_AS_GUEST }),
+              payload: {
+                email: process.env.REACT_APP_GUEST_EMAIL,
+                password: process.env.REACT_APP_GUEST_PASSWORD,
+              },
+            }}
+          />
+        </div>
       </div>
     </form>
   );
