@@ -179,3 +179,21 @@
     margin: 0 auto;
   }
 }
+
+@media screen and (min-width: 1400px) {
+  .signup {
+    width: 40%;
+  }
+}
+
+@media screen and (min-width: 1800px) {
+  .signup {
+    width: 30%;
+  }
+}
+
+@media screen and (min-width: 2200px) {
+  .signup {
+    width: 25%;
+  }
+}
