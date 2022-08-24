@@ -64,7 +64,7 @@ const Login = () => {
           id="password"
           type={loginCredentials.showPassword ? "text" : "password"}
           className="login__password login--common"
-          placeholder="Enter Password(8 Chars including atleast one number)"
+          placeholder="Enter Password(At least 8 letters with a number)"
           pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
           onChange={(e) =>
             dispatchLoginCredentials({
@@ -105,7 +105,7 @@ const Login = () => {
                 loginCredentials.password.trim() || loginCredentials.password,
             },
             path,
-            submitting: loginCredentials.sub,
+            submitting: loginCredentials.submitting,
           }}
         />
 

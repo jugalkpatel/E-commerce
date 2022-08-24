@@ -56,7 +56,7 @@ const AuthButton = ({ data }) => {
 
     setLoading(false);
   };
-
+  console.log("submitting", submitting, btnText);
   return (
     <button
       className={btnClass}

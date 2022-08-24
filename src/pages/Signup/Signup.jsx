@@ -89,7 +89,7 @@ const Signup = () => {
           id="password"
           type={signUpCredentials.showPassword ? "text" : "password"}
           className="signup__password signup--common"
-          placeholder="Enter Password(8 Chars including atleast one number)"
+          placeholder="Enter Password(At least 8 letters with a number)"
           pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
           value={signUpCredentials.password}
           onChange={(e) =>
@@ -115,7 +115,7 @@ const Signup = () => {
           id="password"
           type={signUpCredentials.showPassword ? "text" : "password"}
           className="signup__password signup--common"
-          placeholder="Enter Password(8 Chars including atleast one number)"
+          placeholder="Enter Password(At least 8 letters with a number)"
           pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
           value={signUpCredentials.confirmPassword}
           onChange={(e) =>
