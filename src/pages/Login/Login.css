@@ -201,3 +201,21 @@
     margin: 0 auto;
   }
 }
+
+@media screen and (min-width: 1400px) {
+  .login {
+    width: 40%;
+  }
+}
+
+@media screen and (min-width: 1800px) {
+  .login {
+    width: 30%;
+  }
+}
+
+@media screen and (min-width: 2200px) {
+  .login {
+    width: 25%;
+  }
+}
