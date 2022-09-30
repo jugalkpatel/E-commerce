@@ -15,9 +15,9 @@ const Checkout = () => {
     <div className="checkout">
       <div className="checkout__dialog">
         <ul className="ch__list">
-          {cartData.map(({ name, image, link }, index) => {
+          {cartData.map(({ _id, name, image, link }) => {
             return (
-              <li className="ch__list__item" key={index}>
+              <li className="ch__list__item" key={_id}>
                 <span className="i-wrapper">
                   <img src={image} alt="product" className="r-img" />
                 </span>

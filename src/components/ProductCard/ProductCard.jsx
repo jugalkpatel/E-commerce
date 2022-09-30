@@ -11,6 +11,8 @@ const ProductCard = ({ productDetails }) => {
   const { _id, name, image, specifications, price, availableQuantity } =
     productDetails;
 
+  // console.log({ productDetails });
+
   return (
     <div className="pc--container" key={_id}>
       <Link
@@ -39,9 +41,9 @@ const ProductCard = ({ productDetails }) => {
         <span className="p-card__title">{name.toUpperCase()}</span>
         <span className="p-card__specifications">
           <ul className="pc__list">
-            {Object.keys(specifications).map((spec, index) => {
+            {Object.keys(specifications).map((spec) => {
               return (
-                <li className="pc__list__item" key={index}>
+                <li className="pc__list__item" key={spec}>
                   <img
                     className="specifications__arrow"
                     src={arrow}

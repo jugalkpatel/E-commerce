@@ -10,6 +10,8 @@ import { capitalize } from "../../utils/capitalize";
 const CartProductCard = ({ productDetails }) => {
   const { _id, name, image, specifications, price, quantity } = productDetails;
 
+  // console.log({ specifications });
+
   return (
     <Link to={`/product/${_id}`} className="c-card">
       <CartButton
@@ -29,9 +31,9 @@ const CartProductCard = ({ productDetails }) => {
         <span className="c-card__details__title">{name}</span>
         <span className="c-card__details__specs">
           <ul className="cc__list">
-            {Object.keys(specifications).map((spec, index) => {
+            {Object.keys(specifications).map((spec) => {
               return (
-                <li className="cc__list__item" key={index}>
+                <li className="cc__list__item" key={spec}>
                   <img
                     className="specifications__arrow"
                     src={arrow}

@@ -43,8 +43,10 @@ const ProductList = () => {
             <FilterBar setFilters={dispatchFilters} />
 
             {filteredProducts.length > 0 ? (
-              filteredProducts.map((product, index) => {
-                return <ProductCard productDetails={product} key={index} />;
+              filteredProducts.map((product) => {
+                return (
+                  <ProductCard productDetails={product} key={product._id} />
+                );
               })
             ) : (
               <NoResults

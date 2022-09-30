@@ -65,9 +65,9 @@ const Product = () => {
                 {product.price}
               </span>
               <ul className="product__spec">
-                {Object.keys(product.specifications).map((spec, index) => {
+                {Object.keys(product.specifications).map((spec) => {
                   return (
-                    <li key={index} className="c-item">
+                    <li key={spec} className="c-item">
                       <img src={arrow} alt="right_arrow" />
                       <span className="product__spec__text">
                         {capitalize(spec)}:{" "}
